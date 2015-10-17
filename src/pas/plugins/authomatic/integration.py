@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from authomatic.adapters import BaseAdapter
+import Cookie
 import logging
 
 logger = logging.getLogger(__file__)
@@ -10,8 +11,8 @@ class ZopeRequestAdapter(BaseAdapter):
 
     def __init__(self, view):
         """
-        :param request:
-            Zope Request
+        :param view:
+            BrowserView
         """
         self.view = view
 
@@ -26,7 +27,7 @@ class ZopeRequestAdapter(BaseAdapter):
             '/authomatic-login/' +
             self.view.provider
         )
-        logger.info('url' + url)
+        logger.debug('url' + url)
         return url
 
     @property
@@ -35,14 +36,18 @@ class ZopeRequestAdapter(BaseAdapter):
 
     @property
     def cookies(self):
-        return self.view.request.cookies
+        # special handling since zope parsing does to much decoding
+        cookie = Cookie.SimpleCookie()
+        cookie.load(self.view.request['HTTP_COOKIE'])
+        cookies = {k: c.value for k, c in cookie.items()}
+        return cookies
 
     # =========================================================================
     # Response
     # =========================================================================
 
     def write(self, value):
-        logger.info('write ' + value)
+        logger.debug('write ' + value)
         self.view.request.response.write(value)
 
     def set_header(self, key, value):
@@ -52,5 +57,5 @@ class ZopeRequestAdapter(BaseAdapter):
     def set_status(self, status):
         code, message = status.split(' ')
         code = int(code)
-        logger.info('set_status {0}'.format(code))
+        logger.debug('set_status {0}'.format(code))
         self.view.request.response.setStatus(code)

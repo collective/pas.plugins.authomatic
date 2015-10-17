@@ -24,7 +24,6 @@ class LoginView(BrowserView):
         cfg = authomatic_cfg()
         if cfg is None:
             return "Authomatic is not configured"
-        # XXX validate if provider is valid/configured
         if self.provider not in cfg:
             return "Provider not supported"
         auth = Authomatic(cfg, secret="very secret")
@@ -40,5 +39,5 @@ class LoginView(BrowserView):
             return result.error.message
 
         # auth happend
-        import ipdb; ipdb.set_trace()
-
+        result.user.update()
+        return result.user
