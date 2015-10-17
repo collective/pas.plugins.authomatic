@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<import-steps>
+
+  <import-step
+      handler="pas.plugins.authomatic.setuphandlers.setup_plugin"
+      id="pas.plugins.authomatic.setup"
+      title="Setup Member Property To Group Plugin"
+      version="20150717">
+    <dependency step="plone-final" />
+  Setup Authomatic OAuth Plugin
+ </import-step>
+
+</import-steps>

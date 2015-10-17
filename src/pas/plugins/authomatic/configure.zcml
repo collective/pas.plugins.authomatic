@@ -1,0 +1,30 @@
+<configure
+    i18n_domain="pas.plugins.authomatic"
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n">
+
+  <!-- Plone 3 BBB -->
+  <include package="plone.app.registry" />
+
+  <five:registerPackage
+      initialize=".initialize"
+      package="."
+  />
+
+  <includeDependencies package="." />
+
+  <i18n:registerTranslations directory="locales" />
+
+  <include package=".browser" />
+
+  <genericsetup:registerProfile
+      description="Installs the pas.plugins.authomatic add-on."
+      directory="profiles/default"
+      name="default"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      title="pas.plugins.authomatic (plone)"
+  />
+
+</configure>

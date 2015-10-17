@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<layers>
+  <layer
+    name="pas.plugins.authomatic"
+    interface="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticLayer"
+  />
+</layers>
