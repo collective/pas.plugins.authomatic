@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from pas.plugins.authomatic.testing import PAS_PLUGINS_Authomatic_ZOPE_FIXTURE  # noqa
+from pas.plugins.authomatic.testing import PAS_PLUGINS_Authomatic_ZOPE_FIXTURE
 
 import unittest
 

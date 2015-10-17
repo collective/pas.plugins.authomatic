@@ -8,7 +8,7 @@
     <browser:page
         name="authomatic-controlpanel"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-        class=".controlpanel.MemberpropertiestogroupSettingsEditFormSettingsControlPanel"
+        class=".controlpanel.AuthomaticSettingsEditFormSettingsControlPanel"
         permission="cmf.ManagePortal"
         />
 </configure>

@@ -2,7 +2,6 @@
 from zope import schema
 from zope.i18nmessageid import MessageFactory
 from zope.interface import Interface
-from zope.interface import Invalid
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 _ = MessageFactory('pas.plugins.authomatic')
@@ -13,8 +12,14 @@ class IPasPluginsAuthomaticLayer(IDefaultBrowserLayer):
 
 
 class IPasPluginsAuthomaticSettings(Interface):
-    pass
+
+    json_config = schema.SourceText(
+        title=_(u"JSON Configuration"),
+        required=True,
+        default=u'',
+    )
 
 
 class IAuthomaticPlugin(Interface):
     """Member Properties To Group Plugin"""
+
