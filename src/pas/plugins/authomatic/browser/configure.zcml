@@ -11,4 +11,12 @@
         class=".controlpanel.AuthomaticSettingsEditFormSettingsControlPanel"
         permission="cmf.ManagePortal"
         />
+
+    <browser:page
+        name="authomatic-login"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".login.LoginView"
+        permission="zope2.View"
+        />
+
 </configure>

@@ -44,6 +44,7 @@ setup(
     install_requires=[
         'Plone',
         'setuptools',
+        'authomatic'
     ],
     extras_require={
         'test': [

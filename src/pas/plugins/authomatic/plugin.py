@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
 from App.class_init import InitializeClass
+from BTrees.OOBTree import OOBTree
 from pas.plugins.authomatic.interfaces import IAuthomaticPlugin
-from pas.plugins.authomatic.interfaces import IPasPluginsAuthomaticSettings  # noqa
-from plone.registry.interfaces import IRegistry
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.PlonePAS import interfaces as plonepas_interfaces
 from Products.PluggableAuthService.interfaces import plugins as pas_interfaces
 from Products.PluggableAuthService.plugins.BasePlugin import BasePlugin
 from Products.PluggableAuthService.UserPropertySheet import UserPropertySheet
-from zope.component import queryUtility
 from zope.interface import implementer
+from pas.plugins.authomatic.utils import authomatic_cfg
 import logging
 import os
 
@@ -54,17 +53,7 @@ class AuthomaticPlugin(BasePlugin):
         self._setId(id)
         self.title = title
         self.plugin_caching = True
-
-    # ##
-    # helper
-
-    @property
-    def _settings(self):
-        registry = queryUtility(IRegistry)
-        settings = registry.forInterface(
-            IPasPluginsAuthomaticSettings,
-        )
-        return settings
+        self._users = OOBTree()
 
     # ##
     # pas_interfaces.plugins.IPropertiesPlugin
