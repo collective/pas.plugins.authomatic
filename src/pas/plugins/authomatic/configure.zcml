@@ -5,9 +5,6 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:i18n="http://namespaces.zope.org/i18n">
 
-  <!-- Plone 3 BBB -->
-  <include package="plone.app.registry" />
-
   <five:registerPackage
       initialize=".initialize"
       package="."
