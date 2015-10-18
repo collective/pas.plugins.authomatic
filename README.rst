@@ -18,23 +18,25 @@ pas.plugins.authomatic
 Features
 --------
 
-  - Integration of different OAuth Providers
-  - For now only Github is integrated
-
+  - Integration of different OAuth Providers 
+    A list of other Providers used by authomatic https://authomatic-example.appspot.com/
+  - For now only Github is integrated in this package
+  
 
 Documentation
 -------------
 
   - This Package will create a View called authomatic-login where you can login with different Providers
-  - The Provider is choosen in the URL so if you call */authomatic-login/github you will use Github to Login
+  - The Provider is choosen in the URL so if you call /authomatic-login/github you will use Github to Login
+  - You can set the JSON configuration of the Plugin in the Controlpanel -> @@authomatic-controlpanel
   - Example JSON Configuration 
     {
-    "github": {
-        "class_": "authomatic.providers.oauth2.GitHub",
-        "consumer_key": "xxxx",
-        "consumer_secret": "xxxxx"
+        "github": {
+            "class_": "authomatic.providers.oauth2.GitHub",
+            "consumer_key": "xxxx",
+            "consumer_secret": "xxxxx"
+        }
     }
-}
 
 Installation
 ------------
