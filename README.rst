@@ -18,10 +18,23 @@ pas.plugins.authomatic
 Features
 --------
 
+  - Integration of different OAuth Providers
+  - For now only Github is integrated
+
 
 Documentation
 -------------
 
+  - This Package will create a View called authomatic-login where you can login with different Providers
+  - The Provider is choosen in the URL so if you call */authomatic-login/github you will use Github to Login
+  - Example JSON Configuration 
+    {
+    "github": {
+        "class_": "authomatic.providers.oauth2.GitHub",
+        "consumer_key": "xxxx",
+        "consumer_secret": "xxxxx"
+    }
+}
 
 Installation
 ------------
@@ -33,6 +46,7 @@ Install pas.plugins.authomatic by adding it to your buildout::
     ...
 
     eggs =
+        authomatic
         pas.plugins.authomatic
 
 

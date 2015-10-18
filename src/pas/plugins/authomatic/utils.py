@@ -15,6 +15,7 @@ def authomatic_settings():
 
 def authomatic_cfg():
     settings = authomatic_settings()
+    import pdb;pdb.set_trace();
     try:
         cfg = json.loads(settings.json_config)
     except ValueError:
