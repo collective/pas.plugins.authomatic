@@ -62,7 +62,7 @@ Plone 4
 Plone 5
     There must be an ``python`` binary available in system path pointing to Python 2.7 , then::
 
-        $ bootstrap-4.3.x.sh
+        $ bootstrap-5.0.x.sh
 
 
 License
