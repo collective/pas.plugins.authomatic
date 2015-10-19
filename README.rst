@@ -11,12 +11,35 @@
 
 
 =============================================================================
-pas.plugins.authomatic
+Login with OAuth2/ OpenId by integrating Authomatic in Plone
 =============================================================================
 
+**pas.plugins.authomatic**
 
 Features
 --------
+
+Provides OAuth2 and OpenID login capability for Plone:
+
+It integrates the awesome `Authomatic <http://peterhudec.github.io/authomatic/index.html>`_ package in Plone
+
+  Authomatic is a framework agnostic library
+  for Python web applications
+  with a minimalistic but powerful interface
+  which simplifies authentication of users
+  by third party providers like Facebook or Twitter
+  through standards like OAuth and OpenID.
+
+  *by Author Peter Hudec on Authomatic website*
+
+It has out of the box support for:
+
+OAuth 1.0a providers
+    Bitbucket, Flickr, Meetup, Plurk, Twitter, Tumblr, UbuntuOne, Vimeo, Xero, Xing and Yahoo.
+OAuth 2.0 providers
+    Amazon, Behance, Bitly, Cosm, DeviantART, Eventbrite, Facebook, Foursquare, GitHub, Google, LinkedIn, PayPal, Reddit, Viadeo, VK, WindowsLive, Yammer and Yandex.
+OpenID
+    python-openid and Google App Engine based OpenID.
 
 
 Documentation
@@ -38,31 +61,42 @@ Install pas.plugins.authomatic by adding it to your buildout::
 
 and then running "bin/buildout".
 
+Start Plone and activate the plugin in the addons control-panel.
 
-Contribute
-----------
+Go to the Authomatic controlpanel (security section) and configure the plugin.
+
+Configuration parameters for the different authorization are provided as JSON text in there.
+JSON is used because of flexibility.
+Details at `Authomatics provider section <http://peterhudec.github.io/authomatic/reference/providers.html>`_.
+
+There are two differences in configuration:
+
+- the value of ``"class_"`` has to be a string, which is then resolved as a dotted path.
+- each provider can get an optional entry ``title`` which is used in the templates instead of the section name.
+- each provider can get an optional entry ``cssclass`` which is set in the template in order to be able to render an icon.
+
+Source Code and Contributions
+-----------------------------
+
+If you want to help with the development (improvement, update, bug-fixing, ...) of ``pas.plugins.authomatic`` this is a great idea!
 
 - `Source code at Github <https://github.com/collective/pas.plugins.authomatic>`_
 - `Issue tracker at Github <https://github.com/collective/pas.plugins.authomatic/issues>`_
 
-Support
--------
+You can clone it or `get access to the github-collective <http://collective.github.com/>`_ and work directly on the project.
+Please do larger changes on a branch and submit a Pull Request.
 
-If you are having issues, `please let us know <https://github.com/collective/pas.plugins.authomatic/issues>`_.
-
+Maintainer of pas.plugins.authomatic is Jens Klein.
+We appreciate any contribution and if a release is needed to be done on pypi, please just contact one of us.
 
 Development
 -----------
 
-Plone 4
-    There must be an ``python`` binary available in system path pointing to Python 2.7 , then::
+There must be an ``python`` binary available in system path pointing to Python 2.7.
+Also you need to have all installed to develop with Plone (see http://docs.plone.org/) then:
 
-        $ bootstrap-4.3.x.sh
-
-Plone 5
-    There must be an ``python`` binary available in system path pointing to Python 2.7 , then::
-
-        $ bootstrap-4.3.x.sh
+- Plone 4: ``bootstrap-4.3.x.sh``
+- Plone 5: ``$ bootstrap-4.3.x.sh``
 
 
 License
