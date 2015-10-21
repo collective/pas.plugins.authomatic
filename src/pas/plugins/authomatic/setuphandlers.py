@@ -5,7 +5,7 @@ from pas.plugins.authomatic.plugin import AuthomaticPlugin
 TITLE = 'Authomatic OAuth plugin (pas.plugins.authomatic)'
 
 
-def _add_plugin(pas, pluginid=DEFAULTID):
+def _add_plugin(pas, pluginid=DEFAULT_ID):
     if pluginid in pas.objectIds():
         return TITLE + ' already installed.'
     plugin = AuthomaticPlugin(pluginid, title=TITLE)
@@ -27,7 +27,7 @@ def setup_plugin(context):
         _add_plugin(context.getSite().acl_users)
 
 
-def _remove_plugin(pas, pluginid=DEFAULTID):
+def _remove_plugin(pas, pluginid=DEFAULT_ID):
     if pluginid in pas.objectIds():
         pas.manage_delObjects([pluginid])
 
