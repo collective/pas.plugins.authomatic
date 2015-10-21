@@ -45,16 +45,23 @@ OpenID
 Documentation
 -------------
 
-  - This Package will create a View called authomatic-login where you can login with different Providers
-  - The Provider is choosen in the URL so if you call /authomatic-login/github you will use Github to Login
-  - You can set the JSON configuration of the Plugin in the Controlpanel -> @@authomatic-controlpanel
-  - Example JSON Configuration
+- This Package will create a View called authomatic-login where you can login with different Providers
+- The Provider is choosen in the URL so if you call /authomatic-login/github you will use Github to Login
+- You can set the JSON configuration of the Plugin in the Controlpanel -> @@authomatic-controlpanel
+- Example JSON Configuration::
+
     {
         "github": {
+            "display": {
+                "title": "Github"
+            },
             "class_": "authomatic.providers.oauth2.GitHub",
-            "consumer_key": "xxxx",
-            "consumer_secret": "xxxxx"
-        }
+            "consumer_key": "5c4901d141e736f114a7",
+            "consumer_secret": "d4692ca3c0ab6cc1f8b28d3ccb1ea15b61e7ef5c",
+            "access_headers": {
+                "User-Agent": "Plone Authomatic Plugin"
+            }
+        },
     }
 
 Installation
