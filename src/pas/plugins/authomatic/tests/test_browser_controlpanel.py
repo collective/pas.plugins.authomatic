@@ -58,7 +58,7 @@ class TestAuthomaticSettingsControlPanel(unittest.TestCase):
         self.assertTrue(
             'json_config' in IPasPluginsAuthomaticSettings
         )
-        self.assertEquals(record.value, u"")
+        self.assertGreater(len(record.value), 20)
 
 
 class ControlpanelFunctionalTest(unittest.TestCase):
