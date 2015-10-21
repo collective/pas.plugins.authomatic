@@ -41,9 +41,8 @@ manage_addAuthomaticPluginForm = PageTemplateFile(
     # ... missing other auth plugins
 )
 class AuthomaticPlugin(BasePlugin):
-    """Memberproperties to Group mapping PAS plugin
+    """Authomatic PAS Plugin
     """
-    # using implements explicit here for python 2.4 compat.
     security = ClassSecurityInfo()
     meta_type = 'Authomatic Plugin'
     BasePlugin.manage_options
@@ -58,7 +57,7 @@ class AuthomaticPlugin(BasePlugin):
         self._users = OOBTree()
 
     # ##
-    # pas_interfaces.IAuthenticationPlugin( Interface ):
+    # pas_interfaces.IAuthenticationPlugin
 
     def authenticateCredentials(self, credentials):
         """ credentials -> (userid, login)
@@ -78,7 +77,7 @@ class AuthomaticPlugin(BasePlugin):
         return self._users[login]['userid'], login
 
     # ##
-    # pas_interfaces.ICredentialsUpdatePlugin( Interface ):
+    # pas_interfaces.ICredentialsUpdatePlugin
     def updateCredentials(self, request, response, login, new_password):
         """ Callback:  user has changed her password.
 
@@ -88,7 +87,6 @@ class AuthomaticPlugin(BasePlugin):
         if login not in self._users:
             return None
         self.users[login]['token'] = new_password
-
 
     # ##
     # pas_interfaces.plugins.IPropertiesPlugin
