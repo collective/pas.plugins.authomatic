@@ -91,8 +91,12 @@ Details at `Authomatics provider section <http://peterhudec.github.io/authomatic
 There are two differences in configuration:
 
 - the value of ``"class_"`` has to be a string, which is then resolved as a dotted path.
-- each provider can get an optional entry ``title`` which is used in the templates instead of the section name.
-- each provider can get an optional entry ``cssclass`` which is set in the template in order to be able to render an icon.
+- each provider can get an optional entry ``display`` with sub-enties such as:
+
+  - ``title`` which is used in the templates instead of the section name.
+  - ``iconclasses`` which is applied in the templates to an span.
+  - ``buttonclasses`` which is applied in the templates to the button.
+  - ``as_form`` (true/false) which renders a form for OpenId providers.
 
 Source Code and Contributions
 -----------------------------
