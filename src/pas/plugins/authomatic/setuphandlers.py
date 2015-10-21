@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
+from pas.plugins.authomatic.interfaces import DEFAULT_ID
 from pas.plugins.authomatic.plugin import AuthomaticPlugin
 
 TITLE = 'Authomatic OAuth plugin (pas.plugins.authomatic)'
-DEFAULTID = 'authomatic'
 
 
 def _add_plugin(pas, pluginid=DEFAULTID):

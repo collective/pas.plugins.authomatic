@@ -42,16 +42,17 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
+        'authomatic',
         'Plone',
+        'plone.api',
         'setuptools',
-        'authomatic'
     ],
     extras_require={
         'test': [
             'mock',
-            'plone.app.testing',
             'plone.app.contenttypes',
             'plone.app.robotframework[debug]',
+            'plone.app.testing',
         ],
     },
     entry_points="""

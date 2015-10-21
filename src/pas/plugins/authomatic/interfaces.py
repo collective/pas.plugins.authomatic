@@ -8,18 +8,21 @@ import string
 
 _ = MessageFactory('pas.plugins.authomatic')
 
-random_default = u''.join(
-    random.SystemRandom().choice(
-        string.ascii_letters + string.digits
-    ) for _ in range(10)
-)
+DEFAULT_ID = 'authomatic'
 
-JSON_DEFAULT = u"""\
+DEFAULT_CONFIG = u"""\
 {
     "github": {
-        "title": "Github",
+        display: {
+            "title": "Github",
+            "cssclasses": {
+                "button": "btn btn-default",
+                "icon": "glypicon glyphicon-github"
+            },
+            "as_form": false,
+        },
         "class_": "authomatic.oauth2.GitHub",
-        "consumer_key": "see",
+        "consumer_key": "Example, please get a key and secret. See",
         "consumer_secret": "https://github.com/settings/applications/new",
         "access_headers": {
             "User-Agent": "Plone (pas.plugins.authomatic)"
@@ -27,6 +30,12 @@ JSON_DEFAULT = u"""\
     }
 }
 """
+
+random_secret = u''.join(
+    random.SystemRandom().choice(
+        string.ascii_letters + string.digits
+    ) for _ in range(10)
+)
 
 
 class IPasPluginsAuthomaticLayer(IDefaultBrowserLayer):
@@ -39,7 +48,7 @@ class IPasPluginsAuthomaticSettings(Interface):
         title=_(u"Secret"),
         description=_(u"Some random string used to encrypt the state."),
         required=True,
-        default=random_default,
+        default=random_secret,
     )
 
     json_config = schema.SourceText(
@@ -52,7 +61,7 @@ class IPasPluginsAuthomaticSettings(Interface):
             u"resolved as a dotted path."
         ),
         required=True,
-        default=JSON_DEFAULT,
+        default=DEFAULT_CONFIG,
     )
 
 

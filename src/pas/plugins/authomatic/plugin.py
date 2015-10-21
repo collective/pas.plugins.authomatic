@@ -35,7 +35,9 @@ manage_addAuthomaticPluginForm = PageTemplateFile(
 
 @implementer(
     IAuthomaticPlugin,
+    pas_interfaces.IAuthenticationPlugin,
     pas_interfaces.IPropertiesPlugin,
+    pas_interfaces.ICredentialsUpdatePlugin
     # ... missing other auth plugins
 )
 class AuthomaticPlugin(BasePlugin):
@@ -54,6 +56,39 @@ class AuthomaticPlugin(BasePlugin):
         self.title = title
         self.plugin_caching = True
         self._users = OOBTree()
+
+    # ##
+    # pas_interfaces.IAuthenticationPlugin( Interface ):
+
+    def authenticateCredentials(self, credentials):
+        """ credentials -> (userid, login)
+
+        - 'credentials' will be a mapping, as returned by IExtractionPlugin.
+        - Return a  tuple consisting of user ID (which may be different
+          from the login name) and login
+        - If the credentials cannot be authenticated, return None.
+        """
+        login = credentials.get('login')
+        token = credentials.get('password')
+        if login not in self._users:
+            return None
+        if token != self._users[login]['token']:
+            return None
+        # XXX try to refresh token?
+        return self._users[login]['userid'], login
+
+    # ##
+    # pas_interfaces.ICredentialsUpdatePlugin( Interface ):
+    def updateCredentials(self, request, response, login, new_password):
+        """ Callback:  user has changed her password.
+
+        This interface is not responsible for the actual password change,
+        it is used after a successful password change event.
+        """
+        if login not in self._users:
+            return None
+        self.users[login]['token'] = new_password
+
 
     # ##
     # pas_interfaces.plugins.IPropertiesPlugin

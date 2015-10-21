@@ -3,13 +3,40 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       metal:use-macro="context/main_template/macros/master">
 
-    <metal:block fill-slot="content-core">
-        <div>
-            <h1>External Login</h1>
-            <span tal:content="view/login"></span>
+    <metal:block fill-slot="main">
+        <h1>Login</h1>
+        <p>Log in using external authenticaton providers.</p>
+        <ul>
+            <li tal:repeat="provider view/providers">
 
-            <a href="@@authomatic-login/github">Login with Github</a>
-        </div>
+                <a tal:condition="not:provider/as_form"
+                   tal:attributes="class string:${provider/buttonclasses};
+                                   href string:${context/absolute_url}/@@authomatic-login/${provider/identifier}">
+                    <span tal:attributes="class string:${provider/iconclasses}"></span>
+                    <span tal:content="provider/title">
+                        name of oauth provider
+                    </span>
+                </a>
+
+                <form tal:condition="provider/as_form"
+                      tal:attributes="action string:${context/absolute_url}/@@authomatic-login/${provider/identifier};"
+                      class="authomatic-login-form">
+                    <input
+                        type="text"
+                        placeholder="Your claimed ID"
+                        name="id"
+                        tal:attributes="class string:${provider/iconclasses}"
+                    />
+                    <input
+                        type="submit"
+                        value="Authenticate"
+                        tal:attributes="class string:${provider/buttonclasses};
+                                        value: provider/title"
+                    />
+                </form>
+
+            </li>
+        </ul>
     </metal:block>
 
 </html>
