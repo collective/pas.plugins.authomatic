@@ -13,15 +13,15 @@ DEFAULT_ID = 'authomatic'
 DEFAULT_CONFIG = u"""\
 {
     "github": {
-        display: {
+        "display": {
             "title": "Github",
             "cssclasses": {
                 "button": "btn btn-default",
                 "icon": "glypicon glyphicon-github"
             },
-            "as_form": false,
+            "as_form": false
         },
-        "class_": "authomatic.oauth2.GitHub",
+        "class_": "authomatic.providers.oauth2.GitHub",
         "consumer_key": "Example, please get a key and secret. See",
         "consumer_secret": "https://github.com/settings/applications/new",
         "access_headers": {
