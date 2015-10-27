@@ -53,7 +53,12 @@ Documentation
     {
         "github": {
             "display": {
-                "title": "Github"
+                "title": "Github",
+                "cssclasses": {
+                    "button": "btn btn-default",
+                    "icon": "glypicon glyphicon-github"
+                },
+                "as_form": false
             },
             "propertymap": {
                 "email": "email",
@@ -94,7 +99,7 @@ Configuration parameters for the different authorization are provided as JSON te
 JSON is used because of flexibility.
 Details at `Authomatics provider section <http://peterhudec.github.io/authomatic/reference/providers.html>`_.
 
-There are two differences in configuration:
+There are some differences in configuration:
 
 - the value of ``"class_"`` has to be a string, which is then resolved as a dotted path.
 - each provider can get an optional entry ``display`` with sub-enties such as:
@@ -103,6 +108,10 @@ There are two differences in configuration:
   - ``iconclasses`` which is applied in the templates to an span.
   - ``buttonclasses`` which is applied in the templates to the button.
   - ``as_form`` (true/false) which renders a form for OpenId providers.
+
+- each provider can get an optional entry ``propertymap``.
+  It is a mapping from authomatic/provider user properties to plone user properties, like ``"fullname": "name",``.
+  Look at each providers documentation which properties are available.
 
 Source Code and Contributions
 -----------------------------

@@ -21,6 +21,12 @@ DEFAULT_CONFIG = u"""\
             },
             "as_form": false
         },
+        "propertymap": {
+            "email": "email",
+            "link": "home_page",
+            "location": "location",
+            "name": "fullname"
+        },
         "class_": "authomatic.providers.oauth2.GitHub",
         "consumer_key": "Example, please get a key and secret. See",
         "consumer_secret": "https://github.com/settings/applications/new",
@@ -58,7 +64,8 @@ class IPasPluginsAuthomaticSettings(Interface):
             u"providers. Details at "
             u"http://peterhudec.github.io/authomatic/reference/providers.html"
             u" - difference: 'class_' has to be a string, which is then "
-            u"resolved as a dotted path."
+            u"resolved as a dotted path. Also sections ``display`` and "
+            u"``propertymap`` are special"
         ),
         required=True,
         default=DEFAULT_CONFIG,
