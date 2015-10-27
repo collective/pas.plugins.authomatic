@@ -3,11 +3,12 @@ from AccessControl import ClassSecurityInfo
 from App.class_init import InitializeClass
 from BTrees.OOBTree import OOBTree
 from pas.plugins.authomatic.interfaces import IAuthomaticPlugin
+from pas.plugins.authomatic.utils import authomatic_cfg
 from persistent.dict import PersistentDict
 from plone import api
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
-from Products.PluggableAuthService.interfaces.authservice import _noroles
 from Products.PluggableAuthService.interfaces import plugins as pas_interfaces
+from Products.PluggableAuthService.interfaces.authservice import _noroles
 from Products.PluggableAuthService.plugins.BasePlugin import BasePlugin
 from Products.PluggableAuthService.UserPropertySheet import UserPropertySheet
 from zope.interface import implementer
@@ -59,10 +60,13 @@ class AuthomaticPlugin(BasePlugin):
         self.plugin_caching = True
         self._users = OOBTree()
 
-    def _make_sheet(self, user):
-        sheet = UserPropertySheet(
-            id=user.id,
-        )
+    def _make_sheet(self, user, propmap):
+        pdata = dict(id=user.id)
+        for akey, pkey in propmap.items():
+            ainfo = user.data.get(akey, None)
+            if ainfo is not None:
+                pdata[pkey] = ainfo
+        sheet = UserPropertySheet(**pdata)
         return sheet
 
     @security.private
@@ -84,7 +88,10 @@ class AuthomaticPlugin(BasePlugin):
         else:
             data = self._users[login]
 
-        data['sheet'] = self._make_sheet(result.user)
+        cfg = authomatic_cfg()
+        provider_cfg = cfg[result.provider.name]
+        propmap = provider_cfg.get('propertymap', {})
+        data['sheet'] = self._make_sheet(result.user, propmap)
         data['credentials'] = result.user.credentials
         self._users[login] = data
 
