@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from AccessControl import getSecurityManager
 from authomatic import Authomatic
 from pas.plugins.authomatic.integration import ZopeRequestAdapter
 from pas.plugins.authomatic.utils import authomatic_cfg
@@ -65,12 +64,6 @@ class LoginView(BrowserView):
             return
         if result.error:
             return result.error.message
-
-        # authn happend successfully.
-        #set user!
-        sm = getSecurityManager()
-        import ipdb; ipdb.set_trace()
-
 
         # now we delegate to the PAS plugin to store the information fetched
         aclu = api.portal.get_tool('acl_users')
