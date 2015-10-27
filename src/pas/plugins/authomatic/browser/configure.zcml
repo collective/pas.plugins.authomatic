@@ -1,22 +1,24 @@
 <configure
+    i18n_domain="pas.plugins.authomatic"
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
-    xmlns:plone="http://namespaces.plone.org/plone"
-    i18n_domain="pas.plugins.authomatic">
+    xmlns:plone="http://namespaces.plone.org/plone">
 
-    <!-- Control panel -->
-    <browser:page
-        name="authomatic-controlpanel"
-        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-        class=".controlpanel.AuthomaticSettingsEditFormSettingsControlPanel"
-        permission="cmf.ManagePortal"
-        />
+  <!-- Control panel -->
+  <browser:page
+      class=".controlpanel.AuthomaticSettingsEditFormSettingsControlPanel"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      layer="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticLayer"
+      name="authomatic-controlpanel"
+      permission="cmf.ManagePortal"
+  />
 
-    <browser:page
-        name="authomatic-login"
-        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-        class=".login.LoginView"
-        permission="zope2.View"
-        />
-
+  <!-- Login -->
+  <browser:page
+      class=".login.LoginView"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      layer="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticLayer"
+      name="authomatic-login"
+      permission="zope2.View"
+  />
 </configure>
