@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from AccessControl import getSecurityManager
 from authomatic import Authomatic
 from pas.plugins.authomatic.integration import ZopeRequestAdapter
 from pas.plugins.authomatic.utils import authomatic_cfg
@@ -24,6 +25,8 @@ class LoginView(BrowserView):
 
     def providers(self):
         cfgs = authomatic_cfg()
+        if not cfgs:
+            raise ValueError("Authomatic configuration has errors.")
         for identifier, cfg in cfgs.items():
             entry = cfg.get('display', {})
             cssclasses = entry.get('cssclasses', {})
@@ -63,6 +66,15 @@ class LoginView(BrowserView):
         if result.error:
             return result.error.message
 
-        # auth happend
-        result.user.update()
-        return result.user
+        # authn happend successfully.
+        #set user!
+        sm = getSecurityManager()
+        import ipdb; ipdb.set_trace()
+
+
+        # now we delegate to the PAS plugin to store the information fetched
+        aclu = api.portal.get_tool('acl_users')
+        aclu.authomatic.remember(result)
+        api.portal.show_message('Logged in', self.request)
+        self.request.response.redirect(self.context.absolute_url())
+        return "redirecting"

@@ -15,5 +15,40 @@ class TestPlugin(unittest.TestCase):
         _add_plugin(self.aclu, 'authomatic')
         self.plugin = self.aclu['authomatic']
 
-    def test_pass(self):
-        pass
+    def test_authentication_empty_deny(self):
+        credentials = {}
+        result = self.plugin.authenticateCredentials(credentials)
+        self.assertIsNone(result)
+
+    def test_authentication_nonexistent_deny(self):
+        credentials = {
+            'login': 'UNSET',
+            'password': 'UNSET',
+        }
+        result = self.plugin.authenticateCredentials(credentials)
+        self.assertIsNone(result)
+
+    def test_authentication_user_no_pass_deny(self):
+        self.plugin._users['joe'] = {
+            'userid': '123',
+            'token': 'UNSET',
+        }
+        credentials = {
+            'login': 'joe',
+            'password': 'SECRET',
+        }
+        result = self.plugin.authenticateCredentials(credentials)
+        self.assertIsNone(result)
+
+    def test_authentication_user_same_pass_allow(self):
+        self.plugin._users['joe'] = {
+            'userid': '123',
+            'token': 'SECRET',
+        }
+        credentials = {
+            'login': 'joe',
+            'password': 'SECRET',
+        }
+        result = self.plugin.authenticateCredentials(credentials)
+        self.assertEqual(result, ('123', 'joe'))
+

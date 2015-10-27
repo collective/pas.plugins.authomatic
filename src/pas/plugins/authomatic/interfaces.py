@@ -67,3 +67,9 @@ class IPasPluginsAuthomaticSettings(Interface):
 
 class IAuthomaticPlugin(Interface):
     """Member Properties To Group Plugin"""
+
+    def remember(result):
+        """remember user as valid
+
+        result is authomatic result data.
+        """
