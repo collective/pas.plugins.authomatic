@@ -7,7 +7,7 @@ from plone.app.registry.browser import controlpanel
 class AuthomaticSettingsEditForm(controlpanel.RegistryEditForm):
 
     schema = IPasPluginsAuthomaticSettings
-    label = _(u"PAS Authomatic Plugin Settinss")
+    label = _(u"PAS Authomatic Plugin Settings")
     description = _(u"")
 
     def updateFields(self):
