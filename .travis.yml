@@ -6,11 +6,11 @@ cache:
   directories:
     - $HOME/buildout-cache
 env:
-  - PLONE_VERSION=4.3 QA=true
-  - PLONE_VERSION=5.0
+  - PLONE_VERSION=4.3 
+  - PLONE_VERSION=5.0 QA=true
 matrix:
   allow_failures:
-    - env: PLONE_VERSION=5.0
+    - env: PLONE_VERSION=4.3
 before_install:
   - mkdir -p $HOME/buildout-cache/{eggs,downloads}
   - virtualenv .
