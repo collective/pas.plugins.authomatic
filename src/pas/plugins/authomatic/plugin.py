@@ -79,7 +79,7 @@ class AuthomaticPlugin(BasePlugin):
         if login not in self._users:
             # collect data
             data = PersistentDict()
-            data['secret'] = uuid.uuid4()
+            data['secret'] = str(uuid.uuid4())
             data['userid'] = userid  # XXX maybe something else
         else:
             data = self._users[login]
@@ -105,6 +105,7 @@ class AuthomaticPlugin(BasePlugin):
         )
 
         # do login post-processing
+        self.REQUEST['__ac_password'] = data['secret']
         mt = api.portal.get_tool('portal_membership')
         mt.loginUser(self.REQUEST)
 
@@ -212,21 +213,21 @@ class AuthomaticPlugin(BasePlugin):
             kw['id'] = search_id
         pluginid = self.getId()
         ret = list()
-        for login_key in self._users:
-            data = self._users[login]
+        for login_entry in self._users:
+            data = self._users[login_entry]
             if exact_match:
                 if search_id and data['userid'] != search_id:
                     continue
-                if login and data[login_key] != login:
+                if login and login_entry != login:
                     continue
             else:
                 if search_id and not data['userid'].startswith(search_id):
                     continue
-                if login and not data[login_key].startwith(login):
+                if login and not login_entry.startswith(login):
                     continue
             ret.append({
                 'id': data['userid'].encode('utf8'),
-                'login': login,
+                'login': login_entry,
                 'pluginid': pluginid}
             )
         if max_results and len(ret) > max_results:
