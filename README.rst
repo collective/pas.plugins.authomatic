@@ -45,15 +45,21 @@ OpenID
 Documentation
 -------------
 
-- This Package will create a View called authomatic-login where you can login with different Providers
-- The Provider is choosen in the URL so if you call /authomatic-login/github you will use Github to Login
-- You can set the JSON configuration of the Plugin in the Controlpanel -> @@authomatic-controlpanel
-- Example JSON Configuration::
+- This package will create a view called ``authomatic-login`` where you can login with different providers
+- The provider is choosen in the URL so if you call ``/authomatic-login/PROVIDER`` you will use PROVIDER to login
+- You can set the JSON configuration of the plugin in the Controlpanel ``@@authomatic-controlpanel`` (linked under security)
+- Example JSON configuration (first level key is the PROVIDER::
 
     {
         "github": {
             "display": {
                 "title": "Github"
+            },
+            "propertymap": {
+                "email": "email",
+                "link": "home_page",
+                "location": "location",
+                "name": "fullname"
             },
             "class_": "authomatic.providers.oauth2.GitHub",
             "consumer_key": "5c4901d141e736f114a7",
