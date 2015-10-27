@@ -8,6 +8,8 @@ TITLE = 'Authomatic OAuth plugin (pas.plugins.authomatic)'
 def _add_plugin(pas, pluginid=DEFAULT_ID):
     if pluginid in pas.objectIds():
         return TITLE + ' already installed.'
+    if pluginid != DEFAULT_ID:
+        return "ID of plugin must be {0}".format(DEFAULT_ID)
     plugin = AuthomaticPlugin(pluginid, title=TITLE)
     pas._setObject(pluginid, plugin)
     plugin = pas[plugin.getId()]  # get plugin acquisition wrapped!
