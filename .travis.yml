@@ -29,7 +29,7 @@ script:
   - bin/code-analysis
   - bin/test --all
 after_success:
-  - bin/test-coverage --all
+  - bin/createcoverage
   - pip install coveralls
   - coveralls
 notifications:
