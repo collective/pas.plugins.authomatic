@@ -9,7 +9,7 @@
         title="Authomatic"
         action_id="authomatic"
         appId="pas.plugins.authomatic"
-        category="plone-security"
+        category="plone-users"
         condition_expr=""
         url_expr="string:${portal_url}/@@authomatic-controlpanel"
         icon_expr="string:$portal_url/group.png"
