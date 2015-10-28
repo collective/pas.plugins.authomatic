@@ -16,7 +16,7 @@ DEFAULT_CONFIG = u"""\
         "display": {
             "title": "Github",
             "cssclasses": {
-                "button": "btn btn-default",
+                "button": "plone-btn plone-btn-default",
                 "icon": "glypicon glyphicon-github"
             },
             "as_form": false
