@@ -4,6 +4,13 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone">
 
+  <!-- Publish static files -->
+  <plone:static
+      directory="resources"
+      name="pas.plugins.authomatic"
+      type="plone"
+  />
+
   <!-- Control panel -->
   <browser:page
       class=".controlpanel.AuthomaticSettingsEditFormSettingsControlPanel"
