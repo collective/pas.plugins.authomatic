@@ -47,6 +47,15 @@ class LoginView(BrowserView):
             yield record
 
     def __call__(self):
+        if not api.user.is_anonymous():
+            api.portal.show_message(
+                'You are already logged in!',
+                self.request,
+                'error'
+            )
+            self.request.response.redirect(self.context.absolute_url())
+            return "redirecting"
+
         if not (
             ISiteRoot.providedBy(self.context)
             or INavigationRoot.providedBy(self.context)
