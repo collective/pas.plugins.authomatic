@@ -28,8 +28,8 @@ install:
 script:
   - bin/code-analysis
   - bin/test --all
-  - bin/test-coverage --all
 after_success:
+  - bin/test-coverage --all
   - pip install coveralls
   - coveralls
 notifications:
