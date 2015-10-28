@@ -31,3 +31,8 @@ docs/Makefile
 docs/make.bat
 docs/doctrees/
 docs/html/
+node_modules/
+package.json
+Gruntfile.js
+temp_resources
+pip-selfcheck.json
