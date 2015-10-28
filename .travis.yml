@@ -30,7 +30,7 @@ script:
   - bin/test --all
 after_success:
   - bin/createcoverage
-  - coveralls
+  - bin/coveralls
 notifications:
   email:
     - jens@bluedynamics.com
