@@ -52,7 +52,7 @@ class AuthomaticPlugin(BasePlugin):
     BasePlugin.manage_options
 
     # Tell PAS not to swallow our exceptions
-    _dont_swallow_my_exceptions = False
+    _dont_swallow_my_exceptions = True
 
     def __init__(self, id, title=None, **kw):
         self._setId(id)
