@@ -98,7 +98,7 @@ class AuthomaticPlugin(BasePlugin):
         # login (get new security manager)
         aclu = api.portal.get_tool('acl_users')
         user = aclu._findUser(aclu.plugins, data['userid'])
-        (accessed, container, name, value) = aclu._getObjectContext(
+        accessed, container, name, value = aclu._getObjectContext(
             self.REQUEST['PUBLISHED'],
             self.REQUEST
         )
