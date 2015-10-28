@@ -3,6 +3,8 @@ from authomatic import Authomatic
 from pas.plugins.authomatic.integration import ZopeRequestAdapter
 from pas.plugins.authomatic.utils import authomatic_cfg
 from plone import api
+from plone.app.layout.navigation.interfaces import INavigationRoot
+from Products.CMFCore.interfaces import ISiteRoot
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.interface import implementer
@@ -45,6 +47,20 @@ class LoginView(BrowserView):
             yield record
 
     def __call__(self):
+        if not (
+            ISiteRoot.providedBy(self.context)
+            or INavigationRoot.providedBy(self.context)
+        ):
+            # callback url is expected on either navigationroot or site root
+            # so bevor going on redirect
+            root = api.portal.get_navigation_root(self.context)
+            self.request.response.redirect(
+                "{0}/authomatic-login/{1}".format(
+                    root.absolute_url(),
+                    getattr(self, 'provider', '')
+                )
+            )
+            return "redirecting"
         if not hasattr(self, 'provider'):
             return self.template()
         cfg = authomatic_cfg()

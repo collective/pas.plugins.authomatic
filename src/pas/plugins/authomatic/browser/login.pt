@@ -4,7 +4,6 @@
       metal:use-macro="context/main_template/macros/master">
 
     <metal:block fill-slot="main">
-        <h1>Login</h1>
         <p>Log in using external authenticaton providers.</p>
         <ul>
             <li tal:repeat="provider view/providers">

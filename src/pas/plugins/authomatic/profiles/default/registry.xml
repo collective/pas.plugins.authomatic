@@ -1,4 +1,7 @@
 <?xml version="1.0"?>
 <registry>
   <records interface="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticSettings" />
+  <record name="plone.external_login_url">
+    <value>authomatic-login</value>
+  </record>
 </registry>
