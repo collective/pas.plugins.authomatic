@@ -49,7 +49,6 @@ class LoginView(BrowserView):
             return self.template()
         cfg = authomatic_cfg()
         if cfg is None:
-
             return "Authomatic is not configured"
         if self.provider not in cfg:
             return "Provider not supported"
@@ -68,6 +67,12 @@ class LoginView(BrowserView):
         # now we delegate to the PAS plugin to store the information fetched
         aclu = api.portal.get_tool('acl_users')
         aclu.authomatic.remember(result)
-        api.portal.show_message('Logged in', self.request)
-        self.request.response.redirect(self.context.absolute_url())
+        display = cfg[self.provider].get('display', {})
+        api.portal.show_message(
+            'Logged in with {0}'.format(display.get('title', self.provider)),
+            self.request
+        )
+        self.request.response.redirect(
+            "{0}/login_success".format(self.context.absolute_url())
+        )
         return "redirecting"
