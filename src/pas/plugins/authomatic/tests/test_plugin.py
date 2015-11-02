@@ -141,11 +141,15 @@ class TestPropertyMapping(unittest.TestCase):
             data = {
                 u'displayName': u'Andrew Pipkin',
                 u'domain': u'foobar.com',
-                u'emails': [{u'type': u'account', u'value': u'andrewpipkin@foobar.com'}],
+                u'emails': [
+                    {u'type': u'account', u'value': u'andrewpipkin@foobar.com'}
+                ],
                 u'etag': u'"xxxxxxxxxxxx/xxxxxxxxxxxx"',
                 u'id': u'123456789',
-                u'image': {u'isDefault': False,
-                           u'url': u'https://lh3.googleusercontent.com/photo.jpg?sz=50'},
+                u'image': {
+                    u'isDefault': False,
+                    u'url': u'https://lh3.googleusercontent.com/photo.jpg'
+                },
                 u'isPlusUser': False,
                 u'kind': u'plus#person',
                 u'language': u'en_GB',
@@ -188,10 +192,14 @@ class TestPropertyMapping(unittest.TestCase):
         result = self.plugin._make_sheet(user, propmap)
         self.assertIsInstance(result, UserPropertySheet)
         self.assertEqual(
-            result.getProperty('home_page'), u'http://peterhudec.github.io/authomatic/'
+            result.getProperty('home_page'),
+            u'http://peterhudec.github.io/authomatic/'
         )
         self.assertEqual(result.getProperty('fullname'), u'Andrew Pipkin')
-        self.assertEqual(result.getProperty('email'), u'andrewpipkin@foobar.com')
+        self.assertEqual(
+            result.getProperty('email'),
+            u'andrewpipkin@foobar.com'
+        )
 
     def test_provider_specific_user_attributes(self):
         user = self._make_one()
@@ -201,8 +209,12 @@ class TestPropertyMapping(unittest.TestCase):
         result = self.plugin._make_sheet(user, propmap)
         self.assertIsInstance(result, UserPropertySheet)
         self.assertEqual(
-            result.getProperty('home_page'), u'http://peterhudec.github.io/authomatic/'
+            result.getProperty('home_page'),
+            u'http://peterhudec.github.io/authomatic/'
         )
         self.assertEqual(result.getProperty('fullname'), u'Andrew Pipkin')
-        self.assertEqual(result.getProperty('email'), u'andrewpipkin@foobar.com')
+        self.assertEqual(
+            result.getProperty('email'),
+            u'andrewpipkin@foobar.com'
+        )
         self.assertEqual(result.getProperty('domain'), u'foobar.com')
