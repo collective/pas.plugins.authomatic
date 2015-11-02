@@ -133,8 +133,8 @@ Development
 There must be an ``python`` binary available in system path pointing to Python 2.7.
 Also you need to have all installed to develop with Plone (see http://docs.plone.org/) then:
 
-- Plone 4: ``bootstrap-4.3.x.sh``
-- Plone 5: ``$ bootstrap-4.3.x.sh``
+- Plone 4: ``$ bootstrap-4.3.x.sh``
+- Plone 5: ``$ bootstrap-5.0.x.sh``
 
 
 License
