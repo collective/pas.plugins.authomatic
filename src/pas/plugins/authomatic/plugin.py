@@ -62,10 +62,19 @@ class AuthomaticPlugin(BasePlugin):
 
     def _make_sheet(self, user, propmap):
         pdata = dict(id=user.id)
+        user_dict = user.to_dict()
+
         for akey, pkey in propmap.items():
-            ainfo = user.data.get(akey, None)
+            # Always search first on the user attributes, then on the raw data
+            # this guaratees we do not break existing configurations
+            ainfo = user_dict.get(akey, user_dict['data'].get(akey, None))
             if ainfo is not None:
-                pdata[pkey] = ainfo
+                if isinstance(pkey, dict):
+                    for k, v in pkey.items():
+                        pdata[k] = ainfo.get(v)
+                else:
+                    pdata[pkey] = ainfo
+
         sheet = UserPropertySheet(**pdata)
         return sheet
 
