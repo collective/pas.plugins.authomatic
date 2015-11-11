@@ -23,5 +23,21 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       title="Authomatic: Login with OAuth/OpenID 3rd party authn providers."
   />
+  <utility
+    component=".interfaces.userid_factory_vocabulary"
+    name="pas.plugins.authomatic.userid_vocabulary"
+    />
+  <utility
+    factory=".useridfactories.UUID4UserIDFactory"
+    name="uuid"
+  />
+  <utility
+    factory=".useridfactories.ProviderIDUserIDFactory"
+    name="userid"
+  />
+  <utility
+    factory=".useridfactories.ProviderIDUserNameFactory"
+    name="username"
+  />
 
 </configure>

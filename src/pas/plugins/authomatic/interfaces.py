@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 from zope import schema
+from zope.component import getUtilitiesFor
 from zope.i18nmessageid import MessageFactory
 from zope.interface import Interface
+from zope.interface import provider
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 import random
 import string
 
@@ -44,8 +49,13 @@ random_secret = u''.join(
 )
 
 
-class IPasPluginsAuthomaticLayer(IDefaultBrowserLayer):
-    """Marker interface that defines a browser layer."""
+@provider(IVocabularyFactory)
+def userid_factory_vocabulary(context):
+    items = []
+    for name, factory in getUtilitiesFor(IUserIDFactory):
+        items.append([factory.title, name])
+    items = [SimpleTerm(name, name, title) for title, name in sorted(items)]
+    return SimpleVocabulary(items)
 
 
 class IPasPluginsAuthomaticSettings(Interface):
@@ -56,7 +66,12 @@ class IPasPluginsAuthomaticSettings(Interface):
         required=True,
         default=random_secret,
     )
-
+    userid_factory_name = schema.Choice(
+        vocabulary="pas.plugins.authomatic.userid_vocabulary",
+        title=u"Generator for Plone usernames to be used",
+        description=u"",
+        default='uuid'
+    )
     json_config = schema.SourceText(
         title=_(u"JSON Configuration"),
         description=_(
@@ -80,3 +95,16 @@ class IAuthomaticPlugin(Interface):
 
         result is authomatic result data.
         """
+
+
+class IUserIDFactory(Interface):
+    """generates a userid on call
+    """
+
+    def __call__(service_name, service_user_id, raw_user):
+        """returns string, unique amongst plugins userids
+        """
+
+
+class IPasPluginsAuthomaticLayer(IDefaultBrowserLayer):
+    """Marker interface that defines a browser layer."""

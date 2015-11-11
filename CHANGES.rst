@@ -1,9 +1,11 @@
 Changelog
 =========
 
-
 1.0a2 (unreleased)
 ------------------
+
+- Allow multiple services for one user.
+  [jensens]
 
 - Use authomatic.core.User attributes instead of raw provider data. closes `#9`_
   [ericof]
