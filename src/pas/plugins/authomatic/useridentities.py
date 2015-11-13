@@ -32,6 +32,10 @@ class UserIdentities(Persistent):
         self._sheet = None
         self._secret = str(uuid.uuid4())
 
+    @property
+    def secret(self):
+        return self._secret
+
     def check_password(self, password):
         return password == self._secret
 
