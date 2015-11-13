@@ -62,6 +62,10 @@ class TestUserIdentities(unittest.TestCase):
         user.email = u'andrewpipkin@foobar.com'
         user.picture = u'https://lh3.googleusercontent.com/photo.jpg?sz=50'
         user.location = u'Innsbruck'
+
+        # from authomatic.core import Credentials
+        # user.credentials = Credentials()
+
         return user
 
     def _make_cfg(self, provider='provider'):
@@ -72,7 +76,9 @@ class TestUserIdentities(unittest.TestCase):
             'name': 'fullname'
         }
         return {
-            provider: {'propertymap': propmap}
+            provider: {
+                'propertymap': propmap,
+            }
         }
 
     def test_identities_init(self):
@@ -137,3 +143,6 @@ class TestUserIdentities(unittest.TestCase):
             u'andrewpipkin@foobar.com'
         )
         self.assertEqual(sheet.getProperty('customdomain'), u'foobar.com')
+
+    def test_credentials(self):
+        pass

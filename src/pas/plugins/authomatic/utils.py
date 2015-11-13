@@ -38,7 +38,17 @@ def authomatic_cfg():
         return None
     if not isinstance(cfg, dict):
         return None
+    ids = set()
+    cnt = 0
     for provider in cfg:
         if 'class_' in cfg[provider]:
             cfg[provider]['class_'] = resolve(cfg[provider]['class_'])
+        if 'id' in cfg[provider]:
+            cfg[provider]['id'] = int(cfg[provider]['id'])
+        else:
+            # pick some id
+            while cnt in ids:
+                cnt += 1
+            cfg[provider]['id'] = cnt
+        ids.update([cfg[provider]['id']])
     return cfg

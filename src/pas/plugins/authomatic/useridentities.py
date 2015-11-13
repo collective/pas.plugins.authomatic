@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
+from authomatic.core import Credentials
 from pas.plugins.authomatic.utils import authomatic_cfg
 from persistent import Persistent
 from persistent.dict import PersistentDict
-import uuid
 from Products.PluggableAuthService.UserPropertySheet import UserPropertySheet
-from authomatic.core import Credentials
+import uuid
 
 
 class UserIdentity(PersistentDict):

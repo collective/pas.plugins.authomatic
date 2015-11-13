@@ -18,6 +18,7 @@ DEFAULT_ID = 'authomatic'
 DEFAULT_CONFIG = u"""\
 {
     "github": {
+        "id": 1,
         "display": {
             "title": "Github",
             "cssclasses": {
