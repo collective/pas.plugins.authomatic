@@ -4,6 +4,9 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
+- Minimal validation of JSON.
+  [jensens]
+
 - Make the whole ``remember`` procedure a ``safeWrite`` if called from login
   view. we can not pass a authenticator token here, because of redirects and
   expected return urls .

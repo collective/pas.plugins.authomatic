@@ -3,11 +3,13 @@ from zope import schema
 from zope.component import getUtilitiesFor
 from zope.i18nmessageid import MessageFactory
 from zope.interface import Interface
+from zope.interface import Invalid
 from zope.interface import provider
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
+import json
 import random
 import string
 
@@ -50,6 +52,30 @@ random_secret = u''.join(
 )
 
 
+def validate_cfg_json(value):
+    """check that we have at least valid json and its a dict
+    """
+    try:
+        jv = json.loads(value)
+    except ValueError as e:
+        raise Invalid(_(
+            'invalid_json',
+            'JSON is not valid, parser complained: ${message}',
+            mapping={'message': e.message}
+        ))
+    if not isinstance(jv, dict):
+        raise Invalid(_(
+            'invalid_cfg_no_dict',
+            'JSON root must be a mapping (dict)',
+        ))
+    if len(jv) < 1:
+        raise Invalid(_(
+            'invalid_cfg_empty_dict',
+            'At least one provider must be configured.',
+        ))
+    return True
+
+
 @provider(IVocabularyFactory)
 def userid_factory_vocabulary(context):
     items = []
@@ -84,6 +110,7 @@ class IPasPluginsAuthomaticSettings(Interface):
             u"``propertymap`` are special"
         ),
         required=True,
+        constraint=validate_cfg_json,
         default=DEFAULT_CONFIG,
     )
 
