@@ -1,21 +1,24 @@
 # -*- coding: utf-8 -*-
 from pas.plugins.authomatic.testing import PAS_PLUGINS_Authomatic_ZOPE_FIXTURE
-from Products.PluggableAuthService.UserPropertySheet import UserPropertySheet
-
+from pas.plugins.authomatic.tests.mocks import MockResult
 import unittest
-
-
-class _MockRefresher(object):
-
-    def refresh(*args):
-        pass
-
-_mock_refresher = _MockRefresher()
 
 
 class TestPlugin(unittest.TestCase):
 
     layer = PAS_PLUGINS_Authomatic_ZOPE_FIXTURE
+
+    def _make_user(self, login, password):
+        from pas.plugins.authomatic.useridentities import UserIdentities
+        uis = UserIdentities(login)
+        self.plugin._useridentities_by_userid[login] = uis
+        uis._secret = password
+        mock_result = MockResult(
+            provider=MockResult(name='mock_provider'),
+            user=MockResult()
+        )
+        uis.handle_result(mock_result)
+        return uis
 
     def setUp(self):
         # create plugin
@@ -38,10 +41,7 @@ class TestPlugin(unittest.TestCase):
         self.assertIsNone(result)
 
     def test_authentication_user_no_pass_deny(self):
-        self.plugin._users['joe'] = {
-            'userid': '123',
-            'secret': 'UNSET',
-        }
+        self._make_user('joe', 'UNSET')
         credentials = {
             'login': 'joe',
             'password': 'SECRET',
@@ -50,42 +50,26 @@ class TestPlugin(unittest.TestCase):
         self.assertIsNone(result)
 
     def test_authentication_user_same_pass_allow(self):
-        self.plugin._users['joe'] = {
-            'userid': '123',
-            'secret': 'SECRET',
-            'credentials': _mock_refresher,
-        }
+        self._make_user('joe', 'SECRET')
         credentials = {
             'login': 'joe',
-            'password': 'SECRET',
+            'password': 'SECRET'
         }
         result = self.plugin.authenticateCredentials(credentials)
-        self.assertEqual(result, ('123', 'joe'))
+        self.assertEqual(result, ('joe', 'joe'))
 
     def test_user_enumaration(self):
-        self.plugin._users['joe'] = {
-            'userid': '123joe',
-            'secret': 'SECRET',
-        }
-        self.plugin._users['jane'] = {
-            'userid': '123jane',
-            'secret': 'SECRET',
-        }
-        self.plugin._users['wily'] = {
-            'userid': '123wily',
-            'secret': 'SECRET',
-        }
-        self.plugin._users['willi'] = {
-            'userid': '123willi',
-            'secret': 'SECRET',
-        }
+        self._make_user('123joe', 'SECRET')
+        self._make_user('123jane', 'SECRET')
+        self._make_user('123wily', 'SECRET')
+        self._make_user('123willi', 'SECRET')
         # check by user id
         self.assertEqual(
-            [{'login': 'joe', 'pluginid': 'authomatic', 'id': '123joe'}],
+            [{'login': '123joe', 'pluginid': 'authomatic', 'id': '123joe'}],
             self.plugin.enumerateUsers(id='123joe', exact_match=True)
         )
         self.assertEqual(
-            [{'login': 'joe', 'pluginid': 'authomatic', 'id': '123joe'}],
+            [{'login': '123joe', 'pluginid': 'authomatic', 'id': '123joe'}],
             self.plugin.enumerateUsers(id='123joe')
         )
         self.assertEqual(
@@ -99,20 +83,20 @@ class TestPlugin(unittest.TestCase):
 
         # check by login
         self.assertEqual(
-            [{'login': 'joe', 'pluginid': 'authomatic', 'id': '123joe'}],
-            self.plugin.enumerateUsers(login='joe', exact_match=True)
+            [{'login': '123joe', 'pluginid': 'authomatic', 'id': '123joe'}],
+            self.plugin.enumerateUsers(login='123joe', exact_match=True)
         )
         self.assertEqual(
-            [{'login': 'joe', 'pluginid': 'authomatic', 'id': '123joe'}],
-            self.plugin.enumerateUsers(login='joe')
-        )
-        self.assertEqual(
-            2,
-            len(self.plugin.enumerateUsers(login='j'))
+            [{'login': '123joe', 'pluginid': 'authomatic', 'id': '123joe'}],
+            self.plugin.enumerateUsers(login='123joe')
         )
         self.assertEqual(
             2,
-            len(self.plugin.enumerateUsers(login='wil'))
+            len(self.plugin.enumerateUsers(login='123j'))
+        )
+        self.assertEqual(
+            2,
+            len(self.plugin.enumerateUsers(login='123wil'))
         )
         # list all!
         self.assertEqual(
@@ -186,35 +170,3 @@ class TestPropertyMapping(unittest.TestCase):
         _add_plugin(self.aclu, 'authomatic')
         self.plugin = self.aclu['authomatic']
 
-    def test_existing_user_attributes(self):
-        user = self._make_one()
-        propmap = self._make_propmap()
-        result = self.plugin._make_sheet(user, propmap)
-        self.assertIsInstance(result, UserPropertySheet)
-        self.assertEqual(
-            result.getProperty('home_page'),
-            u'http://peterhudec.github.io/authomatic/'
-        )
-        self.assertEqual(result.getProperty('fullname'), u'Andrew Pipkin')
-        self.assertEqual(
-            result.getProperty('email'),
-            u'andrewpipkin@foobar.com'
-        )
-
-    def test_provider_specific_user_attributes(self):
-        user = self._make_one()
-        propmap = self._make_propmap()
-        propmap['data'] = {'domain': 'domain'}
-
-        result = self.plugin._make_sheet(user, propmap)
-        self.assertIsInstance(result, UserPropertySheet)
-        self.assertEqual(
-            result.getProperty('home_page'),
-            u'http://peterhudec.github.io/authomatic/'
-        )
-        self.assertEqual(result.getProperty('fullname'), u'Andrew Pipkin')
-        self.assertEqual(
-            result.getProperty('email'),
-            u'andrewpipkin@foobar.com'
-        )
-        self.assertEqual(result.getProperty('domain'), u'foobar.com')

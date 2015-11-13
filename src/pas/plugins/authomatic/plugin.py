@@ -2,9 +2,10 @@
 from AccessControl import ClassSecurityInfo
 from App.class_init import InitializeClass
 from BTrees.OOBTree import OOBTree
+from operator import itemgetter
 from pas.plugins.authomatic.interfaces import IAuthomaticPlugin
-from pas.plugins.authomatic.useridfactories import new_userid
 from pas.plugins.authomatic.useridentities import UserIdentities
+from pas.plugins.authomatic.useridfactories import new_userid
 from plone import api
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.PluggableAuthService.interfaces import plugins as pas_interfaces
@@ -145,12 +146,9 @@ class AuthomaticPlugin(BasePlugin):
         password = credentials.get('password', None)
         if not login or login not in self._useridentities_by_userid:
             return None
-        identities = self._useridentities_by_userid(login)
-        if password != identities.secret:
-            return None
-
-        # ok
-        return login, login
+        identities = self._useridentities_by_userid[login]
+        if identities.check_password(password):
+            return login, login
 
     # ##
     # pas_interfaces.plugins.IPropertiesPlugin
@@ -211,24 +209,16 @@ class AuthomaticPlugin(BasePlugin):
         o Insufficiently-specified criteria may have catastrophic
           scaling issues for some implementations.
         """
-        search_id = id
-        if login:
-            if not isinstance(login, basestring):
-                # XXX TODO
-                raise NotImplementedError('sequence is not supported yet.')
-            kw['login'] = login
-
-        # pas search users gives both login and name if login is meant
-        if "login" in kw and "name" in kw:
-            del kw["name"]
-
+        if id and login and id != login:
+            raise ValueError('plugin does not support id different from login')
+        search_id = id or login
         if search_id:
             if not isinstance(search_id, basestring):
-                raise NotImplementedError('sequence is not supported yet.')
-            kw['id'] = search_id
+                raise NotImplementedError('sequence is not supported.')
+
         pluginid = self.getId()
         ret = list()
-        # shortcut for exact match
+        # shortcut for exact match of login/id
         identity = None
         if (
             exact_match
@@ -236,13 +226,6 @@ class AuthomaticPlugin(BasePlugin):
             and search_id in self._useridentities_by_userid
         ):
             identity = self._useridentities_by_userid[search_id]
-
-        if (
-            exact_match
-            and login
-            and login in self._useridentities_by_userid
-        ):
-            identity = self._useridentities_by_userid[login]
         if identity is not None:
             ret.append({
                 'id': identity.userid.encode('utf8'),
@@ -255,17 +238,16 @@ class AuthomaticPlugin(BasePlugin):
         for userid in self._useridentities_by_userid:
             if search_id and not userid.startswith(search_id):
                 continue
-            if login and not userid.startswith(login):
-                continue
             identity = self._useridentities_by_userid[userid]
             ret.append({
-                'id': identity.userid('utf8'),
+                'id': identity.userid.decode('utf8'),
                 'login': identity.userid,
                 'pluginid': pluginid
             })
-
-        if max_results and len(ret) > max_results:
-            ret = ret[:max_results]
+            if max_results and len(ret) >= max_results:
+                break
+        if sort_by in ['id', 'login']:
+            return sorted(ret, key=itemgetter(sort_by))
         return ret
 
 

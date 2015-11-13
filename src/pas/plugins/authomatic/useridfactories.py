@@ -12,7 +12,7 @@ class BaseUserIDFactory(object):
 
     def normalize(self, plugin, result, userid):
         new_userid = userid
-        counter = 1
+        counter = 2  # first was taken, so logically its second
         while new_userid in plugin._useridentities_by_userid:
             new_userid = '{0}_{1}'.format(userid, counter)
             counter += 1

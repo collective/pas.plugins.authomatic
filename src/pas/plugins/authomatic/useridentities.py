@@ -32,6 +32,9 @@ class UserIdentities(Persistent):
         self._sheet = None
         self._secret = str(uuid.uuid4())
 
+    def check_password(self, password):
+        return password == self._secret
+
     def handle_result(self, result):
         """add a authomatic result to this user
         """
