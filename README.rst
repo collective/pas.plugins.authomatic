@@ -55,7 +55,7 @@ Documentation
             "display": {
                 "title": "Github",
                 "cssclasses": {
-                    "button": "btn btn-default",
+                    "button": "plone-btn plone-btn-default",
                     "icon": "glypicon glyphicon-github"
                 },
                 "as_form": false
@@ -85,7 +85,6 @@ Install pas.plugins.authomatic by adding it to your buildout::
     ...
 
     eggs =
-        authomatic
         pas.plugins.authomatic
 
 

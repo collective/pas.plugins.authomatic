@@ -95,8 +95,13 @@ class IPasPluginsAuthomaticSettings(Interface):
     )
     userid_factory_name = schema.Choice(
         vocabulary="pas.plugins.authomatic.userid_vocabulary",
-        title=u"Generator for Plone usernames to be used",
-        description=u"",
+        title=_(
+            u"Generator for Plone User IDs."
+        ),
+        description=_(
+            u"It is visible if no fullname is mapped and in some rare cases "
+            u"in URLs. It is the identifier used for the user inside Plone."
+        ),
         default='uuid'
     )
     json_config = schema.SourceText(
