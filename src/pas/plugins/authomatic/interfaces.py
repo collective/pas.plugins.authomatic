@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
 from zope import schema
+from zope.component import getUtilitiesFor
 from zope.i18nmessageid import MessageFactory
 from zope.interface import Interface
+from zope.interface import Invalid
+from zope.interface import provider
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
+import json
 import random
 import string
 
@@ -13,6 +20,7 @@ DEFAULT_ID = 'authomatic'
 DEFAULT_CONFIG = u"""\
 {
     "github": {
+        "id": 1,
         "display": {
             "title": "Github",
             "cssclasses": {
@@ -44,8 +52,37 @@ random_secret = u''.join(
 )
 
 
-class IPasPluginsAuthomaticLayer(IDefaultBrowserLayer):
-    """Marker interface that defines a browser layer."""
+def validate_cfg_json(value):
+    """check that we have at least valid json and its a dict
+    """
+    try:
+        jv = json.loads(value)
+    except ValueError as e:
+        raise Invalid(_(
+            'invalid_json',
+            'JSON is not valid, parser complained: ${message}',
+            mapping={'message': e.message}
+        ))
+    if not isinstance(jv, dict):
+        raise Invalid(_(
+            'invalid_cfg_no_dict',
+            'JSON root must be a mapping (dict)',
+        ))
+    if len(jv) < 1:
+        raise Invalid(_(
+            'invalid_cfg_empty_dict',
+            'At least one provider must be configured.',
+        ))
+    return True
+
+
+@provider(IVocabularyFactory)
+def userid_factory_vocabulary(context):
+    items = []
+    for name, factory in getUtilitiesFor(IUserIDFactory):
+        items.append([factory.title, name])
+    items = [SimpleTerm(name, name, title) for title, name in sorted(items)]
+    return SimpleVocabulary(items)
 
 
 class IPasPluginsAuthomaticSettings(Interface):
@@ -56,7 +93,12 @@ class IPasPluginsAuthomaticSettings(Interface):
         required=True,
         default=random_secret,
     )
-
+    userid_factory_name = schema.Choice(
+        vocabulary="pas.plugins.authomatic.userid_vocabulary",
+        title=u"Generator for Plone usernames to be used",
+        description=u"",
+        default='uuid'
+    )
     json_config = schema.SourceText(
         title=_(u"JSON Configuration"),
         description=_(
@@ -68,6 +110,7 @@ class IPasPluginsAuthomaticSettings(Interface):
             u"``propertymap`` are special"
         ),
         required=True,
+        constraint=validate_cfg_json,
         default=DEFAULT_CONFIG,
     )
 
@@ -80,3 +123,16 @@ class IAuthomaticPlugin(Interface):
 
         result is authomatic result data.
         """
+
+
+class IUserIDFactory(Interface):
+    """generates a userid on call
+    """
+
+    def __call__(service_name, service_user_id, raw_user):
+        """returns string, unique amongst plugins userids
+        """
+
+
+class IPasPluginsAuthomaticLayer(IDefaultBrowserLayer):
+    """Marker interface that defines a browser layer."""

@@ -4,6 +4,7 @@ from pas.plugins.authomatic.integration import ZopeRequestAdapter
 from pas.plugins.authomatic.utils import authomatic_cfg
 from plone import api
 from plone.app.layout.navigation.interfaces import INavigationRoot
+from plone.protect.auto import safeWrite
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -91,7 +92,7 @@ class LoginView(BrowserView):
 
         # now we delegate to the PAS plugin to store the information fetched
         aclu = api.portal.get_tool('acl_users')
-        aclu.authomatic.remember(result)
+        safeWrite(aclu.authomatic.remember(result))
         display = cfg[self.provider].get('display', {})
         api.portal.show_message(
             'Logged in with {0}'.format(display.get('title', self.provider)),

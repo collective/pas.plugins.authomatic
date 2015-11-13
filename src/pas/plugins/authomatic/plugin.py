@@ -2,19 +2,18 @@
 from AccessControl import ClassSecurityInfo
 from App.class_init import InitializeClass
 from BTrees.OOBTree import OOBTree
+from operator import itemgetter
 from pas.plugins.authomatic.interfaces import IAuthomaticPlugin
-from pas.plugins.authomatic.utils import authomatic_cfg
-from persistent.dict import PersistentDict
+from pas.plugins.authomatic.useridentities import UserIdentities
+from pas.plugins.authomatic.useridfactories import new_userid
 from plone import api
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.PluggableAuthService.interfaces import plugins as pas_interfaces
 from Products.PluggableAuthService.interfaces.authservice import _noroles
 from Products.PluggableAuthService.plugins.BasePlugin import BasePlugin
-from Products.PluggableAuthService.UserPropertySheet import UserPropertySheet
 from zope.interface import implementer
 import logging
 import os
-import uuid
 
 logger = logging.getLogger(__name__)
 tpl_dir = os.path.join(os.path.dirname(__file__), 'browser')
@@ -58,25 +57,47 @@ class AuthomaticPlugin(BasePlugin):
         self._setId(id)
         self.title = title
         self.plugin_caching = True
-        self._users = OOBTree()
+        self._init_trees()
 
-    def _make_sheet(self, user, propmap):
-        pdata = dict(id=user.id)
-        user_dict = user.to_dict()
+    def _init_trees(self):
+        # (provider_name, provider_userid) -> userid
+        self._userid_by_identityinfo = OOBTree()
 
-        for akey, pkey in propmap.items():
-            # Always search first on the user attributes, then on the raw data
-            # this guaratees we do not break existing configurations
-            ainfo = user_dict.get(akey, user_dict['data'].get(akey, None))
-            if ainfo is not None:
-                if isinstance(pkey, dict):
-                    for k, v in pkey.items():
-                        pdata[k] = ainfo.get(v)
-                else:
-                    pdata[pkey] = ainfo
+        # userid -> userdata
+        self._useridentities_by_userid = OOBTree()
 
-        sheet = UserPropertySheet(**pdata)
-        return sheet
+    @security.private
+    def lookup_identities(self, provider_name, provider_userid):
+        """looks up the UserIdentities by using the provider name and the
+        userid at this provider
+        """
+        userid = self._userid_by_identityinfo.get(
+            (provider_name, provider_userid),
+            None
+        )
+        return self._userid_to_useridentities.get(userid, None)
+
+    @security.private
+    def remember_identity(self, result, userid=None):
+        """stores authomatic result data
+        """
+        if userid is None:
+            # create a new userid
+            userid = new_userid(self, result)
+        if userid not in self._useridentities_by_userid:
+            self._useridentities_by_userid[userid] = UserIdentities(userid)
+        provider_name = result.provider.name
+        provider_userid = result.user.id
+        if (
+            (provider_name, provider_userid) not in
+            self._userid_by_identityinfo
+        ):
+            self._userid_by_identityinfo[
+                (provider_name, provider_userid)
+            ] = userid
+        useridentities = self._useridentities_by_userid[userid]
+        useridentities.handle_result(result)
+        return useridentities
 
     @security.private
     def remember(self, result):
@@ -84,29 +105,13 @@ class AuthomaticPlugin(BasePlugin):
 
         result is authomatic result data.
         """
-        # first fetch service specific user-data
+        # first fetch provider specific user-data
         result.user.update()
-        login = result.user.id
-        userid = result.user.id
-
-        if login not in self._users:
-            # collect data
-            data = PersistentDict()
-            data['secret'] = str(uuid.uuid4())
-            data['userid'] = userid  # XXX maybe something else
-        else:
-            data = self._users[login]
-
-        cfg = authomatic_cfg()
-        provider_cfg = cfg[result.provider.name]
-        propmap = provider_cfg.get('propertymap', {})
-        data['sheet'] = self._make_sheet(result.user, propmap)
-        data['credentials'] = result.user.credentials
-        self._users[login] = data
+        useridentities = self.remember_identity(result)
 
         # login (get new security manager)
         aclu = api.portal.get_tool('acl_users')
-        user = aclu._findUser(aclu.plugins, data['userid'])
+        user = aclu._findUser(aclu.plugins, useridentities.userid)
         accessed, container, name, value = aclu._getObjectContext(
             self.REQUEST['PUBLISHED'],
             self.REQUEST
@@ -121,12 +126,13 @@ class AuthomaticPlugin(BasePlugin):
         )
 
         # do login post-processing
-        self.REQUEST['__ac_password'] = data['secret']
+        self.REQUEST['__ac_password'] = useridentities.secret
         mt = api.portal.get_tool('portal_membership')
         mt.loginUser(self.REQUEST)
 
     # ##
     # pas_interfaces.IAuthenticationPlugin
+
     @security.public
     def authenticateCredentials(self, credentials):
         """ credentials -> (userid, login)
@@ -138,33 +144,24 @@ class AuthomaticPlugin(BasePlugin):
         """
         login = credentials.get('login', None)
         password = credentials.get('password', None)
-        if not login or login not in self._users:
+        if not login or login not in self._useridentities_by_userid:
             return None
-        if password != self._users[login].get('secret', _marker):
-            return None
-
-        # this delegates refresh to authomatic
-        rf_credentials = self._users[login]['credentials'].refresh()
-        if rf_credentials is not None:
-            # refreshed, happens rarely
-            self._users[login]['credentials'] = credentials
-
-            # XXX need to check if login was still valid
-            # eventually invalidate users credentials if so.
-            # and return None
-
-        # ok
-        return self._users[login]['userid'], login
+        identities = self._useridentities_by_userid[login]
+        if identities.check_password(password):
+            return login, login
 
     # ##
     # pas_interfaces.plugins.IPropertiesPlugin
-    # XXX security??
 
+    @security.private
     def getPropertiesForUser(self, user, request=None):
-        data = self._users.get(user.getId(), _marker)
-        if data is _marker:
+        identity = self._useridentities_by_userid.get(
+            user.getId(),
+            _marker
+        )
+        if identity is _marker:
             return None
-        return data['sheet']
+        return identity.propertysheet
 
     # ##
     # pas_interfaces.plugins.IUserEnumaration
@@ -212,42 +209,45 @@ class AuthomaticPlugin(BasePlugin):
         o Insufficiently-specified criteria may have catastrophic
           scaling issues for some implementations.
         """
-        search_id = id
-        if login:
-            if not isinstance(login, basestring):
-                # XXX TODO
-                raise NotImplementedError('sequence is not supported yet.')
-            kw['login'] = login
-
-        # pas search users gives both login and name if login is meant
-        if "login" in kw and "name" in kw:
-            del kw["name"]
-
+        if id and login and id != login:
+            raise ValueError('plugin does not support id different from login')
+        search_id = id or login
         if search_id:
             if not isinstance(search_id, basestring):
-                raise NotImplementedError('sequence is not supported yet.')
-            kw['id'] = search_id
+                raise NotImplementedError('sequence is not supported.')
+
         pluginid = self.getId()
         ret = list()
-        for login_entry in self._users:
-            data = self._users[login_entry]
-            if exact_match:
-                if search_id and data['userid'] != search_id:
-                    continue
-                if login and login_entry != login:
-                    continue
-            else:
-                if search_id and not data['userid'].startswith(search_id):
-                    continue
-                if login and not login_entry.startswith(login):
-                    continue
+        # shortcut for exact match of login/id
+        identity = None
+        if (
+            exact_match
+            and search_id
+            and search_id in self._useridentities_by_userid
+        ):
+            identity = self._useridentities_by_userid[search_id]
+        if identity is not None:
             ret.append({
-                'id': data['userid'].encode('utf8'),
-                'login': login_entry,
-                'pluginid': pluginid}
-            )
-        if max_results and len(ret) > max_results:
-            ret = ret[:max_results]
+                'id': identity.userid.encode('utf8'),
+                'login': identity.userid.encode('utf8'),
+                'pluginid': pluginid
+            })
+            return ret
+
+        # non exact expensive search
+        for userid in self._useridentities_by_userid:
+            if search_id and not userid.startswith(search_id):
+                continue
+            identity = self._useridentities_by_userid[userid]
+            ret.append({
+                'id': identity.userid.decode('utf8'),
+                'login': identity.userid,
+                'pluginid': pluginid
+            })
+            if max_results and len(ret) >= max_results:
+                break
+        if sort_by in ['id', 'login']:
+            return sorted(ret, key=itemgetter(sort_by))
         return ret
 
 
