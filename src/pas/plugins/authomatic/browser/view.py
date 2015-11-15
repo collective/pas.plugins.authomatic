@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from authomatic import Authomatic
 from pas.plugins.authomatic.integration import ZopeRequestAdapter
+from pas.plugins.authomatic.interfaces import _
 from pas.plugins.authomatic.utils import authomatic_cfg
 from pas.plugins.authomatic.utils import authomatic_settings
 from plone import api
@@ -49,15 +50,9 @@ class AuthomaticView(BrowserView):
             yield record
 
     def __call__(self):
-        if not api.user.is_anonymous():
-            api.portal.show_message(
-                'You are already logged in!',
-                self.request,
-                'error'
-            )
-            self.request.response.redirect(self.context.absolute_url())
-            return "redirecting"
-
+        cfg = authomatic_cfg()
+        if cfg is None:
+            return "Authomatic is not configured"
         if not (
             ISiteRoot.providedBy(self.context)
             or INavigationRoot.providedBy(self.context)
@@ -74,11 +69,14 @@ class AuthomaticView(BrowserView):
             return "redirecting"
         if not hasattr(self, 'provider'):
             return self.template()
-        cfg = authomatic_cfg()
-        if cfg is None:
-            return "Authomatic is not configured"
         if self.provider not in cfg:
             return "Provider not supported"
+        if not api.user.is_anonymous():
+            # TODO: check if requested provider is already connected and
+            #       fail if so
+            # TODO: some sort of CSRF check might be needed, so that
+            #       not an account got connected by CSRF. Research needed.
+            pass
         auth = Authomatic(
             cfg,
             secret=authomatic_settings().secret.encode('utf8')
@@ -93,16 +91,35 @@ class AuthomaticView(BrowserView):
             return
         if result.error:
             return result.error.message
-
-        # now we delegate to the PAS plugin to store the information fetched
-        aclu = api.portal.get_tool('acl_users')
-        safeWrite(aclu.authomatic.remember(result))
         display = cfg[self.provider].get('display', {})
-        api.portal.show_message(
-            'Logged in with {0}'.format(display.get('title', self.provider)),
-            self.request
-        )
-        self.request.response.redirect(
-            "{0}/login_success".format(self.context.absolute_url())
-        )
+        aclu = api.portal.get_tool('acl_users')
+        if not api.user.is_anonymous():
+            # now we delegate to PAS plugin to add the identity
+            safeWrite(aclu.authomatic.remember_identity(result))
+            api.portal.show_message(
+                _(
+                    'added_identity'
+                    'Added identity provided by ${provider}',
+                    mapping={'provider': display.get('title', self.provider)}
+                ),
+                self.request
+            )
+            self.request.response.redirect(
+                "{0}".format(self.context.absolute_url())
+            )
+        else:
+            # now we delegate to PAS plugin to login
+            safeWrite(aclu.authomatic.remember(result))
+            display = cfg[self.provider].get('display', {})
+            api.portal.show_message(
+                _(
+                    'logged_in_with'
+                    'Logged in with ${provider}',
+                    mapping={'provider': display.get('title', self.provider)}
+                ),
+                self.request
+            )
+            self.request.response.redirect(
+                "{0}/login_success".format(self.context.absolute_url())
+            )
         return "redirecting"

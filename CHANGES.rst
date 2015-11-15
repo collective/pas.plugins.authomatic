@@ -4,7 +4,10 @@ Changelog
 1.0a3 (unreleased)
 ------------------
 
-- Fix: user secret from settings as secret for Authomatic.
+- Refacor authomatic-handler to enable it adding identities.
+  [jensens]
+
+- Fix: use secret from settings as secret for Authomatic.
   [jensens]
 
 - Renamed view ``authomatic-login`` to ``authomatic-handler``, because this
