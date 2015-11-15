@@ -24,7 +24,7 @@ class ZopeRequestAdapter(BaseAdapter):
     def url(self):
         url = (
             self.view.context.absolute_url() +
-            '/authomatic-login/' +
+            '/authomatic-handler/' +
             self.view.provider
         )
         logger.debug('url' + url)

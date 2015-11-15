@@ -10,7 +10,7 @@
 
                 <a tal:condition="not:provider/as_form"
                    tal:attributes="class string:${provider/buttonclasses};
-                                   href string:${context/absolute_url}/@@authomatic-login/${provider/identifier}">
+                                   href string:${context/absolute_url}/@@authomatic-handler/${provider/identifier}">
                     <span tal:attributes="class string:${provider/iconclasses}"></span>
                     <span tal:content="provider/title">
                         name of oauth provider
@@ -18,8 +18,8 @@
                 </a>
 
                 <form tal:condition="provider/as_form"
-                      tal:attributes="action string:${context/absolute_url}/@@authomatic-login/${provider/identifier};"
-                      class="authomatic-login-form">
+                      tal:attributes="action string:${context/absolute_url}/@@authomatic-handler/${provider/identifier};"
+                      class="authomatic-handler-form">
                     <input
                         type="text"
                         placeholder="Your claimed ID"

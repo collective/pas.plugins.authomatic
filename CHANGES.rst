@@ -4,7 +4,13 @@ Changelog
 1.0a3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix: user secret from settings as secret for Authomatic.
+  [jensens]
+
+- Renamed view ``authomatic-login`` to ``authomatic-handler``, because this
+  view will be used to add an identity too (url must be registered on provider
+  side sometimes and we want to do this only once).
+  [jensens]
 
 
 1.0a2 (2015-11-14)
@@ -14,7 +20,7 @@ Changelog
   [jensens]
 
 - Make the whole ``remember`` procedure a ``safeWrite`` if called from login
-  view. we can not pass a authenticator token here, because of redirects and
+  view. Wqe can not pass a authenticator token here, because of redirects and
   expected return urls .
   [jensens]
 

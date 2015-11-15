@@ -4,7 +4,7 @@
   <records interface="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticSettings" />
 
   <record name="plone.external_login_url">
-    <value>authomatic-login</value>
+    <value>authomatic-handler</value>
   </record>
 
   <records

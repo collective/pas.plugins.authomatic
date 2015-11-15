@@ -45,8 +45,9 @@ OpenID
 Documentation
 -------------
 
-- This package will create a view called ``authomatic-login`` where you can login with different providers
-- The provider is choosen in the URL so if you call ``/authomatic-login/PROVIDER`` you will use PROVIDER to login
+- This package will create a view called ``authomatic-handler`` where you can login with different providers
+- The view can be used as well to add an identity from a provider to an existing account
+- The provider is choosen in the URL so if you call ``/authomatic-handler/PROVIDER`` you will use PROVIDER to login
 - You can set the JSON configuration of the plugin in the Controlpanel ``@@authomatic-controlpanel`` (linked under users)
 - Example JSON configuration (first level key is the PROVIDER::
 

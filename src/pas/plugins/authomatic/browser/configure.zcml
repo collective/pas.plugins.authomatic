@@ -22,10 +22,10 @@
 
   <!-- Login -->
   <browser:page
-      class=".login.LoginView"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".view.AuthomaticView"
+      for="*"
       layer="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticLayer"
-      name="authomatic-login"
+      name="authomatic-handler"
       permission="zope2.View"
   />
 </configure>

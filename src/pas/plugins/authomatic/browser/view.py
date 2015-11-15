@@ -2,6 +2,7 @@
 from authomatic import Authomatic
 from pas.plugins.authomatic.integration import ZopeRequestAdapter
 from pas.plugins.authomatic.utils import authomatic_cfg
+from pas.plugins.authomatic.utils import authomatic_settings
 from plone import api
 from plone.app.layout.navigation.interfaces import INavigationRoot
 from plone.protect.auto import safeWrite
@@ -16,9 +17,9 @@ logger = logging.getLogger(__file__)
 
 
 @implementer(IPublishTraverse)
-class LoginView(BrowserView):
+class AuthomaticView(BrowserView):
 
-    template = ViewPageTemplateFile('login.pt')
+    template = ViewPageTemplateFile('authomatic.pt')
 
     def publishTraverse(self, request, name):
         if name and not hasattr(self, 'provider'):
@@ -65,7 +66,7 @@ class LoginView(BrowserView):
             # so bevor going on redirect
             root = api.portal.get_navigation_root(self.context)
             self.request.response.redirect(
-                "{0}/authomatic-login/{1}".format(
+                "{0}/authomatic-handler/{1}".format(
                     root.absolute_url(),
                     getattr(self, 'provider', '')
                 )
@@ -78,7 +79,10 @@ class LoginView(BrowserView):
             return "Authomatic is not configured"
         if self.provider not in cfg:
             return "Provider not supported"
-        auth = Authomatic(cfg, secret="very secret")
+        auth = Authomatic(
+            cfg,
+            secret=authomatic_settings().secret.encode('utf8')
+        )
         result = auth.login(
             ZopeRequestAdapter(self),
             self.provider
