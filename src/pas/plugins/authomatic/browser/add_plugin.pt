@@ -1,16 +1,16 @@
 <h1 tal:replace="structure here/manage_page_header">Header</h1>
 
-<h2> Add Authomatic plugin</h2>
+<h2>Add Authomatic plugin</h2>
 
 <p class="form-help">
-Adds the pas.plugin.memberpropertiestogroup plugin.
+Adds the pas.plugin.authomatic plugin.
 </p>
 
 <form action="manage_addAuthomaticPlugin" method="POST">
     <table>
         <tr>
            <td class="form-label"> Id </td>
-           <td> <input type="text" name="id" /> </td>
+           <td> <input type="hidden" name="id" value="authomatic"/> </td>
         </tr>
         <tr>
            <td class="form-label"> Title </td>

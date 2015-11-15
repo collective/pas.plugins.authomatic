@@ -4,7 +4,7 @@ Changelog
 1.0a3 (unreleased)
 ------------------
 
-- Refacor authomatic-handler to enable it adding identities.
+- Refacor authomatic-handler to enable adding identities.
   [jensens]
 
 - Fix: use secret from settings as secret for Authomatic.
@@ -23,7 +23,7 @@ Changelog
   [jensens]
 
 - Make the whole ``remember`` procedure a ``safeWrite`` if called from login
-  view. Wqe can not pass a authenticator token here, because of redirects and
+  view. We can not pass a authenticator token here, because of redirects and
   expected return urls .
   [jensens]
 
