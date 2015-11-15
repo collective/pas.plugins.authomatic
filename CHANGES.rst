@@ -4,7 +4,7 @@ Changelog
 1.0a3 (unreleased)
 ------------------
 
-- Refacor authomatic-handler to enable adding identities.
+- Refactor authomatic-handler to enable adding identities.
   [jensens]
 
 - Fix: use secret from settings as secret for Authomatic.
