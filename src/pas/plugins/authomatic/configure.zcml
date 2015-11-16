@@ -17,12 +17,27 @@
   <include package=".browser" />
 
   <genericsetup:registerProfile
-      description="Installs the pas.plugins.authomatic add-on."
+      description=""
       directory="profiles/default"
       name="default"
       provides="Products.GenericSetup.interfaces.EXTENSION"
-      title="Authomatic: Login with OAuth/OpenID 3rd party authn providers."
+      title="Authomatic: Login with OAuth/OpenID 3rd party auth providers."
   />
+  <genericsetup:registerProfile
+      description="Installs the pas.plugins.authomatic add-on (Plone 5)"
+      directory="profiles/plone5"
+      name="plone5"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      title="Authomatic: Login with OAuth/OpenID 3rd party auth providers."
+  />
+  <genericsetup:registerProfile
+      description="Installs the pas.plugins.authomatic add-on (Plone 4)"
+      directory="profiles/plone4"
+      name="plone4"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      title="Authomatic: Login with OAuth/OpenID 3rd party auth providers."
+  />
+
   <utility
     component=".interfaces.userid_factory_vocabulary"
     name="pas.plugins.authomatic.userid_vocabulary"
