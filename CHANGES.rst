@@ -4,8 +4,12 @@ Changelog
 1.0a4 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Restored Plone 4 compatibility
+  [keul] 
+- Added italian translation
+  [keul]
+- Proper uninstall
+  [keul]
 
 1.0a3 (2015-11-15)
 ------------------
