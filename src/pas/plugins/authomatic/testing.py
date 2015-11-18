@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from Products.GenericSetup.upgrade import normalize_version
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
@@ -10,6 +9,7 @@ from plone.protect import auto
 from plone.testing import Layer
 from plone.testing import z2
 from Products.CMFCore.interfaces import ISiteRoot
+from Products.CMFPlone.utils import getFSVersionTuple
 from zope.component import provideUtility
 import pas.plugins.authomatic
 
@@ -101,10 +101,8 @@ class PasPluginsAuthomaticPloneLayer(PloneSandboxLayer):
         auto.CSRF_DISABLED = ORIGINAL_CSRF_DISABLED
 
     def setUpPloneSite(self, portal):
-        version = normalize_version(
-            portal.portal_migration.getFileSystemVersion()
-        ).base_version
-        if int(version) < 5000:
+        version = getFSVersionTuple()[0]
+        if version < 5:
             applyProfile(portal, 'pas.plugins.authomatic:plone4')
         else:
             applyProfile(portal, 'pas.plugins.authomatic:plone5')

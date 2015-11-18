@@ -1,17 +1,14 @@
 import logging
-from Products.GenericSetup.upgrade import normalize_version
 
+from Products.CMFPlone.utils import getFSVersionTuple
 logger = logging.getLogger('pas.plugins.authomatic')
 
 
 def install(portal, reinstall=False):
     setup_tool = portal.portal_setup
-    portal_migration = portal.portal_migration
-    version = normalize_version(
-        portal_migration.getFileSystemVersion()
-    ).base_version
+    version = getFSVersionTuple()[0]
 
-    if int(version) < 5000:
+    if version < 5:
         setup_tool.runAllImportStepsFromProfile(
             'profile-pas.plugins.authomatic:plone4')
     else:
