@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
+from Products.GenericSetup.upgrade import normalize_version
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
+from plone.protect import auto
 from plone.testing import Layer
 from plone.testing import z2
 from Products.CMFCore.interfaces import ISiteRoot
 from zope.component import provideUtility
-
 import pas.plugins.authomatic
+
+ORIGINAL_CSRF_DISABLED = auto.CSRF_DISABLED
+
 
 try:
     # plone 5.x with PlonePAS >=5.0
@@ -89,11 +93,21 @@ class PasPluginsAuthomaticPloneLayer(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
+        auto.CSRF_DISABLED = True
         self.loadZCML(package=pas.plugins.authomatic)
         z2.installProduct(app, 'pas.plugins.authomatic')
 
+    def tearDownZope(self, app):
+        auto.CSRF_DISABLED = ORIGINAL_CSRF_DISABLED
+
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'pas.plugins.authomatic:default')
+        version = normalize_version(
+            portal.portal_migration.getFileSystemVersion()
+        ).base_version
+        if int(version) < 5000:
+            applyProfile(portal, 'pas.plugins.authomatic:plone4')
+        else:
+            applyProfile(portal, 'pas.plugins.authomatic:plone5')
 
 
 PAS_PLUGINS_Authomatic_PLONE_FIXTURE = PasPluginsAuthomaticPloneLayer()

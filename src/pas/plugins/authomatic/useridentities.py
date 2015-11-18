@@ -5,6 +5,9 @@ from persistent import Persistent
 from persistent.dict import PersistentDict
 from Products.PluggableAuthService.UserPropertySheet import UserPropertySheet
 import uuid
+import logging
+
+logger = logging.getLogger('pas.plugins.authomatic')
 
 
 class UserIdentity(PersistentDict):
@@ -61,6 +64,7 @@ class UserIdentities(Persistent):
             identity = self.identity(provider_name)
             if identity is None:
                 continue
+            logger.debug(identity)
             cfg = cfgs_providers[provider_name]
             for akey, pkey in cfg.get('propertymap', {}).items():
                 # Always search first on the user attributes, then on the raw

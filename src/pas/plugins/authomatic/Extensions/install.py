@@ -1,16 +1,14 @@
-from Products.GenericSetup.upgrade import normalize_version
-
 import logging
+from Products.GenericSetup.upgrade import normalize_version
 
 logger = logging.getLogger('pas.plugins.authomatic')
 
 
 def install(portal, reinstall=False):
     setup_tool = portal.portal_setup
-    portal_migrations = portal.portal_migration
-    versions = portal_migrations.coreVersions()
+    portal_migration = portal.portal_migration
     version = normalize_version(
-        portal_migrations.getFileSystemVersion()
+        portal_migration.getFileSystemVersion()
     ).base_version
 
     if int(version) < 5000:

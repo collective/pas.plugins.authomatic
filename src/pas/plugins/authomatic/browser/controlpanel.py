@@ -8,7 +8,7 @@ class AuthomaticSettingsEditForm(controlpanel.RegistryEditForm):
 
     schema = IPasPluginsAuthomaticSettings
     label = _(u"PAS Authomatic Plugin Settings")
-    description = _(u"")
+    description = u""
 
     def updateFields(self):
         super(AuthomaticSettingsEditForm, self).updateFields()

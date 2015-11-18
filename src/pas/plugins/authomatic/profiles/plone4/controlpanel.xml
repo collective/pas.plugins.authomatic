@@ -2,11 +2,11 @@
 <object
     name="portal_controlpanel"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    i18n:domain="collective.authomatic"
+    i18n:domain="pas.plugins.authomatic"
     purge="False">
 
     <configlet
-        title="Authomatic"
+        title="PAS Authomatic Plugin Settings"
         action_id="authomatic"
         appId="pas.plugins.authomatic"
         category="Products"
