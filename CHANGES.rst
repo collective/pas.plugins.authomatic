@@ -6,8 +6,10 @@ Changelog
 
 - Restored Plone 4 compatibility
   [keul] 
+
 - Added italian translation
   [keul]
+
 - Proper uninstall
   [keul]
 
