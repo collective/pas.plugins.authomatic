@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0a4 (unreleased)
+1.0a4 (2015-11-20)
 ------------------
 
 - Added german translation
