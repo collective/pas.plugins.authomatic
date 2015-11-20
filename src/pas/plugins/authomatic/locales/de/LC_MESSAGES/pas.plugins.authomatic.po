@@ -1,0 +1,101 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2015-11-20 08:51+0000\n"
+"PO-Revision-Date: 2015-11-12 12:20+0000\n"
+"Last-Translator: Jens Klein <jens@bluedynamics.com>\n"
+"Language-Team: BlueDynamics Alliance <dev@bluedynamics.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Code: de\n"
+"Language-Name: Deutsch\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"X-Is-Fallback-For: de-at de-li de-lu de-ch de-de\n"
+
+msgid "Authomatic PAS Plugin"
+msgstr "Authomatic PAS Plugin"
+
+msgid "Authomatic: Login with OAuth/OpenID 3rd party auth providers."
+msgstr "Authomatic: Anmeldung über OAuth/OpenID Drittanbieter für Authentifizierung"
+
+#: ../interfaces.py:99
+msgid "Generator for Plone User IDs."
+msgstr "Generator für Plone User-Ids."
+
+#: ../interfaces.py:109
+msgid "JSON configuration"
+msgstr "JSON Konfiguration"
+
+#: ../browser/controlpanel.py:10
+#: ../profiles/plone4/controlpanel.xml
+#: ../profiles/plone5/controlpanel.xml
+msgid "PAS Authomatic Plugin Settings"
+msgstr "Einstellungen für das PAS Authomatic Plugin"
+
+#: ../useridfactories.py:40
+msgid "Provider Login"
+msgstr "Login des Anbieters"
+
+#: ../useridfactories.py:32
+msgid "Provider User ID"
+msgstr "User ID des Anbieters"
+
+#: ../interfaces.py:91
+msgid "Secret"
+msgstr "Geheimes Wort"
+
+#: ../useridfactories.py:24
+msgid "UUID as User ID"
+msgstr "UUID als User-ID"
+
+#. Default: "Added identity provided by ${provider}"
+#: ../browser/view.py:100
+msgid "added_identity"
+msgstr "Indentität über den Anbieter ${provider} hinzugefügt"
+
+#. Default: "Configuration parameters for the different authorization providers. Details at http://peterhudec.github.io/authomatic/reference/providers.html - difference: 'class_' has to be a string, which is then resolved as a dotted path. Also sections ``display`` and ``propertymap`` are special"
+#: ../interfaces.py:110
+msgid "help_json_config"
+msgstr ""
+"Einstellungs-Parameter für die verschiedenen Authorisierungs-Anbieter.\n"
+"Details auf der Seite http://peterhudec.github.io/authomatic/reference/providers.html - Unterschiede: 'class_' muss eine Zeichenfolge sein, diese wird dann als Punkt-Pfad zu einer Klasse aufgelöst. Die Abteilungen ``display`` und ``propertymap`` sind speziell."
+
+#. Default: "Some random string used to encrypt the state"
+#: ../interfaces.py:92
+msgid "help_secret"
+msgstr "Ein Zufalls-String, der zur Verschlüsselung des 'State' verwendet wird."
+
+#. Default: "It is visible if no fullname is mapped and in some rare cases in URLs. It is the identifier used for the user inside Plone."
+#: ../interfaces.py:100
+msgid "help_userid_factory_name"
+msgstr ""
+"Die User-Id ist sichtbar, wenn kein 'fullname' zugewiesen wurde und in einigen seltenen Fällen in der URL.\n"
+"Innerhalb von Plone wird sie zur zur Identifikation herangezogen."
+
+#. Default: "At least one provider must be configured."
+#: ../interfaces.py:72
+msgid "invalid_cfg_empty_dict"
+msgstr "Mindestens ein Anbieter muss konfiguriert werden."
+
+#. Default: "JSON root must be a mapping (dict)"
+#: ../interfaces.py:67
+msgid "invalid_cfg_no_dict"
+msgstr "Die JSON Wurzel muss ein Mapping (Schlüssel zu Wert) sein."
+
+#. Default: "JSON is not valid, parser complained: ${message}"
+#: ../interfaces.py:61
+msgid "invalid_json"
+msgstr "Das JSON ist nicht gültig, der Parser meldet: {$message}"
+
+#. Default: "Logged in with ${provider}"
+#: ../browser/view.py:115
+msgid "logged_in_with"
+msgstr "Eingeloggt mit ${provider}"
+
+#. Default: "Log in using external authenticaton providers"
+#: ../browser/authomatic.pt:8
+msgid "login_title"
+msgstr "Einloggen mit einem externem Authentifizierungs-Anbieter"
+

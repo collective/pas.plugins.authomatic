@@ -4,6 +4,9 @@ Changelog
 1.0a4 (unreleased)
 ------------------
 
+- Added german translation
+  [jensens]
+
 - Restored Plone 4 compatibility
   [keul] 
 
