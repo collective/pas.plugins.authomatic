@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-11-18 08:14+0000\n"
+"POT-Creation-Date: 2015-11-20 08:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,8 @@ msgid "JSON configuration"
 msgstr ""
 
 #: ../browser/controlpanel.py:10
+#: ../profiles/plone4/controlpanel.xml
+#: ../profiles/plone5/controlpanel.xml
 msgid "PAS Authomatic Plugin Settings"
 msgstr ""
 
@@ -58,7 +60,7 @@ msgstr ""
 msgid "help_json_config"
 msgstr ""
 
-#. Default: "Some random string used to encrypt the state."
+#. Default: "Some random string used to encrypt the state"
 #: ../interfaces.py:92
 msgid "help_secret"
 msgstr ""

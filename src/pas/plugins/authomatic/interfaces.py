@@ -90,7 +90,7 @@ class IPasPluginsAuthomaticSettings(Interface):
     secret = schema.TextLine(
         title=_(u"Secret"),
         description=_('help_secret',
-                      default=u"Some random string used to encrypt the state."),
+                      default=u"Some random string used to encrypt the state"),
         required=True,
         default=random_secret,
     )
@@ -99,9 +99,9 @@ class IPasPluginsAuthomaticSettings(Interface):
         title=_(u"Generator for Plone User IDs."),
         description=_(
             "help_userid_factory_name",
-            default=u"It is visible if no fullname is mapped and in some rare "
-                    u"cases in URLs. It is the identifier used for the user "
-                    u"inside Plone."
+            default=u"It is visible if no fullname is mapped and in some "
+                    u"rare cases in URLs. It is the identifier used for "
+                    u"the user inside Plone."
         ),
         default='uuid'
     )
@@ -109,13 +109,13 @@ class IPasPluginsAuthomaticSettings(Interface):
         title=_(u"JSON configuration"),
         description=_(
             'help_json_config',
-            default=u"Configuration parameters for the different authorization "
-                    u"providers. Details at "
+            default=u"Configuration parameters for the different "
+                    u"authorization providers. Details at "
                     u"http://peterhudec.github.io/authomatic/reference/"
                     u"providers.html "
-                    u"- difference: 'class_' has to be a string, which is then "
-                    u"resolved as a dotted path. Also sections ``display`` and "
-                    u"``propertymap`` are special"
+                    u"- difference: 'class_' has to be a string, which is "
+                    u"then resolved as a dotted path. Also sections "
+                    u"``display`` and ``propertymap`` are special"
         ),
         required=True,
         constraint=validate_cfg_json,

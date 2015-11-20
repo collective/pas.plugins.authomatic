@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-11-18 08:14+0000\n"
+"POT-Creation-Date: 2015-11-20 08:51+0000\n"
 "PO-Revision-Date: 2015-11-18 08:53+0000\n"
 "Last-Translator: keul <luca.fabbri@abstract.it>\n"
 "Language-Team: Abstract Open Solutions <team@abstract.it>\n"
@@ -30,6 +30,8 @@ msgid "JSON configuration"
 msgstr "Configurazione JSON"
 
 #: ../browser/controlpanel.py:10
+#: ../profiles/plone4/controlpanel.xml
+#: ../profiles/plone5/controlpanel.xml
 msgid "PAS Authomatic Plugin Settings"
 msgstr "Impostazioni del Plugin PAS Authomatic"
 
@@ -59,13 +61,12 @@ msgstr "Aggiunta identità fornita da ${provider}"
 msgid "help_json_config"
 msgstr ""
 "Parametri di configurazione per i diversi authorization providers.\n"
-"Dettagli all'indirizzo http://peterhudec.github.io/authomatic/reference/providers.html "
-" - differenze: 'class_' deve essere una stringa , che sarà risolta come dotted path. In più le sezioni ``display`` e ``propertymap`` sono speciali"
+"Dettagli all'indirizzo http://peterhudec.github.io/authomatic/reference/providers.html  - differenze: 'class_' deve essere una stringa , che sarà risolta come dotted path. In più le sezioni ``display`` e ``propertymap`` sono speciali"
 
-#. Default: "Some random string used to encrypt the state."
+#. Default: "Some random string used to encrypt the state"
 #: ../interfaces.py:92
 msgid "help_secret"
-msgstr "Una stringa casuale usata per criptare lo stato."
+msgstr "Una stringa casuale usata per criptare lo stato"
 
 #. Default: "It is visible if no fullname is mapped and in some rare cases in URLs. It is the identifier used for the user inside Plone."
 #: ../interfaces.py:100
@@ -98,3 +99,4 @@ msgstr "Autenticato con ${provider}"
 #: ../browser/authomatic.pt:8
 msgid "login_title"
 msgstr "Autenticazione usando servizi di terze parti"
+

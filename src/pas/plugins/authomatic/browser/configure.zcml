@@ -10,12 +10,12 @@
       directory="resources"
       name="pas.plugins.authomatic"
       type="plone"
-      zcml:condition="have plone50"
+      zcml:condition="have plone-5"
   />
   <browser:resourceDirectory
       directory="resources"
       name="pas.plugins.authomatic"
-      zcml:condition="not-have plone50"
+      zcml:condition="not-have plone-5"
   />
 
   <!-- Control panel -->
