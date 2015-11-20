@@ -89,30 +89,33 @@ class IPasPluginsAuthomaticSettings(Interface):
 
     secret = schema.TextLine(
         title=_(u"Secret"),
-        description=_(u"Some random string used to encrypt the state."),
+        description=_('help_secret',
+                      default=u"Some random string used to encrypt the state"),
         required=True,
         default=random_secret,
     )
     userid_factory_name = schema.Choice(
         vocabulary="pas.plugins.authomatic.userid_vocabulary",
-        title=_(
-            u"Generator for Plone User IDs."
-        ),
+        title=_(u"Generator for Plone User IDs."),
         description=_(
-            u"It is visible if no fullname is mapped and in some rare cases "
-            u"in URLs. It is the identifier used for the user inside Plone."
+            "help_userid_factory_name",
+            default=u"It is visible if no fullname is mapped and in some "
+                    u"rare cases in URLs. It is the identifier used for "
+                    u"the user inside Plone."
         ),
         default='uuid'
     )
     json_config = schema.SourceText(
-        title=_(u"JSON Configuration"),
+        title=_(u"JSON configuration"),
         description=_(
-            u"Configuration parameters for the different authorization "
-            u"providers. Details at "
-            u"http://peterhudec.github.io/authomatic/reference/providers.html"
-            u" - difference: 'class_' has to be a string, which is then "
-            u"resolved as a dotted path. Also sections ``display`` and "
-            u"``propertymap`` are special"
+            'help_json_config',
+            default=u"Configuration parameters for the different "
+                    u"authorization providers. Details at "
+                    u"http://peterhudec.github.io/authomatic/reference/"
+                    u"providers.html "
+                    u"- difference: 'class_' has to be a string, which is "
+                    u"then resolved as a dotted path. Also sections "
+                    u"``display`` and ``propertymap`` are special"
         ),
         required=True,
         constraint=validate_cfg_json,

@@ -98,8 +98,8 @@ class AuthomaticView(BrowserView):
             safeWrite(aclu.authomatic.remember_identity(result))
             api.portal.show_message(
                 _(
-                    'added_identity'
-                    'Added identity provided by ${provider}',
+                    'added_identity',
+                    default='Added identity provided by ${provider}',
                     mapping={'provider': display.get('title', self.provider)}
                 ),
                 self.request
@@ -113,7 +113,7 @@ class AuthomaticView(BrowserView):
             display = cfg[self.provider].get('display', {})
             api.portal.show_message(
                 _(
-                    'logged_in_with'
+                    'logged_in_with',
                     'Logged in with ${provider}',
                     mapping={'provider': display.get('title', self.provider)}
                 ),

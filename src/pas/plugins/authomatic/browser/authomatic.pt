@@ -1,10 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
+      i18n:domain="pas.plugins.authomatic"
       metal:use-macro="context/main_template/macros/master">
 
     <metal:block fill-slot="main">
-        <p>Log in using external authenticaton providers.</p>
+        <h1 i18n:translate="login_title">Log in using external authenticaton providers</h1>
         <ul>
             <li tal:repeat="provider view/providers">
 

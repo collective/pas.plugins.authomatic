@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<registry>
+
+  <record name="plone.external_login_url">
+    <value>authomatic-handler</value>
+  </record>
+
+  <records
+      interface="Products.CMFPlone.interfaces.IResourceRegistry"
+      prefix="plone.resources/pas-plugins-authomatic">
+    <value key="css">
+      <element>++plone++pas.plugins.authomatic/authomatic.less</element>
+    </value>
+  </records>
+
+  <records
+      interface="Products.CMFPlone.interfaces.IBundleRegistry"
+      prefix="plone.bundles/authomatic-addon">
+    <value key="resources">
+      <element>pas-plugins-authomatic</element>
+    </value>
+    <value key="enabled">True</value>
+    <value key="compile">True</value>
+    <value key="csscompilation">++plone++pas.plugins.authomatic/authomatic.css</value>
+  </records>
+
+</registry>

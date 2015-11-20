@@ -1,0 +1,36 @@
+<configure
+    i18n_domain="pas.plugins.authomatic"
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n">
+
+  <genericsetup:registerProfile
+      description="Authomatic: Login with OAuth/OpenID 3rd party auth providers."
+      directory="profiles/default"
+      name="default"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      title="Authomatic PAS Plugin"
+  />
+  <genericsetup:registerProfile
+      description="Installs the pas.plugins.authomatic add-on (Plone 5)"
+      directory="profiles/plone5"
+      name="plone5"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      title="Authomatic PAS Plugin"
+  />
+  <genericsetup:registerProfile
+      description="Installs the pas.plugins.authomatic add-on (Plone 4)"
+      directory="profiles/plone4"
+      name="plone4"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      title="Authomatic PAS Plugin"
+  />
+    <genericsetup:registerProfile
+        description=""
+        directory="profiles/uninstall"
+        name="uninstall"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        title="Authomatic PAS Plugin: remove"
+    />
+
+</configure>
