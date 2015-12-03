@@ -6,13 +6,15 @@ from pas.plugins.authomatic.utils import authomatic_cfg
 from pas.plugins.authomatic.utils import authomatic_settings
 from plone import api
 from plone.app.layout.navigation.interfaces import INavigationRoot
-from plone.protect.auto import safeWrite
+from plone.protect.interfaces import IDisableCSRFProtection
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.interface import alsoProvides
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 import logging
+
 
 logger = logging.getLogger(__file__)
 
@@ -54,8 +56,8 @@ class AuthomaticView(BrowserView):
         if cfg is None:
             return "Authomatic is not configured"
         if not (
-            ISiteRoot.providedBy(self.context)
-            or INavigationRoot.providedBy(self.context)
+            ISiteRoot.providedBy(self.context) or
+            INavigationRoot.providedBy(self.context)
         ):
             # callback url is expected on either navigationroot or site root
             # so bevor going on redirect
@@ -95,7 +97,8 @@ class AuthomaticView(BrowserView):
         aclu = api.portal.get_tool('acl_users')
         if not api.user.is_anonymous():
             # now we delegate to PAS plugin to add the identity
-            safeWrite(aclu.authomatic.remember_identity(result))
+            alsoProvides(self.request, IDisableCSRFProtection)
+            aclu.authomatic.remember_identity(result)
             api.portal.show_message(
                 _(
                     'added_identity',
@@ -108,8 +111,9 @@ class AuthomaticView(BrowserView):
                 "{0}".format(self.context.absolute_url())
             )
         else:
-            # now we delegate to PAS plugin to login
-            safeWrite(aclu.authomatic.remember(result))
+            # now we delegate to PAS plugin in order to login
+            alsoProvides(self.request, IDisableCSRFProtection)
+            aclu.authomatic.remember(result)
             display = cfg[self.provider].get('display', {})
             api.portal.show_message(
                 _(

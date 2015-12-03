@@ -4,7 +4,8 @@ Changelog
 1.0a5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix: Correct usage of plone.protect
+  [jensens]
 
 
 1.0a4 (2015-11-20)
@@ -14,7 +15,7 @@ Changelog
   [jensens]
 
 - Restored Plone 4 compatibility
-  [keul] 
+  [keul]
 
 - Added italian translation
   [keul]
