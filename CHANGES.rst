@@ -4,6 +4,9 @@ Changelog
 1.0a5 (unreleased)
 ------------------
 
+- Fix: Title indicates if an identity is added
+  [jensens]
+
 - Fix: Correct usage of plone.protect
   [jensens]
 

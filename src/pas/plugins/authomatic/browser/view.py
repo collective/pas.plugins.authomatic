@@ -127,3 +127,7 @@ class AuthomaticView(BrowserView):
                 "{0}/login_success".format(self.context.absolute_url())
             )
         return "redirecting"
+
+    @property
+    def is_anon(self):
+        return api.user.is_anonymous()
