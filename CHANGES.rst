@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0a5 (unreleased)
+1.0a5 (2015-12-04)
 ------------------
 
 - Fix: #18 "Provider Login" option for "Generator for Plone User ID" seems
