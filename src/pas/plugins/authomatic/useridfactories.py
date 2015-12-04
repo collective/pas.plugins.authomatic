@@ -37,10 +37,10 @@ class ProviderIDUserIDFactory(BaseUserIDFactory):
 
 class ProviderIDUserNameFactory(BaseUserIDFactory):
 
-    title = _(u'Provider Login')
+    title = _(u'Provider User Name')
 
     def __call__(self, plugin, result):
-        return self.normalize(plugin, result, result.user.login)
+        return self.normalize(plugin, result, result.user.username)
 
 
 def new_userid(plugin, result):

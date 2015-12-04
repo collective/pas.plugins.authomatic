@@ -4,6 +4,10 @@ Changelog
 1.0a5 (unreleased)
 ------------------
 
+- Fix: #18 "Provider Login" option for "Generator for Plone User ID" seems
+  broken
+  [jensens]
+
 - Fix: Title indicates if an identity is added
   [jensens]
 
