@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0a6 (unreleased)
+1.0a6 (2016-01-11)
 ------------------
 
 - Fix #21: When you logout and then login again, a new user is created.
