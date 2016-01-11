@@ -66,16 +66,21 @@ class AuthomaticPlugin(BasePlugin):
         # userid -> userdata
         self._useridentities_by_userid = OOBTree()
 
+    def _provider_id(self, result):
+        """helper to get the provider identifier
+        """
+        return (result.provider.name, result.user.id)
+
     @security.private
-    def lookup_identities(self, provider_name, provider_userid):
+    def lookup_identities(self, result):
         """looks up the UserIdentities by using the provider name and the
         userid at this provider
         """
         userid = self._userid_by_identityinfo.get(
-            (provider_name, provider_userid),
+            self._provider_id(result),
             None
         )
-        return self._userid_to_useridentities.get(userid, None)
+        return self._useridentities_by_userid.get(userid, None)
 
     @security.private
     def remember_identity(self, result, userid=None):
@@ -84,18 +89,17 @@ class AuthomaticPlugin(BasePlugin):
         if userid is None:
             # create a new userid
             userid = new_userid(self, result)
-        if userid not in self._useridentities_by_userid:
-            self._useridentities_by_userid[userid] = UserIdentities(userid)
-        provider_name = result.provider.name
-        provider_userid = result.user.id
-        if (
-            (provider_name, provider_userid) not in
-            self._userid_by_identityinfo
-        ):
-            self._userid_by_identityinfo[
-                (provider_name, provider_userid)
-            ] = userid
-        useridentities = self._useridentities_by_userid[userid]
+            useridentities = UserIdentities(userid)
+            self._useridentities_by_userid[userid] = useridentities
+        else:
+            # use existing userid
+            useridentities = self._useridentities_by_userid.get(userid, None)
+            if useridentities is None:
+                raise ValueError('Invalid userid')
+
+        if self._provider_id(result) not in self._userid_by_identityinfo:
+            self._userid_by_identityinfo[self._provider_id(result)] = userid
+
         useridentities.handle_result(result)
         return useridentities
 
@@ -107,7 +111,12 @@ class AuthomaticPlugin(BasePlugin):
         """
         # first fetch provider specific user-data
         result.user.update()
-        useridentities = self.remember_identity(result)
+
+        # lookup user by
+        useridentities = self.lookup_identities(result)
+        if useridentities is None:
+            # new/unknown user
+            useridentities = self.remember_identity(result)
 
         # login (get new security manager)
         aclu = api.portal.get_tool('acl_users')

@@ -51,6 +51,33 @@ class AuthomaticView(BrowserView):
             }
             yield record
 
+    def _add_identity(self, result, provider_name):
+        # delegate to PAS plugin to add the identity
+        alsoProvides(self.request, IDisableCSRFProtection)
+        aclu = api.portal.get_tool('acl_users')
+        aclu.authomatic.remember_identity(result)
+        api.portal.show_message(
+            _(
+                'added_identity',
+                default='Added identity provided by ${provider}',
+                mapping={'provider': provider_name}
+            ),
+            self.request
+        )
+
+    def _remember_identity(self, result, provider_name):
+        alsoProvides(self.request, IDisableCSRFProtection)
+        aclu = api.portal.get_tool('acl_users')
+        aclu.authomatic.remember(result)
+        api.portal.show_message(
+            _(
+                'logged_in_with',
+                'Logged in with ${provider}',
+                mapping={'provider': provider_name}
+            ),
+            self.request
+        )
+
     def __call__(self):
         cfg = authomatic_cfg()
         if cfg is None:
@@ -89,40 +116,21 @@ class AuthomaticView(BrowserView):
         )
         if not result:
             logger.info('return from view')
-            # let authomatic do its work?
+            # let authomatic do its work
             return
         if result.error:
             return result.error.message
         display = cfg[self.provider].get('display', {})
-        aclu = api.portal.get_tool('acl_users')
+        provider_name = display.get('title', self.provider)
         if not api.user.is_anonymous():
             # now we delegate to PAS plugin to add the identity
-            alsoProvides(self.request, IDisableCSRFProtection)
-            aclu.authomatic.remember_identity(result)
-            api.portal.show_message(
-                _(
-                    'added_identity',
-                    default='Added identity provided by ${provider}',
-                    mapping={'provider': display.get('title', self.provider)}
-                ),
-                self.request
-            )
+            self._add_identity(result, provider_name)
             self.request.response.redirect(
                 "{0}".format(self.context.absolute_url())
             )
         else:
             # now we delegate to PAS plugin in order to login
-            alsoProvides(self.request, IDisableCSRFProtection)
-            aclu.authomatic.remember(result)
-            display = cfg[self.provider].get('display', {})
-            api.portal.show_message(
-                _(
-                    'logged_in_with',
-                    'Logged in with ${provider}',
-                    mapping={'provider': display.get('title', self.provider)}
-                ),
-                self.request
-            )
+            self._remember_identity(result, provider_name)
             self.request.response.redirect(
                 "{0}/login_success".format(self.context.absolute_url())
             )
