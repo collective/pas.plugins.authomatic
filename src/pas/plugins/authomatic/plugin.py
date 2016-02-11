@@ -245,16 +245,17 @@ class AuthomaticPlugin(BasePlugin):
 
         # non exact expensive search
         for userid in self._useridentities_by_userid:
-            if search_id and not userid.startswith(search_id):
-                continue
-            identity = self._useridentities_by_userid[userid]
-            ret.append({
-                'id': identity.userid.decode('utf8'),
-                'login': identity.userid,
-                'pluginid': pluginid
-            })
-            if max_results and len(ret) >= max_results:
-                break
+            if userid:
+                if search_id and not userid.startswith(search_id):
+                    continue
+                identity = self._useridentities_by_userid[userid]
+                ret.append({
+                    'id': identity.userid.decode('utf8'),
+                    'login': identity.userid,
+                    'pluginid': pluginid
+                })
+                if max_results and len(ret) >= max_results:
+                    break
         if sort_by in ['id', 'login']:
             return sorted(ret, key=itemgetter(sort_by))
         return ret
