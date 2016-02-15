@@ -4,7 +4,8 @@ Changelog
 1.0a7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Workaround for None users.
+  [sneridagh]
 
 
 1.0a6 (2016-01-11)
