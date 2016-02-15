@@ -19,7 +19,7 @@ long_description = (
 
 setup(
     name='pas.plugins.authomatic',
-    version='1.0a7.dev0',
+    version='1.0a7',
     description='Provides OAuth2/ OpenID login for Plone using Authomatic.',
     long_description=long_description,
     # Get more from http://pypi.python.org/pypi?%3Aaction=list_classifiers
