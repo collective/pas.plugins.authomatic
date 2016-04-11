@@ -4,7 +4,9 @@ Changelog
 1.0a8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix filter users bug in enumerateUsers plugin where it was always returning
+  all the users.
+  [sneridagh]
 
 
 1.0a7 (2016-02-15)
