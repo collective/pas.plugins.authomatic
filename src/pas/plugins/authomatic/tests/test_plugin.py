@@ -86,8 +86,10 @@ class TestPlugin(unittest.TestCase):
             2,
             len(self.plugin.enumerateUsers(login='123wil'))
         )
-        # list all!
+        # https://github.com/collective/pas.plugins.authomatic/pull/25/commits/5c0f6b1dc76a0d769e35a845ce4c4dd4307655ba
+        # Due to the workarround, now the enumerateUsers plugin doesn't return
+        # any users when searching with an empty query
         self.assertEqual(
-            4,
+            0,
             len(self.plugin.enumerateUsers())
         )

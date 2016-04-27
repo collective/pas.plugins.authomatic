@@ -224,6 +224,8 @@ class AuthomaticPlugin(BasePlugin):
         if search_id:
             if not isinstance(search_id, basestring):
                 raise NotImplementedError('sequence is not supported.')
+        else:
+            return ()
 
         pluginid = self.getId()
         ret = list()
