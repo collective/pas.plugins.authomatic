@@ -7,6 +7,8 @@ Changelog
 - Fix filter users bug in enumerateUsers plugin where it was always returning
   all the users.
   [sneridagh]
+  
+- fix typo and wording of login message [tkimnguyen]
 
 
 1.0a7 (2016-02-15)
