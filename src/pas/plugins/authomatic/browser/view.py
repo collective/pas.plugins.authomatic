@@ -29,6 +29,13 @@ class AuthomaticView(BrowserView):
             self.provider = name
         return self
 
+    @property
+    def _provider_names(self):
+        cfgs = authomatic_cfg()
+        if not cfgs:
+            raise ValueError("Authomatic configuration has errors.")
+        return cfgs.keys()
+
     def providers(self):
         cfgs = authomatic_cfg()
         if not cfgs:
@@ -100,9 +107,12 @@ class AuthomaticView(BrowserView):
             return self.template()
         if self.provider not in cfg:
             return "Provider not supported"
-        if not api.user.is_anonymous():
-            # TODO: check if requested provider is already connected and
-            #       fail if so
+        if not self.is_anon:
+            if self.provider in self._provider_names:
+                raise ValueError(
+                    'Provider {0} is already connected to current '
+                    'user.'.format(self.provider)
+                )
             # TODO: some sort of CSRF check might be needed, so that
             #       not an account got connected by CSRF. Research needed.
             pass
@@ -122,7 +132,7 @@ class AuthomaticView(BrowserView):
             return result.error.message
         display = cfg[self.provider].get('display', {})
         provider_name = display.get('title', self.provider)
-        if not api.user.is_anonymous():
+        if not self.is_anon:
             # now we delegate to PAS plugin to add the identity
             self._add_identity(result, provider_name)
             self.request.response.redirect(
