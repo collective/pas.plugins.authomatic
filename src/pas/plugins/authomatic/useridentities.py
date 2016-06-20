@@ -53,6 +53,10 @@ class UserIdentities(Persistent):
         """
         return self._identities.get(provider, None)
 
+    def update_userdata(self, result):
+        identity = self._identities[result.provider.name]
+        identity.update(result.user.to_dict())
+
     @property
     def propertysheet(self):
         if self._sheet is not None:

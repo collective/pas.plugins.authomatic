@@ -117,6 +117,8 @@ class AuthomaticPlugin(BasePlugin):
         if useridentities is None:
             # new/unknown user
             useridentities = self.remember_identity(result)
+        else:
+            useridentities.update_userdata(result)
 
         # login (get new security manager)
         aclu = api.portal.get_tool('acl_users')

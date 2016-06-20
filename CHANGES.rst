@@ -4,6 +4,9 @@ Changelog
 1.0a8 (unreleased)
 ------------------
 
+- Fix #27: Update user data after login.
+  [jensens]
+
 - Fix filter users bug in enumerateUsers plugin where it was always returning
   all the users.
   [sneridagh]
