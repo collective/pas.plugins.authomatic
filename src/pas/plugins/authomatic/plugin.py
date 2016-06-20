@@ -232,9 +232,9 @@ class AuthomaticPlugin(BasePlugin):
         # shortcut for exact match of login/id
         identity = None
         if (
-            exact_match
-            and search_id
-            and search_id in self._useridentities_by_userid
+            exact_match and
+            search_id and
+            search_id in self._useridentities_by_userid
         ):
             identity = self._useridentities_by_userid[search_id]
         if identity is not None:
