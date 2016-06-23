@@ -121,13 +121,13 @@ class AuthomaticPlugin(BasePlugin):
         if useridentities is None:
             # new/unknown user
             useridentities = self.remember_identity(result)
-            logger.info('New User: {1}'.format(useridentities.userid))
+            logger.info('New User: {0}'.format(useridentities.userid))
         else:
             useridentities.update_userdata(result)
-            logger.info('Updated Userdata: {1}'.format(useridentities.userid))
+            logger.info('Updated Userdata: {0}'.format(useridentities.userid))
 
         # login (get new security manager)
-        logger.info('Login User: {1}'.format(useridentities.userid))
+        logger.info('Login User: {0}'.format(useridentities.userid))
         aclu = api.portal.get_tool('acl_users')
         user = aclu._findUser(aclu.plugins, useridentities.userid)
         accessed, container, name, value = aclu._getObjectContext(
@@ -146,7 +146,7 @@ class AuthomaticPlugin(BasePlugin):
         # do login post-processing
         self.REQUEST['__ac_password'] = useridentities.secret
         mt = api.portal.get_tool('portal_membership')
-        logger.info('Login Postprocessing: {1}'.format(useridentities.userid))
+        logger.info('Login Postprocessing: {0}'.format(useridentities.userid))
         mt.loginUser(self.REQUEST)
 
     # ##
