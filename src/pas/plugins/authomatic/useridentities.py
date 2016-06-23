@@ -54,6 +54,7 @@ class UserIdentities(Persistent):
         return self._identities.get(provider, None)
 
     def update_userdata(self, result):
+        self._sheet = None  # invalidate property sheet
         identity = self._identities[result.provider.name]
         identity.update(result.user.to_dict())
 
