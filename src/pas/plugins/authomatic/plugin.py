@@ -69,6 +69,10 @@ class AuthomaticPlugin(BasePlugin):
     def _provider_id(self, result):
         """helper to get the provider identifier
         """
+        if not result.user.id:
+            raise ValueError('Invalid: Empty user.id')
+        if not result.provider.name:
+            raise ValueError('Invalid: Empty provider.name')
         return (result.provider.name, result.user.id)
 
     @security.private
@@ -96,9 +100,9 @@ class AuthomaticPlugin(BasePlugin):
             useridentities = self._useridentities_by_userid.get(userid, None)
             if useridentities is None:
                 raise ValueError('Invalid userid')
-
-        if self._provider_id(result) not in self._userid_by_identityinfo:
-            self._userid_by_identityinfo[self._provider_id(result)] = userid
+        provider_id = self._provider_id(result)
+        if provider_id not in self._userid_by_identityinfo:
+            self._userid_by_identityinfo[provider_id] = userid
 
         useridentities.handle_result(result)
         return useridentities

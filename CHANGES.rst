@@ -4,6 +4,9 @@ Changelog
 1.0a8 (unreleased)
 ------------------
 
+- Additional checks to ensure to never have an empty/None key stored.
+  [jensens]
+
 - Fix #27: Update user data after login.
   [jensens]
 
