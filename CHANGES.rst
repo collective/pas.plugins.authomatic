@@ -4,6 +4,13 @@ Changelog
 1.0a8 (unreleased)
 ------------------
 
+- Support for Plone 5.1 tested (worked, ust control-panel icon needed some tweak).
+  Buildout configuration for 5.1 added.
+  [jensens] 
+
+- Install: Hide non-valid profiles at install form.
+  [jensens]
+
 - Additional checks to ensure to never have an empty/None key stored.
   [jensens]
 
