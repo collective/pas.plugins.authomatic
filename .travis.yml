@@ -17,7 +17,7 @@ before_install:
   - echo "download-cache = $HOME/buildout-cache/downloads" >> $HOME/.buildout/default.cfg
   - echo "eggs-directory = $HOME/buildout-cache/eggs" >> $HOME/.buildout/default.cfg
   - virtualenv .
-  - bin/pip install --upgrade pip setuptools zc.buildout coveralls
+  - bin/pip install -r requirements.txt
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 install:
