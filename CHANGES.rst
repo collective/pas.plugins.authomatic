@@ -4,9 +4,12 @@ Changelog
 1.0a8 (unreleased)
 ------------------
 
+- Fix #33" Page does not exist Control Settings.
+  [jensens]
+
 - Support for Plone 5.1 tested (worked, ust control-panel icon needed some tweak).
   Buildout configuration for 5.1 added.
-  [jensens] 
+  [jensens]
 
 - Install: Hide non-valid profiles at install form.
   [jensens]
@@ -20,7 +23,7 @@ Changelog
 - Fix filter users bug in enumerateUsers plugin where it was always returning
   all the users.
   [sneridagh]
-  
+
 - fix typo and wording of login message [tkimnguyen]
 
 
