@@ -90,7 +90,7 @@ msgstr ""
 msgid "logged_in_with"
 msgstr ""
 
-#. Default: "Log in using external authenticaton providers"
+#. Default: "Log in with"
 #: ../browser/authomatic.pt:8
 msgid "login_title"
 msgstr ""

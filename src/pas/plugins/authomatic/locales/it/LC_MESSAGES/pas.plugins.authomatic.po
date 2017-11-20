@@ -95,8 +95,8 @@ msgstr "JSON invalido, parser riporta: {$message}"
 msgid "logged_in_with"
 msgstr "Autenticato con ${provider}"
 
-#. Default: "Log in using external authenticaton providers"
+#. Default: "Log in with"
 #: ../browser/authomatic.pt:8
 msgid "login_title"
-msgstr "Autenticazione usando servizi di terze parti"
+msgstr "Autenticazione usando"
 

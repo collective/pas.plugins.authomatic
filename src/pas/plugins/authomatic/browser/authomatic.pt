@@ -5,10 +5,14 @@
       metal:use-macro="context/main_template/macros/master">
 
     <metal:block fill-slot="main">
-        <h1 i18n:translate="login_title"
-            tal:condition="view/is_anon">Log in using one of these external authentication providers</h1>
-        <h1 i18n:translate="add_identity_title"
-            tal:condition="not: view/is_anon">Add identity from one of these external authentication providers</h1>
+        <tal:if tal:condition="view/is_anon">
+          <h2 i18n:translate="login_title">Log in with</h2>
+        </tal:if>
+        <tal:if tal:condition="not: view/is_anon">
+          <h2 i18n:translate="add_identity_title">Add identity</h2>
+        </tal:if>
+        <p i18n:translate="add_description"
+           class="description">Choose one of these external authentication providers</p>
         <ul>
             <li tal:repeat="provider view/providers">
 

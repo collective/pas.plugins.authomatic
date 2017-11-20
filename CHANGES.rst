@@ -1,8 +1,11 @@
 Changelog
 =========
 
-1.0a8 (unreleased)
+1.0b1 (unreleased)
 ------------------
+
+- Slighly beautify login modal.
+  [jensens]
 
 - Fix #33" Page does not exist Control Settings.
   [jensens]
