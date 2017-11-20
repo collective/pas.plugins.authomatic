@@ -101,11 +101,7 @@ class PasPluginsAuthomaticPloneLayer(PloneSandboxLayer):
         auto.CSRF_DISABLED = ORIGINAL_CSRF_DISABLED
 
     def setUpPloneSite(self, portal):
-        version = getFSVersionTuple()[0]
-        if version < 5:
-            applyProfile(portal, 'pas.plugins.authomatic:plone4')
-        else:
-            applyProfile(portal, 'pas.plugins.authomatic:plone5')
+        applyProfile(portal, 'pas.plugins.authomatic:default')
 
 
 PAS_PLUGINS_Authomatic_PLONE_FIXTURE = PasPluginsAuthomaticPloneLayer()
