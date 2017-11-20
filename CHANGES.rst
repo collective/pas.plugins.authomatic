@@ -4,10 +4,13 @@ Changelog
 1.0a8 (unreleased)
 ------------------
 
+- Fix #33" Page does not exist Control Settings.
+  [jensens]
+
 - Fix #31: Link is broken to JSON configuration documentation in help text.
   [jensens]
 
-- Fix #33" Page does not exist Control Settings.
+- Fix #28: After uninstall plone.external_login_url is still registered and the login broken.
   [jensens]
 
 - Support for Plone 5.1 tested (worked, ust control-panel icon needed some tweak).
