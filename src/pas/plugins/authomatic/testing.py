@@ -9,9 +9,10 @@ from plone.protect import auto
 from plone.testing import Layer
 from plone.testing import z2
 from Products.CMFCore.interfaces import ISiteRoot
-from Products.CMFPlone.utils import getFSVersionTuple
 from zope.component import provideUtility
+
 import pas.plugins.authomatic
+
 
 ORIGINAL_CSRF_DISABLED = auto.CSRF_DISABLED
 

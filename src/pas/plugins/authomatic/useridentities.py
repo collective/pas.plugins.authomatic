@@ -4,8 +4,10 @@ from pas.plugins.authomatic.utils import authomatic_cfg
 from persistent import Persistent
 from persistent.dict import PersistentDict
 from Products.PluggableAuthService.UserPropertySheet import UserPropertySheet
-import uuid
+
 import logging
+import uuid
+
 
 logger = logging.getLogger('pas.plugins.authomatic')
 

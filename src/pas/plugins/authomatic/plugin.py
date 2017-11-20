@@ -12,8 +12,10 @@ from Products.PluggableAuthService.interfaces import plugins as pas_interfaces
 from Products.PluggableAuthService.interfaces.authservice import _noroles
 from Products.PluggableAuthService.plugins.BasePlugin import BasePlugin
 from zope.interface import implementer
+
 import logging
 import os
+
 
 logger = logging.getLogger(__name__)
 tpl_dir = os.path.join(os.path.dirname(__file__), 'browser')

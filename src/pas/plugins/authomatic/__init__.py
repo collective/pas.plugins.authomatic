@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from AccessControl.Permissions import add_user_folders
+from pas.plugins.authomatic.plugin import AuthomaticPlugin
 from pas.plugins.authomatic.plugin import manage_addAuthomaticPlugin
 from pas.plugins.authomatic.plugin import manage_addAuthomaticPluginForm
-from pas.plugins.authomatic.plugin import AuthomaticPlugin
 from pas.plugins.authomatic.plugin import tpl_dir
 from Products.PluggableAuthService import registerMultiPlugin
+
 import os
 
 

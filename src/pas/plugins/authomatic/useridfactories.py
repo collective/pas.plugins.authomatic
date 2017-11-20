@@ -4,6 +4,7 @@ from pas.plugins.authomatic.interfaces import IUserIDFactory
 from pas.plugins.authomatic.utils import authomatic_settings
 from zope.component import queryUtility
 from zope.interface import implementer
+
 import uuid
 
 

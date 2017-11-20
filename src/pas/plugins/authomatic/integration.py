@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from authomatic.adapters import BaseAdapter
+
 import Cookie
 import logging
+
 
 logger = logging.getLogger(__file__)
 

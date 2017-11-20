@@ -9,9 +9,11 @@ from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
+
 import json
 import random
 import string
+
 
 _ = MessageFactory('pas.plugins.authomatic')
 

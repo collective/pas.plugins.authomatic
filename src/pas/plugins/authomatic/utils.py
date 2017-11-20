@@ -5,6 +5,7 @@ from plone import api
 from plone.registry.interfaces import IRegistry
 from zope.component import queryUtility
 from zope.dottedname.resolve import resolve
+
 import json
 
 
