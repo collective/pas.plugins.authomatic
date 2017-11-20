@@ -49,6 +49,7 @@ class HiddenProfiles(object):
         """Do not show on Plone's list of installable profiles.
         """
         return [
-            'pas.plugins.authomatic:default',
+            'pas.plugins.authomatic:install-base',
             'pas.plugins.authomatic:uninstall',
+            'pas.plugins.authomatic:uninstall-base',
         ]

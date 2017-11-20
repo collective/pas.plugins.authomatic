@@ -13,5 +13,4 @@
            field="json_config"
            remove="True" />
 
-  <record name="plone.external_login_url" purge="True" />
 </registry>
