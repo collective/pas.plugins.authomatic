@@ -4,6 +4,9 @@ Changelog
 1.0a8 (unreleased)
 ------------------
 
+- Fix #31: Link is broken to JSON configuration documentation in help text.
+  [jensens]
+
 - Fix #33" Page does not exist Control Settings.
   [jensens]
 

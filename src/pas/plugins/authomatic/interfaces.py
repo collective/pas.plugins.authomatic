@@ -109,13 +109,13 @@ class IPasPluginsAuthomaticSettings(Interface):
         title=_(u"JSON configuration"),
         description=_(
             'help_json_config',
-            default=u"Configuration parameters for the different "
-                    u"authorization providers. Details at "
-                    u"http://peterhudec.github.io/authomatic/reference/"
-                    u"providers.html "
-                    u"- difference: 'class_' has to be a string, which is "
-                    u"then resolved as a dotted path. Also sections "
-                    u"``display`` and ``propertymap`` are special"
+            default=u'Configuration parameters for the different '
+                    u'authorization providers. Details at '
+                    u'https://authomatic.github.io/authomatic/reference/'
+                    u'providers.html '
+                    u'- difference: "class_" has to be a string, which is '
+                    u'then resolved as a dotted path. Also sections '
+                    u'"display" and "propertymap" are special.'
         ),
         required=True,
         constraint=validate_cfg_json,

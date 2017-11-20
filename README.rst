@@ -21,7 +21,7 @@ Features
 
 Provides OAuth2 and OpenID login capability for Plone:
 
-It integrates the awesome `Authomatic <http://peterhudec.github.io/authomatic/index.html>`_ package in Plone
+It integrates the awesome `Authomatic <http://authomatic.github.io/authomatic/reference/providers.html>`_ package in Plone
 
   Authomatic is a framework agnostic library
   for Python web applications
