@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0b1 (unreleased)
+1.0b1 (2017-11-20)
 ------------------
 
 - Slighly beautify login modal.
