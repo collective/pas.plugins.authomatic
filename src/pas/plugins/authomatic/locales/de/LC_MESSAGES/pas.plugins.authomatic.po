@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-11-20 08:51+0000\n"
+"POT-Creation-Date: 2017-11-20 11:52+0000\n"
 "PO-Revision-Date: 2015-11-12 12:20+0000\n"
 "Last-Translator: Jens Klein <jens@bluedynamics.com>\n"
 "Language-Team: BlueDynamics Alliance <dev@bluedynamics.com>\n"
@@ -12,17 +12,32 @@ msgstr ""
 "Language-Code: de\n"
 "Language-Name: Deutsch\n"
 "Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
 "X-Is-Fallback-For: de-at de-li de-lu de-ch de-de\n"
 
+#: ../profiles.zcml:14
 msgid "Authomatic PAS Plugin"
 msgstr "Authomatic PAS Plugin"
 
+#: ../profiles.zcml:37
+msgid "Authomatic PAS Plugin: remove"
+msgstr ""
+
+#: ../profiles.zcml:14
 msgid "Authomatic: Login with OAuth/OpenID 3rd party auth providers."
 msgstr "Authomatic: Anmeldung über OAuth/OpenID Drittanbieter für Authentifizierung"
 
 #: ../interfaces.py:99
 msgid "Generator for Plone User IDs."
 msgstr "Generator für Plone User-Ids."
+
+#: ../profiles.zcml:30
+msgid "Installs the pas.plugins.authomatic add-on (Plone 4)"
+msgstr ""
+
+#: ../profiles.zcml:22
+msgid "Installs the pas.plugins.authomatic add-on (Plone 5)"
+msgstr ""
 
 #: ../interfaces.py:109
 msgid "JSON configuration"
@@ -34,13 +49,13 @@ msgstr "JSON Konfiguration"
 msgid "PAS Authomatic Plugin Settings"
 msgstr "Einstellungen für das PAS Authomatic Plugin"
 
-#: ../useridfactories.py:40
-msgid "Provider Login"
-msgstr "Login des Anbieters"
-
 #: ../useridfactories.py:32
 msgid "Provider User ID"
 msgstr "User ID des Anbieters"
+
+#: ../useridfactories.py:40
+msgid "Provider User Name"
+msgstr ""
 
 #: ../interfaces.py:91
 msgid "Secret"
@@ -50,13 +65,24 @@ msgstr "Geheimes Wort"
 msgid "UUID as User ID"
 msgstr "UUID als User-ID"
 
+#. Default: "Choose one of these external authentication providers"
+#: ../browser/authomatic.pt:14
+msgid "add_description"
+msgstr "Wählen Sie einens dieser externen Authentisierungs-Anbieter"
+
+#. Default: "Add identity"
+#: ../browser/authomatic.pt:12
+msgid "add_identity_title"
+msgstr "Identität hinzufügen"
+
 #. Default: "Added identity provided by ${provider}"
-#: ../browser/view.py:100
+#: ../browser/view.py:67
 msgid "added_identity"
 msgstr "Indentität über den Anbieter ${provider} hinzugefügt"
 
-#. Default: "Configuration parameters for the different authorization providers. Details at http://authomatic.github.io/authomatic/reference/providers.html - difference: 'class_' has to be a string, which is then resolved as a dotted path. Also sections ``display`` and ``propertymap`` are special"
+#. Default: "Configuration parameters for the different authorization providers. Details at https://authomatic.github.io/authomatic/reference/providers.html - difference: \"class_\" has to be a string, which is then resolved as a dotted path. Also sections \"display\" and \"propertymap\" are special."
 #: ../interfaces.py:110
+#, fuzzy
 msgid "help_json_config"
 msgstr ""
 "Einstellungs-Parameter für die verschiedenen Authorisierungs-Anbieter.\n"
@@ -90,12 +116,11 @@ msgid "invalid_json"
 msgstr "Das JSON ist nicht gültig, der Parser meldet: {$message}"
 
 #. Default: "Logged in with ${provider}"
-#: ../browser/view.py:115
+#: ../browser/view.py:80
 msgid "logged_in_with"
 msgstr "Eingeloggt mit ${provider}"
 
 #. Default: "Log in with"
-#: ../browser/authomatic.pt:8
+#: ../browser/authomatic.pt:9
 msgid "login_title"
 msgstr "Einloggen mit"
-
