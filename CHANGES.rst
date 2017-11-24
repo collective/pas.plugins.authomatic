@@ -4,7 +4,8 @@ Changelog
 1.0b2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- PAS event notification IPrincipalCreatedEvent.
+  [jensens]
 
 
 1.0b1 (2017-11-20)
@@ -20,7 +21,6 @@ Changelog
   [jensens]
 
 - Fix #28: After uninstall plone.external_login_url is still registered and the login broken.
-- PAS event notification IPrincipalCreatedEvent.
   [jensens]
 
 - Support for Plone 5.1 tested (worked, ust control-panel icon needed some tweak).
