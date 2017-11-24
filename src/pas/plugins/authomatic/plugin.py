@@ -8,9 +8,11 @@ from pas.plugins.authomatic.useridentities import UserIdentities
 from pas.plugins.authomatic.useridfactories import new_userid
 from plone import api
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+from Products.PluggableAuthService.events import PrincipalCreated
 from Products.PluggableAuthService.interfaces import plugins as pas_interfaces
 from Products.PluggableAuthService.interfaces.authservice import _noroles
 from Products.PluggableAuthService.plugins.BasePlugin import BasePlugin
+from zope.event import notify
 from zope.interface import implementer
 
 import logging
@@ -118,11 +120,14 @@ class AuthomaticPlugin(BasePlugin):
         # first fetch provider specific user-data
         result.user.update()
 
+        do_notify_created = False
+
         # lookup user by
         useridentities = self.lookup_identities(result)
         if useridentities is None:
             # new/unknown user
             useridentities = self.remember_identity(result)
+            do_notify_created = True
             logger.info('New User: {0}'.format(useridentities.userid))
         else:
             useridentities.update_userdata(result)
@@ -144,6 +149,9 @@ class AuthomaticPlugin(BasePlugin):
             value,
             _noroles
         )
+        if do_notify_created:
+            # be a good citizen in PAS world and notify user creation
+            notify(PrincipalCreated(user))
 
         # do login post-processing
         self.REQUEST['__ac_password'] = useridentities.secret

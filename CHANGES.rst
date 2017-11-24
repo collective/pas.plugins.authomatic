@@ -4,7 +4,8 @@ Changelog
 1.0b2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- PAS event notification IPrincipalCreatedEvent.
+  [jensens]
 
 
 1.0b1 (2017-11-20)
