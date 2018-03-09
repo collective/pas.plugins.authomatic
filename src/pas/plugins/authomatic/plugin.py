@@ -46,6 +46,7 @@ manage_addAuthomaticPluginForm = PageTemplateFile(
     pas_interfaces.IAuthenticationPlugin,
     pas_interfaces.IPropertiesPlugin,
     pas_interfaces.IUserEnumerationPlugin,
+    pas_interfaces.IRolesPlugin
 )
 class AuthomaticPlugin(BasePlugin):
     """Authomatic PAS Plugin
@@ -283,6 +284,20 @@ class AuthomaticPlugin(BasePlugin):
         if sort_by in ['id', 'login']:
             return sorted(ret, key=itemgetter(sort_by))
         return ret
+
+    @security.private
+    def getRolesForPrincipal(self, user, request=None):
+        """ Fullfill RolesPlugin requirements """
+        identity = self._useridentities_by_userid.get(user.getId(), None)
+        if not identity:
+            return ()
+        provider_id = identity._identities.keys()[0]
+        if 'roles' in identity._identities[provider_id].keys():
+            roles = identity._identities[provider_id]['roles']
+            if isinstance(roles, list):
+                return tuple(roles)
+            else:
+                return ()
 
 
 InitializeClass(AuthomaticPlugin)
