@@ -298,6 +298,8 @@ class AuthomaticPlugin(BasePlugin):
                 return tuple(roles)
             else:
                 return ()
+        else:
+            return ()
 
 
 InitializeClass(AuthomaticPlugin)
