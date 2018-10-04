@@ -12,7 +12,7 @@ import json
 def authomatic_plugin():
     """returns the authomatic pas-plugin instance
     """
-    aclu = api.get_tool('acl_users')
+    aclu = api.portal.get_tool('acl_users')
     # XXX we should better iterate over all plugins and fetch the
     # authomatic plugin. There could be even 2 of them, even if this does not
     # make sense.
