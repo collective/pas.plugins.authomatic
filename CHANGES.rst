@@ -6,7 +6,10 @@ Changelog
 
 - PAS event notification IPrincipalCreatedEvent.
   [jensens]
-
+- Refactor testing buildout.
+  [cekk]
+- Allow users deletion.
+  [cekk]
 
 1.0b1 (2017-11-20)
 ------------------

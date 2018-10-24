@@ -8,10 +8,13 @@ from pas.plugins.authomatic.useridentities import UserIdentities
 from pas.plugins.authomatic.useridfactories import new_userid
 from plone import api
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+from Products.PlonePAS.interfaces.capabilities import IDeleteCapability
+from Products.PlonePAS.interfaces.plugins import IUserManagement
 from Products.PluggableAuthService.events import PrincipalCreated
 from Products.PluggableAuthService.interfaces import plugins as pas_interfaces
 from Products.PluggableAuthService.interfaces.authservice import _noroles
 from Products.PluggableAuthService.plugins.BasePlugin import BasePlugin
+from Products.PluggableAuthService.utils import createViewName
 from zope.event import notify
 from zope.interface import implementer
 
@@ -46,6 +49,8 @@ manage_addAuthomaticPluginForm = PageTemplateFile(
     pas_interfaces.IAuthenticationPlugin,
     pas_interfaces.IPropertiesPlugin,
     pas_interfaces.IUserEnumerationPlugin,
+    IUserManagement,
+    IDeleteCapability
 )
 class AuthomaticPlugin(BasePlugin):
     """Authomatic PAS Plugin
@@ -283,6 +288,48 @@ class AuthomaticPlugin(BasePlugin):
         if sort_by in ['id', 'login']:
             return sorted(ret, key=itemgetter(sort_by))
         return ret
+
+    @security.public
+    def allowDeletePrincipal(self, principal_id):
+        """True if this plugin can delete a certain user/group.
+        This is true if this plugin manages the user.
+        """
+        return principal_id in self._useridentities_by_userid
+
+    @security.private
+    def doDeleteUser(self, userid):
+        """Given a user id, delete that user
+        """
+        return self.removeUser(userid)
+
+    @security.private
+    def getPluginIdByUserId(self, user_id):
+        """
+        return the right key for given user_id
+        """
+        for k, v in self._userid_by_identityinfo.items():
+            if v == user_id:
+                return k
+        return ''
+
+    @security.private
+    def removeUser(self, user_id):
+        """
+        """
+        # Remove the user from all persistent dicts
+        if user_id not in self._useridentities_by_userid:
+            # invalid userid
+            return
+        del self._useridentities_by_userid[user_id]
+
+        plugin_id = self.getPluginIdByUserId(user_id)
+        if plugin_id:
+            del self._userid_by_identityinfo[plugin_id]
+        # Also, remove from the cache
+        view_name = createViewName('enumerateUsers')
+        self.ZCacheable_invalidate(view_name=view_name)
+        view_name = createViewName('enumerateUsers', user_id)
+        self.ZCacheable_invalidate(view_name=view_name)
 
 
 InitializeClass(AuthomaticPlugin)
