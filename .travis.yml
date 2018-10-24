@@ -1,36 +1,30 @@
 language: python
+python: 2.7
 sudo: false
 cache:
   pip: true
   directories:
     - $HOME/buildout-cache
-python:
-  - 2.7.13
 env:
-  - PLONE_VERSION=4.3 QA=true
-  - PLONE_VERSION=5.0 QA=true
-  - PLONE_VERSION=5.1 QA=true
-before_install:
-  - mkdir -p $HOME/buildout-cache/{eggs,downloads}
-  - mkdir $HOME/.buildout
-  - echo "[buildout]" > $HOME/.buildout/default.cfg
-  - echo "download-cache = $HOME/buildout-cache/downloads" >> $HOME/.buildout/default.cfg
-  - echo "eggs-directory = $HOME/buildout-cache/eggs" >> $HOME/.buildout/default.cfg
-  - virtualenv .
+  - PLONE_VERSION=4.3.x
+  - PLONE_VERSION=5.0.x
+  - PLONE_VERSION=5.1.x
+install:
+  - virtualenv -p `which python` .
   - bin/pip install -r requirements.txt
+  - sed -ie "s#test-5.1.x#test-$PLONE_VERSION#" buildout.cfg
+  - bin/buildout -N -t 5
+before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-install:
-  - sed -ie "s#plone-4.3.x.cfg#plone-$PLONE_VERSION.x.cfg#" travis.cfg
-  - bin/buildout -N -t 3 -c travis.cfg
 script:
   - bin/code-analysis
   - bin/test --all
 after_success:
+  - bin/test-coverage
   - bin/createcoverage
-  - python -m coverage.pickle2json
-  - bin/coveralls
+  - pip install coverage==3.7.1 coveralls
+  - coveralls
 notifications:
   email:
     - jens@bluedynamics.com
-
