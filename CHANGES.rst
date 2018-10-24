@@ -11,6 +11,9 @@ Changelog
   [jensens]
 
 - Python 3 and Plone 52 compatibility.
+- Refactor testing buildout.
+  [cekk]
+- Allow users deletion.
   [cekk]
 
 1.0b1 (2017-11-20)
