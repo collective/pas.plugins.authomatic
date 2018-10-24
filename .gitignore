@@ -10,10 +10,10 @@
 .project
 .pydevproject
 .python-version
+.Python
 .settings/
 bin/
 buildout-cache/
-buildout.cfg
 develop-eggs/
 devsrc/*
 downloads
