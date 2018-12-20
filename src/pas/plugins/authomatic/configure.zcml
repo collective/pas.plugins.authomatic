@@ -17,6 +17,7 @@
   <include package=".browser" />
 
   <include file="profiles.zcml" />
+  <include file="meta.zcml"/>
 
   <utility
     component=".interfaces.userid_factory_vocabulary"
