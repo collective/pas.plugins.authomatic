@@ -1,0 +1,11 @@
+<configure
+    xmlns:meta="http://namespaces.zope.org/meta"
+    xmlns:zcml="http://namespaces.zope.org/zcml">
+
+    <!-- Declare that quintagroup.plonecaptchas provides a Captcha field that 
+         can be used by plone.app.discussion to add a Captcha field to comment 
+         forms. -->
+
+    <meta:provides feature="pas.plugins.authomatic" />
+    
+</configure>
