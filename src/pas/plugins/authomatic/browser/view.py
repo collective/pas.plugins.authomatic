@@ -35,7 +35,7 @@ class AuthomaticView(BrowserView):
         cfgs = authomatic_cfg()
         if not cfgs:
             raise ValueError("Authomatic configuration has errors.")
-        return cfgs.keys()
+        return list(cfgs.keys())
 
     def providers(self):
         cfgs = authomatic_cfg()

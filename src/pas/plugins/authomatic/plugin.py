@@ -17,6 +17,7 @@ from zope.interface import implementer
 
 import logging
 import os
+import six
 
 
 logger = logging.getLogger(__name__)
@@ -242,7 +243,7 @@ class AuthomaticPlugin(BasePlugin):
             raise ValueError('plugin does not support id different from login')
         search_id = id or login
         if search_id:
-            if not isinstance(search_id, basestring):
+            if not isinstance(search_id, six.string_types):
                 raise NotImplementedError('sequence is not supported.')
         else:
             return ()

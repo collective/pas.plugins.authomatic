@@ -13,6 +13,7 @@ from zope.schema.vocabulary import SimpleVocabulary
 import json
 import random
 import string
+from six.moves import range
 
 
 _ = MessageFactory('pas.plugins.authomatic')
