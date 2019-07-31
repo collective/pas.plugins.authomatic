@@ -6,15 +6,14 @@ from setuptools import setup
 
 
 long_description = (
-    open('README.rst').read()
-    + '\n' +
-    'Contributors\n'
+    open('README.rst').read() + '\n' + 'Contributors\n'
     '============\n'
-    + '\n' +
-    open('CONTRIBUTORS.rst').read()
-    + '\n' +
-    open('CHANGES.rst').read()
-    + '\n')
+    + '\n'
+    + open('CONTRIBUTORS.rst').read()
+    + '\n'
+    + open('CHANGES.rst').read()
+    + '\n'
+)
 
 
 setup(
@@ -25,12 +24,14 @@ setup(
     # Get more from http://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         "Environment :: Web Environment",
-        "Framework :: Plone",
+        "Framework :: Plone :: Addon" "Framework :: Plone",
         "Framework :: Plone :: 4.3",
         "Framework :: Plone :: 5.0",
         "Framework :: Plone :: 5.1",
+        "Framework :: Plone :: 5.2",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.7",
     ],
     keywords='Python Plone PAS OAuth',
     author='Jens Klein and Matthias Dollfuss',
@@ -52,10 +53,14 @@ setup(
     extras_require={
         'test': [
             'mock',
+            'plone.app.testing',
+            # Plone KGS does not use this version, because it would break
+            # Remove if your package shall be part of coredev.
+            # plone_coredev tests as of 2016-04-01.
+            'plone.testing>=5.0.0',
             'plone.app.contenttypes',
             'plone.app.robotframework[debug]',
-            'plone.app.testing',
-        ],
+        ]
     },
     entry_points="""
     [z3c.autoinclude.plugin]
