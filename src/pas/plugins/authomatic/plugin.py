@@ -38,7 +38,7 @@ def manage_addAuthomaticPlugin(context, id, title='', RESPONSE=None, **kw):
 manage_addAuthomaticPluginForm = PageTemplateFile(
     os.path.join(tpl_dir, 'add_plugin.pt'),
     globals(),
-    __name__='addAuthomaticPlugin'
+    __name__='addAuthomaticPlugin',
 )
 
 
@@ -51,6 +51,7 @@ manage_addAuthomaticPluginForm = PageTemplateFile(
 class AuthomaticPlugin(BasePlugin):
     """Authomatic PAS Plugin
     """
+
     security = ClassSecurityInfo()
     meta_type = 'Authomatic Plugin'
     BasePlugin.manage_options
@@ -86,8 +87,7 @@ class AuthomaticPlugin(BasePlugin):
         userid at this provider
         """
         userid = self._userid_by_identityinfo.get(
-            self._provider_id(result),
-            None
+            self._provider_id(result), None
         )
         return self._useridentities_by_userid.get(userid, None)
 
@@ -139,16 +139,10 @@ class AuthomaticPlugin(BasePlugin):
         aclu = api.portal.get_tool('acl_users')
         user = aclu._findUser(aclu.plugins, useridentities.userid)
         accessed, container, name, value = aclu._getObjectContext(
-            self.REQUEST['PUBLISHED'],
-            self.REQUEST
+            self.REQUEST['PUBLISHED'], self.REQUEST
         )
         user = aclu._authorizeUser(
-            user,
-            accessed,
-            container,
-            name,
-            value,
-            _noroles
+            user, accessed, container, name, value, _noroles
         )
         if do_notify_created:
             # be a good citizen in PAS world and notify user creation
@@ -185,10 +179,7 @@ class AuthomaticPlugin(BasePlugin):
 
     @security.private
     def getPropertiesForUser(self, user, request=None):
-        identity = self._useridentities_by_userid.get(
-            user.getId(),
-            _marker
-        )
+        identity = self._useridentities_by_userid.get(user.getId(), _marker)
         if identity is _marker:
             return None
         return identity.propertysheet
@@ -197,8 +188,15 @@ class AuthomaticPlugin(BasePlugin):
     # pas_interfaces.plugins.IUserEnumaration
 
     @security.private
-    def enumerateUsers(self, id=None, login=None, exact_match=False,
-                       sort_by=None, max_results=None, **kw):
+    def enumerateUsers(
+        self,
+        id=None,
+        login=None,
+        exact_match=False,
+        sort_by=None,
+        max_results=None,
+        **kw
+    ):
         """-> ( user_info_1, ... user_info_N )
 
         o Return mappings for users matching the given criteria.
@@ -253,17 +251,16 @@ class AuthomaticPlugin(BasePlugin):
         # shortcut for exact match of login/id
         identity = None
         if (
-            exact_match and
-            search_id and
-            search_id in self._useridentities_by_userid
+            exact_match
+            and search_id
+            and search_id in self._useridentities_by_userid
         ):
             identity = self._useridentities_by_userid[search_id]
         if identity is not None:
-            ret.append({
-                'id': identity.userid.encode('utf8'),
-                'login': identity.userid.encode('utf8'),
-                'pluginid': pluginid
-            })
+            userid = identity.userid
+            if six.PY2 and isinstance(userid, six.text_type):
+                userid = userid.encode('utf8')
+            ret.append({'id': userid, 'login': userid, 'pluginid': pluginid})
             return ret
 
         # non exact expensive search
@@ -274,11 +271,16 @@ class AuthomaticPlugin(BasePlugin):
             if not userid.startswith(search_id):
                 continue
             identity = self._useridentities_by_userid[userid]
-            ret.append({
-                'id': identity.userid.decode('utf8'),
-                'login': identity.userid,
-                'pluginid': pluginid
-            })
+            identity_userid = identity.userid
+            if six.PY2 and isinstance(identity_userid, six.text_type):
+                identity_userid = identity_userid.encode('utf8')
+            ret.append(
+                {
+                    'id': identity_userid,
+                    'login': identity.userid,
+                    'pluginid': pluginid,
+                }
+            )
             if max_results and len(ret) >= max_results:
                 break
         if sort_by in ['id', 'login']:
