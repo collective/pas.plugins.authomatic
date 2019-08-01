@@ -6,7 +6,8 @@ Changelog
 
 - PAS event notification IPrincipalCreatedEvent.
   [jensens]
-
+- Python 3 and Plone 52 compatibility.
+  [cekk]
 
 1.0b1 (2017-11-20)
 ------------------
