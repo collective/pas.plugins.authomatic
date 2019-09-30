@@ -1,0 +1,128 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2019-09-30 10:45+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: Martin Peeters\n"
+"Language-Team: Affinitic\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: fr\n"
+"Language-Name: French\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: ../profiles.zcml:22
+msgid "Authomatic PAS Plugin"
+msgstr ""
+
+#: ../profiles.zcml:14
+msgid "Authomatic PAS Plugin (base)"
+msgstr ""
+
+#: ../profiles.zcml:37
+msgid "Authomatic PAS Plugin: base uninstall"
+msgstr ""
+
+#: ../profiles.zcml:14
+msgid "Authomatic: Login with OAuth/OpenID 3rd party auth providers (base for Plone 4 + 5)."
+msgstr "Authomatic: Authentification via des fournisseurs externes OAuth/OpenID (base pour Plone 4 & 5)"
+
+#: ../profiles.zcml:22
+msgid "Authomatic: Login with OAuth/OpenID 3rd party auth providers."
+msgstr "Authomatic: Authentification via des fournisseurs externes "
+
+#: ../interfaces.py:101
+msgid "Generator for Plone User IDs."
+msgstr "Générateur pour les identifiants des utilisateurs Plone"
+
+#: ../interfaces.py:111
+msgid "JSON configuration"
+msgstr "Configuration JSON"
+
+#: ../browser/controlpanel.py:10
+#: ../profiles/plone4/controlpanel.xml
+#: ../profiles/plone5/controlpanel.xml
+msgid "PAS Authomatic Plugin Settings"
+msgstr "Paramètres pour l'addon PAS Authomatic"
+
+#: ../useridfactories.py:33
+msgid "Provider User ID"
+msgstr "Fournisseur d'identifiant utilisateur"
+
+#: ../useridfactories.py:41
+msgid "Provider User Name"
+msgstr "Fournisseur de nom d'utilisateur"
+
+#: ../interfaces.py:93
+msgid "Secret"
+msgstr ""
+
+#: ../useridfactories.py:25
+msgid "UUID as User ID"
+msgstr "UUID comme identifiant utilisateur"
+
+#: ../profiles.zcml:45
+msgid "Uninstalls the pas.plugins.authomatic add-on"
+msgstr ""
+
+#: ../profiles.zcml:37
+msgid "Uninstalls the pas.plugins.authomatic add-on (base)"
+msgstr ""
+
+#. Default: "Choose one of these external authentication providers"
+#: ../browser/authomatic.pt:14
+msgid "add_description"
+msgstr "Choisissez un fournisseur externe d'identification"
+
+#. Default: "Add identity"
+#: ../browser/authomatic.pt:12
+msgid "add_identity_title"
+msgstr "Ajouter une identité"
+
+#. Default: "Added identity provided by ${provider}"
+#: ../browser/view.py:68
+msgid "added_identity"
+msgstr "Identitée ajoutée fournie par ${provider}"
+
+#. Default: "Configuration parameters for the different authorization providers. Details at https://authomatic.github.io/authomatic/reference/providers.html - difference: \"class_\" has to be a string, which is then resolved as a dotted path. Also sections \"display\" and \"propertymap\" are special."
+#: ../interfaces.py:112
+msgid "help_json_config"
+msgstr ""
+
+#. Default: "Some random string used to encrypt the state"
+#: ../interfaces.py:94
+msgid "help_secret"
+msgstr "Chaîne de caractère aléatoire utiliser pour l'encryption"
+
+#. Default: "It is visible if no fullname is mapped and in some rare cases in URLs. It is the identifier used for the user inside Plone."
+#: ../interfaces.py:102
+msgid "help_userid_factory_name"
+msgstr "Visible si le nom ne correspond pas ou dans dans rare cas dans les URLs. Il s'agit de l'identifiant pour l'utilisateur dans Plone."
+
+#. Default: "At least one provider must be configured."
+#: ../interfaces.py:74
+msgid "invalid_cfg_empty_dict"
+msgstr "Au moins un fournisseur doit être configuré"
+
+#. Default: "JSON root must be a mapping (dict)"
+#: ../interfaces.py:69
+msgid "invalid_cfg_no_dict"
+msgstr "La racine du JSON doit être un dictionnaire"
+
+#. Default: "JSON is not valid, parser complained: ${message}"
+#: ../interfaces.py:63
+msgid "invalid_json"
+msgstr "le JSON n'est pas valide, erreur lors du traitement: ${message}"
+
+#. Default: "Logged in with ${provider}"
+#: ../browser/view.py:81
+msgid "logged_in_with"
+msgstr "Connecté via ${provider}"
+
+#. Default: "Log in with"
+#: ../browser/authomatic.pt:9
+msgid "login_title"
+msgstr "Se connecter avec"

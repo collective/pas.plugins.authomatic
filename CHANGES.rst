@@ -4,6 +4,9 @@ Changelog
 1.0b2 (unreleased)
 ------------------
 
+- Add french translation
+  [mpeeters]
+
 - PAS event notification IPrincipalCreatedEvent.
   [jensens]
 

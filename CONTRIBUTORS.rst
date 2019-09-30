@@ -2,3 +2,4 @@
 - Matthias Dollfuss, matthias.dollfuss@gmail.com
 - Érico Andrei
 - Luca Fabbri, luca.fabbri@abstract.it
+- Martin Peeters
