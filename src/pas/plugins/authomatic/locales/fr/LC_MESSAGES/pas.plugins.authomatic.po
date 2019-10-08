@@ -95,12 +95,12 @@ msgstr ""
 #. Default: "Some random string used to encrypt the state"
 #: ../interfaces.py:94
 msgid "help_secret"
-msgstr "Chaîne de caractère aléatoire utiliser pour l'encryption"
+msgstr "Chaîne de caractères aléatoire utilisée pour l'encryption"
 
 #. Default: "It is visible if no fullname is mapped and in some rare cases in URLs. It is the identifier used for the user inside Plone."
 #: ../interfaces.py:102
 msgid "help_userid_factory_name"
-msgstr "Visible si le nom ne correspond pas ou dans dans rare cas dans les URLs. Il s'agit de l'identifiant pour l'utilisateur dans Plone."
+msgstr "Visible si le nom ne correspond pas ou dans de rares cas dans les URLs. Il s'agit de l'identifiant pour l'utilisateur dans Plone."
 
 #. Default: "At least one provider must be configured."
 #: ../interfaces.py:74
