@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from six.moves import range
 from zope import schema
 from zope.component import getUtilitiesFor
 from zope.i18nmessageid import MessageFactory
@@ -48,9 +49,8 @@ DEFAULT_CONFIG = u"""\
 """
 
 random_secret = u''.join(
-    random.SystemRandom().choice(
-        string.ascii_letters + string.digits
-    ) for _ in range(10)
+    random.SystemRandom().choice(string.ascii_letters + string.digits)
+    for _ in range(10)
 )
 
 
@@ -60,21 +60,24 @@ def validate_cfg_json(value):
     try:
         jv = json.loads(value)
     except ValueError as e:
-        raise Invalid(_(
-            'invalid_json',
-            'JSON is not valid, parser complained: ${message}',
-            mapping={'message': e.message}
-        ))
+        raise Invalid(
+            _(
+                'invalid_json',
+                'JSON is not valid, parser complained: ${message}',
+                mapping={'message': e.message},
+            )
+        )
     if not isinstance(jv, dict):
-        raise Invalid(_(
-            'invalid_cfg_no_dict',
-            'JSON root must be a mapping (dict)',
-        ))
+        raise Invalid(
+            _('invalid_cfg_no_dict', 'JSON root must be a mapping (dict)')
+        )
     if len(jv) < 1:
-        raise Invalid(_(
-            'invalid_cfg_empty_dict',
-            'At least one provider must be configured.',
-        ))
+        raise Invalid(
+            _(
+                'invalid_cfg_empty_dict',
+                'At least one provider must be configured.',
+            )
+        )
     return True
 
 
@@ -91,8 +94,10 @@ class IPasPluginsAuthomaticSettings(Interface):
 
     secret = schema.TextLine(
         title=_(u"Secret"),
-        description=_('help_secret',
-                      default=u"Some random string used to encrypt the state"),
+        description=_(
+            'help_secret',
+            default=u"Some random string used to encrypt the state",
+        ),
         required=True,
         default=random_secret,
     )
@@ -102,22 +107,22 @@ class IPasPluginsAuthomaticSettings(Interface):
         description=_(
             "help_userid_factory_name",
             default=u"It is visible if no fullname is mapped and in some "
-                    u"rare cases in URLs. It is the identifier used for "
-                    u"the user inside Plone."
+            u"rare cases in URLs. It is the identifier used for "
+            u"the user inside Plone.",
         ),
-        default='uuid'
+        default='uuid',
     )
     json_config = schema.SourceText(
         title=_(u"JSON configuration"),
         description=_(
             'help_json_config',
             default=u'Configuration parameters for the different '
-                    u'authorization providers. Details at '
-                    u'https://authomatic.github.io/authomatic/reference/'
-                    u'providers.html '
-                    u'- difference: "class_" has to be a string, which is '
-                    u'then resolved as a dotted path. Also sections '
-                    u'"display" and "propertymap" are special.'
+            u'authorization providers. Details at '
+            u'https://authomatic.github.io/authomatic/reference/'
+            u'providers.html '
+            u'- difference: "class_" has to be a string, which is '
+            u'then resolved as a dotted path. Also sections '
+            u'"display" and "propertymap" are special.',
         ),
         required=True,
         constraint=validate_cfg_json,

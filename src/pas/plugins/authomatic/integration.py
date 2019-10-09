@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from authomatic.adapters import BaseAdapter
 
-import Cookie
+import six.moves.http_cookies
 import logging
 
 
@@ -39,7 +39,7 @@ class ZopeRequestAdapter(BaseAdapter):
     @property
     def cookies(self):
         # special handling since zope parsing does to much decoding
-        cookie = Cookie.SimpleCookie()
+        cookie = six.moves.http_cookies.SimpleCookie()
         cookie.load(self.view.request['HTTP_COOKIE'])
         cookies = {k: c.value for k, c in cookie.items()}
         return cookies

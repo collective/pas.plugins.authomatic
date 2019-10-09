@@ -15,6 +15,7 @@ from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 
 import logging
+import six
 
 
 logger = logging.getLogger(__file__)
@@ -35,7 +36,7 @@ class AuthomaticView(BrowserView):
         cfgs = authomatic_cfg()
         if not cfgs:
             raise ValueError("Authomatic configuration has errors.")
-        return cfgs.keys()
+        return list(cfgs.keys())
 
     def providers(self):
         cfgs = authomatic_cfg()
@@ -48,12 +49,10 @@ class AuthomaticView(BrowserView):
                 'identifier': identifier,
                 'title': entry.get('title', identifier),
                 'iconclasses': cssclasses.get(
-                    'icon',
-                    'glypicon glyphicon-log-in'
+                    'icon', 'glypicon glyphicon-log-in'
                 ),
                 'buttonclasses': cssclasses.get(
-                    'button',
-                    'plone-btn plone-btn-default'
+                    'button', 'plone-btn plone-btn-default'
                 ),
                 'as_form': entry.get('as_form', False),
             }
@@ -68,9 +67,9 @@ class AuthomaticView(BrowserView):
             _(
                 'added_identity',
                 default='Added identity provided by ${provider}',
-                mapping={'provider': provider_name}
+                mapping={'provider': provider_name},
             ),
-            self.request
+            self.request,
         )
 
     def _remember_identity(self, result, provider_name):
@@ -81,9 +80,9 @@ class AuthomaticView(BrowserView):
             _(
                 'logged_in_with',
                 'Logged in with ${provider}',
-                mapping={'provider': provider_name}
+                mapping={'provider': provider_name},
             ),
-            self.request
+            self.request,
         )
 
     def __call__(self):
@@ -91,16 +90,15 @@ class AuthomaticView(BrowserView):
         if cfg is None:
             return "Authomatic is not configured"
         if not (
-            ISiteRoot.providedBy(self.context) or
-            INavigationRoot.providedBy(self.context)
+            ISiteRoot.providedBy(self.context)
+            or INavigationRoot.providedBy(self.context)
         ):
             # callback url is expected on either navigationroot or site root
             # so bevor going on redirect
             root = api.portal.get_navigation_root(self.context)
             self.request.response.redirect(
                 "{0}/authomatic-handler/{1}".format(
-                    root.absolute_url(),
-                    getattr(self, 'provider', '')
+                    root.absolute_url(), getattr(self, 'provider', '')
                 )
             )
             return "redirecting"
@@ -117,14 +115,11 @@ class AuthomaticView(BrowserView):
             # TODO: some sort of CSRF check might be needed, so that
             #       not an account got connected by CSRF. Research needed.
             pass
-        auth = Authomatic(
-            cfg,
-            secret=authomatic_settings().secret.encode('utf8')
-        )
-        result = auth.login(
-            ZopeRequestAdapter(self),
-            self.provider
-        )
+        secret = authomatic_settings().secret
+        if six.PY2 and isinstance(secret, six.text_type):
+            secret = secret.encode('utf8')
+        auth = Authomatic(cfg, secret=secret)
+        result = auth.login(ZopeRequestAdapter(self), self.provider)
         if not result:
             logger.info('return from view')
             # let authomatic do its work
@@ -142,9 +137,12 @@ class AuthomaticView(BrowserView):
         else:
             # now we delegate to PAS plugin in order to login
             self._remember_identity(result, provider_name)
-            self.request.response.redirect(
-                "{0}/login_success".format(self.context.absolute_url())
-            )
+            if api.env.plone_version() < '5.2':
+                self.request.response.redirect(
+                    "{0}/login_success".format(self.context.absolute_url())
+                )
+            else:
+                self.request.response.redirect(self.context.absolute_url())
         return "redirecting"
 
     @property
