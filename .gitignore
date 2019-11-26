@@ -9,6 +9,7 @@
 .mr.developer.cfg
 .project
 .pydevproject
+.python-version
 .settings/
 bin/
 buildout-cache/
