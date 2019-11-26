@@ -1,6 +1,6 @@
 exclude .editorconfig .*.cfg buildout.cfg
 graft docs
 graft src/pas
-include *.cfg *.rst *.in *.sh .coveragerc
+include *.cfg *.rst *.in .coveragerc
 include requirements.txt
 recursive-exclude * *.pyc

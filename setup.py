@@ -44,7 +44,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'authomatic',
+        'authomatic>=0.2.0a3',
         'Plone',
         'plone.api',
         'plone.protect>=3.0.0',  # plone4.csrffixes will include this
