@@ -6,10 +6,9 @@ Changelog
 
 - Implementation of IRolesPlugin to set roles to connected user (through provider).
   [bsuttor]
+
 - Add french translation
   [mpeeters]
-- Implementation of IRolesPlugin to set roles to connected user (through provider).
-  [bsuttor]
 
 - PAS event notification IPrincipalCreatedEvent.
   [jensens]
