@@ -294,7 +294,9 @@ class AuthomaticPlugin(BasePlugin):
         identity = self._useridentities_by_userid.get(user.getId(), None)
         if not identity:
             return ()
-        provider_id = identity._identities.keys()[0]
+        keys = [key for key in identity._identities.keys()]
+        provider_id = keys[0]
+
         if 'roles' in identity._identities[provider_id].keys():
             roles = identity._identities[provider_id]['roles']
             if isinstance(roles, list):
