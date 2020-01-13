@@ -81,7 +81,6 @@ class AuthomaticPlugin(BasePlugin):
             raise ValueError('Invalid: Empty provider.name')
         return (result.provider.name, result.user.id)
 
-    @security.private
     def lookup_identities(self, result):
         """looks up the UserIdentities by using the provider name and the
         userid at this provider
@@ -91,7 +90,6 @@ class AuthomaticPlugin(BasePlugin):
         )
         return self._useridentities_by_userid.get(userid, None)
 
-    @security.private
     def remember_identity(self, result, userid=None):
         """stores authomatic result data
         """
@@ -112,7 +110,6 @@ class AuthomaticPlugin(BasePlugin):
         useridentities.handle_result(result)
         return useridentities
 
-    @security.private
     def remember(self, result):
         """remember user as valid
 
@@ -157,7 +154,6 @@ class AuthomaticPlugin(BasePlugin):
     # ##
     # pas_interfaces.IAuthenticationPlugin
 
-    @security.public
     def authenticateCredentials(self, credentials):
         """ credentials -> (userid, login)
 
@@ -177,7 +173,6 @@ class AuthomaticPlugin(BasePlugin):
     # ##
     # pas_interfaces.plugins.IPropertiesPlugin
 
-    @security.private
     def getPropertiesForUser(self, user, request=None):
         identity = self._useridentities_by_userid.get(user.getId(), _marker)
         if identity is _marker:
@@ -187,7 +182,6 @@ class AuthomaticPlugin(BasePlugin):
     # ##
     # pas_interfaces.plugins.IUserEnumaration
 
-    @security.private
     def enumerateUsers(
         self,
         id=None,
