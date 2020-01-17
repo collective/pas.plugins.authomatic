@@ -47,6 +47,20 @@ class TestPlugin(unittest.TestCase):
         result = self.plugin.authenticateCredentials(credentials)
         self.assertEqual(result, ('joe', 'joe'))
 
+    def test_authentication_zope_admin(self):
+        self.aclu.userFolderAddUser('admin', 'admin', [], [])  # zope admin
+        make_user('administrator', testcase=self)  # oauth administrator
+
+        # check searching exact user by plugins: authomatic and ZODBUserManager
+        self.assertEqual(
+            len(self.aclu.searchUsers(id='adm', exact_match=True)), 0)
+        administrator = self.aclu.searchUsers(
+            id='administrator', exact_match=True)[0]
+        admin = self.aclu.searchUsers(id='admin', exact_match=True)[0]
+        self.assertEqual(administrator['pluginid'], 'authomatic')
+        self.assertEqual(admin['pluginid'], 'users')
+        self.assertEqual(self.aclu.getUserById('admin').getId(), 'admin')
+
     def test_user_enumaration(self):
         make_user('123joe', testcase=self)
         make_user('123jane', testcase=self)
@@ -66,8 +80,16 @@ class TestPlugin(unittest.TestCase):
             len(self.plugin.enumerateUsers(id='123'))
         )
         self.assertEqual(
+            0,
+            len(self.plugin.enumerateUsers(id='123', exact_match=True))
+        )
+        self.assertEqual(
             2,
             len(self.plugin.enumerateUsers(id='123j'))
+        )
+        self.assertEqual(
+            0,
+            len(self.plugin.enumerateUsers(id='123', exact_match=True))
         )
 
         # check by login

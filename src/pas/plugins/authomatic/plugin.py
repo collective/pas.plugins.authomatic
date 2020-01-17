@@ -263,6 +263,11 @@ class AuthomaticPlugin(BasePlugin):
             ret.append({'id': userid, 'login': userid, 'pluginid': pluginid})
             return ret
 
+        if exact_match:
+            # we're claiming an exact match search, if we still don't
+            # have anything, better bail.
+            return ret
+
         # non exact expensive search
         for userid in self._useridentities_by_userid:
             if not userid:

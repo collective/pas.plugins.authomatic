@@ -13,6 +13,9 @@ Changelog
 - Python 3 and Plone 52 compatibility.
   [cekk]
 
+- Fix #44: Fullfill strictly exact_match when enumerating users
+  [allusa]
+
 1.0b1 (2017-11-20)
 ------------------
 
