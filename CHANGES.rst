@@ -4,6 +4,9 @@ Changelog
 1.0b2 (unreleased)
 ------------------
 
+- Implementation of IRolesPlugin to set roles to connected user (through provider).
+  [bsuttor]
+
 - Add french translation
   [mpeeters]
 
