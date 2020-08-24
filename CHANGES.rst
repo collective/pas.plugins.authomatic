@@ -15,7 +15,10 @@ Changelog
 
 - Allow users deletion.
   [cekk]
-  
+
+- Drop Plone < 5.1.x compatibility.
+  [cekk]
+
 1.0b1 (2017-11-20)
 ------------------
 
