@@ -1,5 +1,2 @@
-- Jens Klein, jens@bluedynamics.com
-- Matthias Dollfuss, matthias.dollfuss@gmail.com
-- Érico Andrei
-- Luca Fabbri, luca.fabbri@abstract.it
-- Martin Peeters
+Maintainer is Jens Klein (Github @jensens)
+Several people helped to make this package work see Github https://github.com/collective/pas.plugins.authomatic/graphs/contributors for the whole list.
