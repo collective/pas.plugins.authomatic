@@ -7,17 +7,17 @@
     <value>authomatic-handler</value>
   </record>
 
-  <records
-      interface="Products.CMFPlone.interfaces.IResourceRegistry"
-      prefix="plone.resources/pas-plugins-authomatic">
+  <records interface="Products.CMFPlone.interfaces.IResourceRegistry"
+           prefix="plone.resources/pas-plugins-authomatic"
+  >
     <value key="css">
       <element>++plone++pas.plugins.authomatic/authomatic.less</element>
     </value>
   </records>
 
-  <records
-      interface="Products.CMFPlone.interfaces.IBundleRegistry"
-      prefix="plone.bundles/authomatic-addon">
+  <records interface="Products.CMFPlone.interfaces.IBundleRegistry"
+           prefix="plone.bundles/authomatic-addon"
+  >
     <value key="resources">
       <element>pas-plugins-authomatic</element>
     </value>

@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <import-steps>
 
-  <import-step
-      handler="pas.plugins.authomatic.setuphandlers.setup_plugin"
-      id="pas.plugins.authomatic.setup"
-      title="Setup Authomatic Plugin"
-      version="20151017">
+  <import-step id="pas.plugins.authomatic.setup"
+               handler="pas.plugins.authomatic.setuphandlers.setup_plugin"
+               title="Setup Authomatic Plugin"
+               version="20151017"
+  >
     <dependency step="plone-final" />
   Setup Authomatic OAuth Plugin
- </import-step>
+  </import-step>
 
 </import-steps>

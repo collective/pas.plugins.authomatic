@@ -7,7 +7,7 @@ Changelog
 - Fix tox setup, move CI from TravisCI to Github Actions.
   [jensens]
 
-- Code Style Black, Isort and Pyupgrade applied.
+- Code Style Black, Isort, zpretty and Pyupgrade applied.
   [jensens]
 
 - Add missing no-op methods for IUserManagement to plugin.

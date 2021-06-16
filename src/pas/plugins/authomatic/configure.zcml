@@ -1,39 +1,43 @@
 <configure
-    i18n_domain="pas.plugins.authomatic"
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-    xmlns:i18n="http://namespaces.zope.org/i18n">
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="pas.plugins.authomatic"
+    >
 
-  <include package="Products.CMFPlone" file="configure.zcml" />
+  <include
+      package="Products.CMFPlone"
+      file="configure.zcml"
+      />
 
   <five:registerPackage
-      initialize=".initialize"
       package="."
-  />
+      initialize=".initialize"
+      />
 
   <i18n:registerTranslations directory="locales" />
 
   <include package=".browser" />
 
   <include file="profiles.zcml" />
-  <include file="meta.zcml"/>
+  <include file="meta.zcml" />
 
   <utility
-    component=".interfaces.userid_factory_vocabulary"
-    name="pas.plugins.authomatic.userid_vocabulary"
-    />
+      name="pas.plugins.authomatic.userid_vocabulary"
+      component=".interfaces.userid_factory_vocabulary"
+      />
   <utility
-    factory=".useridfactories.UUID4UserIDFactory"
-    name="uuid"
-  />
+      factory=".useridfactories.UUID4UserIDFactory"
+      name="uuid"
+      />
   <utility
-    factory=".useridfactories.ProviderIDUserIDFactory"
-    name="userid"
-  />
+      factory=".useridfactories.ProviderIDUserIDFactory"
+      name="userid"
+      />
   <utility
-    factory=".useridfactories.ProviderIDUserNameFactory"
-    name="username"
-  />
+      factory=".useridfactories.ProviderIDUserNameFactory"
+      name="username"
+      />
 
 </configure>

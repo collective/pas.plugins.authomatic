@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <import-steps>
 
-  <import-step
-      handler="pas.plugins.authomatic.setuphandlers.remove_plugin"
-      id="pas.plugins.authomatic.remove"
-      title="Remove Authomatic OAuth Plugin"
-      version="20150717">
+  <import-step id="pas.plugins.authomatic.remove"
+               handler="pas.plugins.authomatic.setuphandlers.remove_plugin"
+               title="Remove Authomatic OAuth Plugin"
+               version="20150717"
+  >
     <dependency step="plone-final" />
   Remove Authomatic OAuth Plugin
- </import-step>
+  </import-step>
 
 </import-steps>

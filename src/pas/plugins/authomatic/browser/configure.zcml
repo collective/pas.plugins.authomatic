@@ -1,32 +1,33 @@
 <configure
-    i18n_domain="pas.plugins.authomatic"
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
     xmlns:zcml="http://namespaces.zope.org/zcml"
-    xmlns:plone="http://namespaces.plone.org/plone">
+    i18n_domain="pas.plugins.authomatic"
+    >
 
   <!-- Publish static files -->
   <plone:static
       directory="resources"
       name="pas.plugins.authomatic"
       type="plone"
-  />
+      />
 
   <!-- Control panel -->
   <browser:page
-      class=".controlpanel.AuthomaticSettingsEditFormSettingsControlPanel"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      layer="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticLayer"
       name="authomatic-controlpanel"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".controlpanel.AuthomaticSettingsEditFormSettingsControlPanel"
       permission="cmf.ManagePortal"
-  />
+      layer="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticLayer"
+      />
 
   <!-- Login -->
   <browser:page
-      class=".view.AuthomaticView"
-      for="*"
-      layer="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticLayer"
       name="authomatic-handler"
+      for="*"
+      class=".view.AuthomaticView"
       permission="zope2.View"
-  />
+      layer="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticLayer"
+      />
 </configure>

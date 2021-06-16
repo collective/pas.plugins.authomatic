@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <layers>
-  <layer
-    name="pas.plugins.authomatic"
-    interface="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticLayer"
-    remove="True"
+  <layer interface="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticLayer"
+         name="pas.plugins.authomatic"
+         remove="True"
   />
 </layers>

@@ -1,16 +1,19 @@
 <?xml version="1.0"?>
 <registry>
 
-  <records interface="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticSettings"
-           field="secret"
-           remove="True" />
+  <records field="secret"
+           interface="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticSettings"
+           remove="True"
+  />
 
-  <records interface="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticSettings"
-           field="userid_factory_name"
-           remove="True" />
+  <records field="userid_factory_name"
+           interface="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticSettings"
+           remove="True"
+  />
 
-  <records interface="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticSettings"
-           field="json_config"
-           remove="True" />
+  <records field="json_config"
+           interface="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticSettings"
+           remove="True"
+  />
 
 </registry>
