@@ -130,11 +130,18 @@ We appreciate any contribution and if a release is needed to be done on pypi, pl
 Development
 -----------
 
-There must be an ``python`` binary available in system path pointing to Python 2.7.
-Also you need to have all installed to develop with Plone (see http://docs.plone.org/) then:
+You need a working ``python`` environment (system, virtualenv, pyenv, etc).
+Could be 2.7 (deprecated. Used only for Plone < 5.1) or 3 (preferred).
 
-- Plone 4: ``$ bootstrap-4.3.x.sh``
-- Plone 5: ``$ bootstrap-5.0.x.sh``
+Then you should install some requirements with pip::
+
+    > bin/pip install -r requirements.txt
+
+And finally run buildout::
+
+    > bin/buildout -N
+
+By default we use the last Plone version (5.2).
 
 
 License

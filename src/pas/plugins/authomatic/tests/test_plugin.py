@@ -116,3 +116,41 @@ class TestPlugin(unittest.TestCase):
             0,
             len(self.plugin.enumerateUsers())
         )
+
+    def test_user_delete(self):
+        make_user('123joe', testcase=self)
+        make_user('123jane', testcase=self)
+        self.assertEqual(
+            2,
+            len(self.plugin.enumerateUsers(login='123j'))
+        )
+        self.assertEqual(
+            1,
+            len(self.plugin.enumerateUsers(login='123joe'))
+        )
+        self.plugin.doDeleteUser(userid="123joe")
+        self.assertEqual(
+            1,
+            len(self.plugin.enumerateUsers(login='123j'))
+        )
+        self.assertEqual(
+            0,
+            len(self.plugin.enumerateUsers(login='123joe'))
+        )
+
+    def test_user_delete_invalid_uid(self):
+        make_user('123joe', testcase=self)
+        make_user('123jane', testcase=self)
+        self.assertEqual(
+            2,
+            len(self.plugin.enumerateUsers(login='123j'))
+        )
+        self.assertEqual(
+            1,
+            len(self.plugin.enumerateUsers(login='123joe'))
+        )
+        self.plugin.doDeleteUser(userid="123foo")
+        self.assertEqual(
+            2,
+            len(self.plugin.enumerateUsers(login='123j'))
+        )

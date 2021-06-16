@@ -4,6 +4,9 @@ Changelog
 1.0b2 (unreleased)
 ------------------
 
+- Fixed ModuleNotFoundError: No module named 'App.class_init' on Zope 5.
+  [bsuttor]
+
 - Add french translation
   [mpeeters]
 
@@ -15,6 +18,12 @@ Changelog
 
 - Fix #44: Fullfill strictly exact_match when enumerating users
   [allusa]
+
+- Allow users deletion.
+  [cekk]
+
+- Drop Plone < 5.1.x compatibility.
+  [cekk]
 
 1.0b1 (2017-11-20)
 ------------------
