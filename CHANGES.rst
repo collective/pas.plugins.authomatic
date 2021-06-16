@@ -4,7 +4,14 @@ Changelog
 1.0b2 (unreleased)
 ------------------
 
+- Fix tox setup, move CI from TravisCI to Github Actions.
+  [jensens]
+
+- Code Style Black, Isort and Pyupgrade applied.
+  [jensens]
+
 - Add missing no-op methods for IUserManagement to plugin.
+  This fixes the tests.
   [jensens]
 
 - Drop Python 2 support and so require Plone 5.2.

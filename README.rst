@@ -1,8 +1,5 @@
-.. image:: https://travis-ci.org/collective/pas.plugins.authomatic.svg?branch=master
-    :target: https://travis-ci.org/collective/pas.plugins.authomatic
-
-.. image:: https://coveralls.io/repos/collective/pas.plugins.authomatic/badge.svg?branch=master&service=github
-    :target: https://coveralls.io/github/collective/pas.plugins.authomatic?branch=master
+.. image:: https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yaml/badge.svg)
+    :target: https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yaml
 
 
 .. This README is meant for consumption by humans and pypi. Pypi can render rst files so please do not use Sphinx features.
