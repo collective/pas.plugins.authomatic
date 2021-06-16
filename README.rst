@@ -1,4 +1,4 @@
-.. image:: https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yaml/badge.svg)
+.. image:: https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yaml/badge.svg
     :target: https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yaml
 
 
