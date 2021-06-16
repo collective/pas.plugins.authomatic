@@ -15,5 +15,20 @@
            interface="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticSettings"
            remove="True"
   />
+  <record name="plone.external_login_url">
+    <value></value>
+  </record>
+
+  <records interface="Products.CMFPlone.interfaces.IResourceRegistry"
+           prefix="plone.resources/pas-plugins-authomatic"
+           remove="True"
+  >
+  </records>
+
+  <records interface="Products.CMFPlone.interfaces.IBundleRegistry"
+           prefix="plone.bundles/authomatic-addon"
+           remove="True"
+  >
+  </records>
 
 </registry>

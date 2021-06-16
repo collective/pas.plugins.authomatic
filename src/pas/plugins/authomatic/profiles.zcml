@@ -9,7 +9,7 @@
   <genericsetup:registerProfile
       name="default"
       title="Authomatic PAS Plugin"
-      description="Authomatic: Login with OAuth/OpenID 3rd party auth providers."
+      description="Authomatic: Login with OAuth/OpenID 3rd party auth providers using the pas.plugins.authomatic add-on."
       provides="Products.GenericSetup.interfaces.EXTENSION"
       directory="profiles/default"
       post_handler=".setuphandlers.post_install"
@@ -18,7 +18,7 @@
   <genericsetup:registerProfile
       name="uninstall"
       title="Authomatic PAS Plugin: uninstall"
-      description="Uninstalls the pas.plugins.authomatic add-on"
+      description="Uninstalls the pas.plugins.authomatic add-on. This REMOVES ALL USERS managed by this plugin!"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       directory="profiles/uninstall"
       post_handler=".setuphandlers.post_uninstall"

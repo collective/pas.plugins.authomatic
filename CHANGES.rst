@@ -4,6 +4,9 @@ Changelog
 1.0b2 (unreleased)
 ------------------
 
+- Fix #48 uninstall leftovers. 
+  [jensens]
+
 - Fix tox setup, move CI from TravisCI to Github Actions.
   [jensens]
 
