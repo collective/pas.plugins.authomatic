@@ -10,19 +10,12 @@ from plone.testing import Layer
 from plone.testing import z2
 from Products.CMFCore.interfaces import ISiteRoot
 from zope.component import provideUtility
+from Products.PlonePAS.setuphandlers import migrate_root_uf
 
 import pas.plugins.authomatic
 
 
 ORIGINAL_CSRF_DISABLED = auto.CSRF_DISABLED
-
-
-try:
-    # plone 5.x with PlonePAS >=5.0
-    from Products.PlonePAS.setuphandlers import migrate_root_uf
-except ImportError:
-    # plone 3.x and 4.x with PlonePAS <5.0
-    from Products.PlonePAS.Extensions.Install import migrate_root_uf
 
 
 class PasPluginsAuthomaticZopeLayer(Layer):

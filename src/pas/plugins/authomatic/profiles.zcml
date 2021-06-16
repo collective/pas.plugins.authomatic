@@ -6,50 +6,23 @@
     xmlns:i18n="http://namespaces.zope.org/i18n">
 
   <genericsetup:registerProfile
-      description="Authomatic: Login with OAuth/OpenID 3rd party auth providers (base for Plone 4 + 5)."
-      directory="profiles/base"
-      name="install-base"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      title="Authomatic PAS Plugin (base)"
-  />
-  <genericsetup:registerProfile
-      zcml:condition="have plone-5"
-      description="Authomatic: Login with OAuth/OpenID 3rd party auth providers."
-      directory="profiles/plone5"
-      name="default"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
       title="Authomatic PAS Plugin"
-  />
-  <genericsetup:registerProfile
-      zcml:condition="not-have plone-5"
-      description="Authomatic: Login with OAuth/OpenID 3rd party auth providers."
-      directory="profiles/plone4"
       name="default"
+      description="Authomatic: Login with OAuth/OpenID 3rd party auth providers."
+      directory="profiles/default"
       provides="Products.GenericSetup.interfaces.EXTENSION"
-      title="Authomatic PAS Plugin"
+      post_handler=".setuphandlers.post_install"
   />
+      
   <genericsetup:registerProfile
-      description="Uninstalls the pas.plugins.authomatic add-on (base)"
-      directory="profiles/uninstall-base"
-      name="uninstall-base"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      title="Authomatic PAS Plugin: base uninstall"
-  />
-  <genericsetup:registerProfile
-      zcml:condition="have plone-5"
-      description="Uninstalls the pas.plugins.authomatic add-on"
-      directory="profiles/uninstall-plone5"
+      title="Authomatic PAS Plugin: uninstall"
       name="uninstall"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      title="Authomatic PAS Plugin: base uninstall"
-  />
-  <genericsetup:registerProfile
-      zcml:condition="not-have plone-5"
       description="Uninstalls the pas.plugins.authomatic add-on"
-      directory="profiles/uninstall-plone4"
-      name="uninstall"
+      directory="profiles/uninstall"
       provides="Products.GenericSetup.interfaces.EXTENSION"
-      title="Authomatic PAS Plugin: base uninstall"
-  />
+      post_handler=".setuphandlers.post_uninstall"
+    />
+
   <utility factory=".setuphandlers.HiddenProfiles" name="pas.plugins.authomatic" />
+
 </configure>

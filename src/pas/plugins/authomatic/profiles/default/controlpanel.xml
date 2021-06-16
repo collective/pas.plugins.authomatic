@@ -6,7 +6,7 @@
     purge="False">
 
     <configlet
-        title="PAS Authomatic Plugin Settings"
+        title="Authomatic (OAuth2/OpenID)"
         action_id="authomatic"
         appId="pas.plugins.authomatic"
         category="plone-users"

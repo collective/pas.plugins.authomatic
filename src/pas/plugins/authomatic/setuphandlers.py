@@ -26,20 +26,15 @@ def _add_plugin(pas, pluginid=DEFAULT_ID):
             [x[0] for x in pas.plugins.listPlugins(interface)[:-1]],
         )
 
-
-def setup_plugin(context):
-    if context.readDataFile('paspluginsauthomatic_marker.txt') is not None:  # noqa
-        _add_plugin(context.getSite().acl_users)
-
-
 def _remove_plugin(pas, pluginid=DEFAULT_ID):
     if pluginid in pas.objectIds():
         pas.manage_delObjects([pluginid])
 
+def post_install(context):
+    _add_plugin(context.aq_parent.acl_users)
 
-def remove_plugin(context):
-    if context.readDataFile('paspluginsauthomatic_uninstall.txt') is not None:  # noqa
-        _remove_plugin(context.getSite().acl_users)
+def post_uninstall(context):
+    _remove_plugin(context.aq_parent.acl_users)
 
 
 @implementer(INonInstallable)
@@ -49,7 +44,5 @@ class HiddenProfiles(object):
         """Do not show on Plone's list of installable profiles.
         """
         return [
-            'pas.plugins.authomatic:install-base',
             'pas.plugins.authomatic:uninstall',
-            'pas.plugins.authomatic:uninstall-base',
         ]

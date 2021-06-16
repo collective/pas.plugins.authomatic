@@ -26,16 +26,17 @@ setup(
         "Environment :: Web Environment",
         "Framework :: Plone :: Addon",
         "Framework :: Plone",
-        "Framework :: Plone :: 5.1",
         "Framework :: Plone :: 5.2",
+#        "Framework :: Plone :: 6.0",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
     ],
     keywords='Python Plone PAS OAuth',
     author='Jens Klein and Matthias Dollfuss',
     author_email='dev@bluedynamics.com',
-    url='http://pypi.python.org/pypi/pas.plugins.authomatic',
+    url='https://github.com/collective/pas.plugins.authomatic',
     license='GPL',
     packages=find_packages('src', exclude=['ez_setup']),
     namespace_packages=['pas', 'pas.plugins'],
@@ -43,21 +44,13 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'authomatic>=0.2.0a3',
-        'Plone',
-        'plone.api',
-        'plone.protect>=3.0.0',  # plone4.csrffixes will include this
+        'authomatic>=1.0.0',
+        'Products.CMFPlone>=5.2',
         'setuptools',
     ],
     extras_require={
         'test': [
-            'mock',
             'plone.app.testing',
-            # Plone KGS does not use this version, because it would break
-            # Remove if your package shall be part of coredev.
-            # plone_coredev tests as of 2016-04-01.
-            'plone.testing>=5.0.0',
-            'plone.app.contenttypes',
             'plone.app.robotframework[debug]',
         ]
     },
