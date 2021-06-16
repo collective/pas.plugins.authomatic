@@ -10,8 +10,6 @@ python:
 matrix:
   include:
     - python: "2.7"
-      env: PLONE_VERSION=43
-    - python: "2.7"
       env: PLONE_VERSION=51
     - python: "2.7"
       env: PLONE_VERSION=52

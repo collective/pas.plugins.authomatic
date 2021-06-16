@@ -13,7 +13,6 @@
 .settings/
 bin/
 buildout-cache/
-buildout.cfg
 develop-eggs/
 devsrc/*
 downloads
