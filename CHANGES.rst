@@ -4,6 +4,9 @@ Changelog
 1.0b2 (unreleased)
 ------------------
 
+- Fixed ModuleNotFoundError: No module named 'App.class_init' on Zope 5.
+  [bsuttor]
+
 - Add french translation
   [mpeeters]
 

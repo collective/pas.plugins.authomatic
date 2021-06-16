@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
-from App.class_init import InitializeClass
+from AccessControl.class_init import InitializeClass
 from BTrees.OOBTree import OOBTree
 from operator import itemgetter
 from pas.plugins.authomatic.interfaces import IAuthomaticPlugin
