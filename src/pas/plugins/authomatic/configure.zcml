@@ -5,12 +5,12 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:i18n="http://namespaces.zope.org/i18n">
 
+  <include package="Products.CMFPlone" file="configure.zcml" />
+
   <five:registerPackage
       initialize=".initialize"
       package="."
   />
-
-  <includeDependencies package="." />
 
   <i18n:registerTranslations directory="locales" />
 
