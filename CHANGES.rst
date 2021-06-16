@@ -3,6 +3,13 @@ Changelog
 
 1.0b2 (unreleased)
 ------------------
+
+- Add missing no-op methods for IUserManagement to plugin.
+  [jensens]
+
+- Drop Python 2 support and so require Plone 5.2.
+  [jensens]
+
 - Include permissions from CMFCore to avoid ComponentLookupError.
   [bsuttor]
 

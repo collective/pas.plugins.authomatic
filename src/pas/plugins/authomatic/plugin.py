@@ -311,6 +311,18 @@ class AuthomaticPlugin(BasePlugin):
         return self.removeUser(userid)
 
     @security.private
+    def doChangeUser(self, userid):
+        """do nothing
+        """
+        return False
+
+    @security.private
+    def doAddUser(self, login, password):
+        """do nothing
+        """
+        return False
+
+    @security.private
     def getPluginIdByUserId(self, user_id):
         """
         return the right key for given user_id
