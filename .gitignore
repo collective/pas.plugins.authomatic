@@ -4,7 +4,7 @@
 *.mo
 *.pyc
 *.swp
-.coverage
+.coverage*
 .installed.cfg
 .mr.developer.cfg
 .project
