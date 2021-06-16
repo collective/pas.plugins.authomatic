@@ -16,6 +16,9 @@ Changelog
 - Python 3 and Plone 52 compatibility.
   [cekk]
 
+- Fix #44: Fullfill strictly exact_match when enumerating users
+  [allusa]
+
 - Allow users deletion.
   [cekk]
 
