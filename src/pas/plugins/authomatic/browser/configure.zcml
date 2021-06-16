@@ -18,6 +18,7 @@
       zcml:condition="not-have plone-5"
   />
 
+  <include package="Products.CMFCore" file="permissions.zcml" />
   <!-- Control panel -->
   <browser:page
       class=".controlpanel.AuthomaticSettingsEditFormSettingsControlPanel"

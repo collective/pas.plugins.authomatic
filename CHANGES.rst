@@ -3,6 +3,8 @@ Changelog
 
 1.0b2 (unreleased)
 ------------------
+- Include permissions from CMFCore to avoid ComponentLookupError.
+  [bsuttor]
 
 - Fixed ModuleNotFoundError: No module named 'App.class_init' on Zope 5.
   [bsuttor]
