@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from pas.plugins.authomatic.interfaces import DEFAULT_ID
 from pas.plugins.authomatic.plugin import AuthomaticPlugin
 from Products.CMFPlone.interfaces import INonInstallable
@@ -12,7 +11,7 @@ def _add_plugin(pas, pluginid=DEFAULT_ID):
     if pluginid in pas.objectIds():
         return TITLE + ' already installed.'
     if pluginid != DEFAULT_ID:
-        return "ID of plugin must be {0}".format(DEFAULT_ID)
+        return f"ID of plugin must be {DEFAULT_ID}"
     plugin = AuthomaticPlugin(pluginid, title=TITLE)
     pas._setObject(pluginid, plugin)
     plugin = pas[plugin.getId()]  # get plugin acquisition wrapped!
@@ -38,7 +37,7 @@ def post_uninstall(context):
 
 
 @implementer(INonInstallable)
-class HiddenProfiles(object):
+class HiddenProfiles:
 
     def getNonInstallableProfiles(self):
         """Do not show on Plone's list of installable profiles.

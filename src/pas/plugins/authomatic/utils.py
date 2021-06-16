@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from pas.plugins.authomatic.interfaces import DEFAULT_ID
 from pas.plugins.authomatic.interfaces import IPasPluginsAuthomaticSettings
 from plone import api
@@ -44,12 +43,12 @@ def authomatic_cfg():
     for provider in cfg:
         if 'class_' in cfg[provider]:
             cfg[provider]['class_'] = resolve(cfg[provider]['class_'])
-        if u'id' in cfg[provider]:
-            cfg[provider][u'id'] = int(cfg[provider][u'id'])
+        if 'id' in cfg[provider]:
+            cfg[provider]['id'] = int(cfg[provider]['id'])
         else:
             # pick some id
             while cnt in ids:
                 cnt += 1
-            cfg[provider][u'id'] = cnt
-        ids.update([cfg[provider][u'id']])
+            cfg[provider]['id'] = cnt
+        ids.update([cfg[provider]['id']])
     return cfg

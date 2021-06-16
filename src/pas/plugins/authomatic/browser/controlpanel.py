@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from pas.plugins.authomatic.interfaces import _
 from pas.plugins.authomatic.interfaces import IPasPluginsAuthomaticSettings
 from plone.app.registry.browser import controlpanel
@@ -7,15 +6,15 @@ from plone.app.registry.browser import controlpanel
 class AuthomaticSettingsEditForm(controlpanel.RegistryEditForm):
 
     schema = IPasPluginsAuthomaticSettings
-    label = _(u"PAS Authomatic Plugin Settings")
-    description = u""
+    label = _("PAS Authomatic Plugin Settings")
+    description = ""
 
     def updateFields(self):
-        super(AuthomaticSettingsEditForm, self).updateFields()
+        super().updateFields()
         # self.fields['json_config'].widgetFactory = TextLinesFieldWidget
 
     def updateWidgets(self):
-        super(AuthomaticSettingsEditForm, self).updateWidgets()
+        super().updateWidgets()
 
 
 class AuthomaticSettingsEditFormSettingsControlPanel(

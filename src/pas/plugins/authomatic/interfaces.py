@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-from six.moves import range
 from zope import schema
 from zope.component import getUtilitiesFor
 from zope.i18nmessageid import MessageFactory
@@ -20,7 +18,7 @@ _ = MessageFactory('pas.plugins.authomatic')
 
 DEFAULT_ID = 'authomatic'
 
-DEFAULT_CONFIG = u"""\
+DEFAULT_CONFIG = """\
 {
     "github": {
         "id": 1,
@@ -48,7 +46,7 @@ DEFAULT_CONFIG = u"""\
 }
 """
 
-random_secret = u''.join(
+random_secret = ''.join(
     random.SystemRandom().choice(string.ascii_letters + string.digits)
     for _ in range(10)
 )
@@ -93,36 +91,36 @@ def userid_factory_vocabulary(context):
 class IPasPluginsAuthomaticSettings(Interface):
 
     secret = schema.TextLine(
-        title=_(u"Secret"),
+        title=_("Secret"),
         description=_(
             'help_secret',
-            default=u"Some random string used to encrypt the state",
+            default="Some random string used to encrypt the state",
         ),
         required=True,
         default=random_secret,
     )
     userid_factory_name = schema.Choice(
         vocabulary="pas.plugins.authomatic.userid_vocabulary",
-        title=_(u"Generator for Plone User IDs."),
+        title=_("Generator for Plone User IDs."),
         description=_(
             "help_userid_factory_name",
-            default=u"It is visible if no fullname is mapped and in some "
-            u"rare cases in URLs. It is the identifier used for "
-            u"the user inside Plone.",
+            default="It is visible if no fullname is mapped and in some "
+            "rare cases in URLs. It is the identifier used for "
+            "the user inside Plone.",
         ),
         default='uuid',
     )
     json_config = schema.SourceText(
-        title=_(u"JSON configuration"),
+        title=_("JSON configuration"),
         description=_(
             'help_json_config',
-            default=u'Configuration parameters for the different '
-            u'authorization providers. Details at '
-            u'https://authomatic.github.io/authomatic/reference/'
-            u'providers.html '
-            u'- difference: "class_" has to be a string, which is '
-            u'then resolved as a dotted path. Also sections '
-            u'"display" and "propertymap" are special.',
+            default='Configuration parameters for the different '
+            'authorization providers. Details at '
+            'https://authomatic.github.io/authomatic/reference/'
+            'providers.html '
+            '- difference: "class_" has to be a string, which is '
+            'then resolved as a dotted path. Also sections '
+            '"display" and "propertymap" are special.',
         ),
         required=True,
         constraint=validate_cfg_json,

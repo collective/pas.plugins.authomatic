@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 from pas.plugins.authomatic.testing import PAS_PLUGINS_Authomatic_ZOPE_FIXTURE
 from pas.plugins.authomatic.tests.mocks import make_user
 from pas.plugins.authomatic.tests.mocks import MockResult
 from Products.PluggableAuthService.UserPropertySheet import UserPropertySheet
 
-import mock
+from unittest import mock
 import unittest
 
 
@@ -33,36 +32,36 @@ class TestUserIdentities(unittest.TestCase):
         provider = MockResult(name=provider_name)
         if not data:
             data = {
-                u'displayName': u'Andrew Pipkin',
-                u'domain': u'foobar.com',
-                u'emails': [
-                    {u'type': u'account', u'value': u'andrewpipkin@foobar.com'}
+                'displayName': 'Andrew Pipkin',
+                'domain': 'foobar.com',
+                'emails': [
+                    {'type': 'account', 'value': 'andrewpipkin@foobar.com'}
                 ],
-                u'etag': u'"xxxxxxxxxxxx/xxxxxxxxxxxx"',
-                u'id': u'123456789',
-                u'image': {
-                    u'isDefault': False,
-                    u'url': u'https://lh3.googleusercontent.com/photo.jpg'
+                'etag': '"xxxxxxxxxxxx/xxxxxxxxxxxx"',
+                'id': '123456789',
+                'image': {
+                    'isDefault': False,
+                    'url': 'https://lh3.googleusercontent.com/photo.jpg'
                 },
-                u'isPlusUser': False,
-                u'kind': u'plus#person',
-                u'language': u'en_GB',
-                u'name': {u'familyName': u'Pipkin', u'givenName': u'Andrew'},
-                u'objectType': u'person',
-                u'verified': False
+                'isPlusUser': False,
+                'kind': 'plus#person',
+                'language': 'en_GB',
+                'name': {'familyName': 'Pipkin', 'givenName': 'Andrew'},
+                'objectType': 'person',
+                'verified': False
             }
         user = User(provider)
         user.data = data
-        user.id = u'123456789'
-        user.username = u'andrewpipkin'
-        user.name = u'Andrew Pipkin'
-        user.first_name = u'Andrew'
-        user.last_name = u'Pipkin'
-        user.nickname = u'Andy'
-        user.link = u'http://peterhudec.github.io/authomatic/'
-        user.email = u'andrewpipkin@foobar.com'
-        user.picture = u'https://lh3.googleusercontent.com/photo.jpg?sz=50'
-        user.location = u'Innsbruck'
+        user.id = '123456789'
+        user.username = 'andrewpipkin'
+        user.name = 'Andrew Pipkin'
+        user.first_name = 'Andrew'
+        user.last_name = 'Pipkin'
+        user.nickname = 'Andy'
+        user.link = 'http://peterhudec.github.io/authomatic/'
+        user.email = 'andrewpipkin@foobar.com'
+        user.picture = 'https://lh3.googleusercontent.com/photo.jpg?sz=50'
+        user.location = 'Innsbruck'
 
         # from authomatic.core import Credentials
         # user.credentials = Credentials()
@@ -107,12 +106,12 @@ class TestUserIdentities(unittest.TestCase):
         self.assertIsInstance(sheet, UserPropertySheet)
         self.assertEqual(
             sheet.getProperty('home_page'),
-            u'http://peterhudec.github.io/authomatic/'
+            'http://peterhudec.github.io/authomatic/'
         )
-        self.assertEqual(sheet.getProperty('fullname'), u'Andrew Pipkin')
+        self.assertEqual(sheet.getProperty('fullname'), 'Andrew Pipkin')
         self.assertEqual(
             sheet.getProperty('email'),
-            u'andrewpipkin@foobar.com'
+            'andrewpipkin@foobar.com'
         )
 
     def test_provider_specific_user_attributes(self):
@@ -136,14 +135,14 @@ class TestUserIdentities(unittest.TestCase):
         self.assertIsInstance(sheet, UserPropertySheet)
         self.assertEqual(
             sheet.getProperty('home_page'),
-            u'http://peterhudec.github.io/authomatic/'
+            'http://peterhudec.github.io/authomatic/'
         )
-        self.assertEqual(sheet.getProperty('fullname'), u'Andrew Pipkin')
+        self.assertEqual(sheet.getProperty('fullname'), 'Andrew Pipkin')
         self.assertEqual(
             sheet.getProperty('email'),
-            u'andrewpipkin@foobar.com'
+            'andrewpipkin@foobar.com'
         )
-        self.assertEqual(sheet.getProperty('customdomain'), u'foobar.com')
+        self.assertEqual(sheet.getProperty('customdomain'), 'foobar.com')
 
     def test_credentials(self):
         pass

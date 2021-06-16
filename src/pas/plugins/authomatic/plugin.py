@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from AccessControl import ClassSecurityInfo
 from AccessControl.class_init import InitializeClass
 from BTrees.OOBTree import OOBTree
@@ -134,13 +133,13 @@ class AuthomaticPlugin(BasePlugin):
             # new/unknown user
             useridentities = self.remember_identity(result)
             do_notify_created = True
-            logger.info('New User: {0}'.format(useridentities.userid))
+            logger.info(f'New User: {useridentities.userid}')
         else:
             useridentities.update_userdata(result)
-            logger.info('Updated Userdata: {0}'.format(useridentities.userid))
+            logger.info(f'Updated Userdata: {useridentities.userid}')
 
         # login (get new security manager)
-        logger.info('Login User: {0}'.format(useridentities.userid))
+        logger.info(f'Login User: {useridentities.userid}')
         aclu = api.portal.get_tool('acl_users')
         user = aclu._findUser(aclu.plugins, useridentities.userid)
         accessed, container, name, value = aclu._getObjectContext(
@@ -156,7 +155,7 @@ class AuthomaticPlugin(BasePlugin):
         # do login post-processing
         self.REQUEST['__ac_password'] = useridentities.secret
         mt = api.portal.get_tool('portal_membership')
-        logger.info('Login Postprocessing: {0}'.format(useridentities.userid))
+        logger.info(f'Login Postprocessing: {useridentities.userid}')
         mt.loginUser(self.REQUEST)
 
     # ##
@@ -246,7 +245,7 @@ class AuthomaticPlugin(BasePlugin):
             raise ValueError('plugin does not support id different from login')
         search_id = id or login
         if search_id:
-            if not isinstance(search_id, six.string_types):
+            if not isinstance(search_id, str):
                 raise NotImplementedError('sequence is not supported.')
         else:
             return ()
@@ -263,7 +262,7 @@ class AuthomaticPlugin(BasePlugin):
             identity = self._useridentities_by_userid[search_id]
         if identity is not None:
             userid = identity.userid
-            if six.PY2 and isinstance(userid, six.text_type):
+            if six.PY2 and isinstance(userid, str):
                 userid = userid.encode('utf8')
             ret.append({'id': userid, 'login': userid, 'pluginid': pluginid})
             return ret
@@ -282,7 +281,7 @@ class AuthomaticPlugin(BasePlugin):
                 continue
             identity = self._useridentities_by_userid[userid]
             identity_userid = identity.userid
-            if six.PY2 and isinstance(identity_userid, six.text_type):
+            if six.PY2 and isinstance(identity_userid, str):
                 identity_userid = identity_userid.encode('utf8')
             ret.append(
                 {

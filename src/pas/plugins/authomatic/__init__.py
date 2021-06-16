@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from AccessControl.Permissions import add_user_folders
 from pas.plugins.authomatic.plugin import AuthomaticPlugin
 from pas.plugins.authomatic.plugin import manage_addAuthomaticPlugin

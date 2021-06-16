@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from authomatic import Authomatic
 from pas.plugins.authomatic.integration import ZopeRequestAdapter
 from pas.plugins.authomatic.interfaces import _
@@ -97,7 +96,7 @@ class AuthomaticView(BrowserView):
             # so bevor going on redirect
             root = api.portal.get_navigation_root(self.context)
             self.request.response.redirect(
-                "{0}/authomatic-handler/{1}".format(
+                "{}/authomatic-handler/{}".format(
                     root.absolute_url(), getattr(self, 'provider', '')
                 )
             )
@@ -109,14 +108,14 @@ class AuthomaticView(BrowserView):
         if not self.is_anon:
             if self.provider in self._provider_names:
                 raise ValueError(
-                    'Provider {0} is already connected to current '
+                    'Provider {} is already connected to current '
                     'user.'.format(self.provider)
                 )
             # TODO: some sort of CSRF check might be needed, so that
             #       not an account got connected by CSRF. Research needed.
             pass
         secret = authomatic_settings().secret
-        if six.PY2 and isinstance(secret, six.text_type):
+        if six.PY2 and isinstance(secret, str):
             secret = secret.encode('utf8')
         auth = Authomatic(cfg, secret=secret)
         result = auth.login(ZopeRequestAdapter(self), self.provider)
@@ -132,14 +131,14 @@ class AuthomaticView(BrowserView):
             # now we delegate to PAS plugin to add the identity
             self._add_identity(result, provider_name)
             self.request.response.redirect(
-                "{0}".format(self.context.absolute_url())
+                f"{self.context.absolute_url()}"
             )
         else:
             # now we delegate to PAS plugin in order to login
             self._remember_identity(result, provider_name)
             if api.env.plone_version() < '5.2':
                 self.request.response.redirect(
-                    "{0}/login_success".format(self.context.absolute_url())
+                    f"{self.context.absolute_url()}/login_success"
                 )
             else:
                 self.request.response.redirect(self.context.absolute_url())

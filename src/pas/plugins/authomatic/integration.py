@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from authomatic.adapters import BaseAdapter
 
 import six.moves.http_cookies
@@ -59,5 +58,5 @@ class ZopeRequestAdapter(BaseAdapter):
     def set_status(self, status):
         code, message = status.split(" ")
         code = int(code)
-        logger.debug("set_status {0}".format(code))
+        logger.debug(f"set_status {code}")
         self.view.request.response.setStatus(code)

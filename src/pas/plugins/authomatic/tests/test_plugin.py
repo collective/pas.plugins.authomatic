@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from pas.plugins.authomatic.testing import PAS_PLUGINS_Authomatic_ZOPE_FIXTURE
 from pas.plugins.authomatic.tests.mocks import make_user
 

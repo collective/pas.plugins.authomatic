@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from authomatic.core import Credentials
 from pas.plugins.authomatic.utils import authomatic_cfg
 from persistent import Persistent
@@ -15,7 +14,7 @@ logger = logging.getLogger('pas.plugins.authomatic')
 class UserIdentity(PersistentDict):
 
     def __init__(self, result):
-        super(UserIdentity, self).__init__()
+        super().__init__()
         self['provider_name'] = result.provider.name
         self.update(result.user.to_dict())
 

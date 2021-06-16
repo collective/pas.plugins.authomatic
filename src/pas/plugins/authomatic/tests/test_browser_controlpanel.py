@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from pas.plugins.authomatic.interfaces import IPasPluginsAuthomaticSettings
 from pas.plugins.authomatic.testing import (
     PAS_PLUGINS_Authomatic_PLONE_INTEGRATION_TESTING,
@@ -76,7 +75,7 @@ class ControlpanelFunctionalTest(unittest.TestCase):
         self.browser.handleErrors = False
         self.browser.addHeader(
             'Authorization',
-            'Basic %s:%s' % (SITE_OWNER_NAME, SITE_OWNER_PASSWORD),
+            f'Basic {SITE_OWNER_NAME}:{SITE_OWNER_PASSWORD}',
         )
 
     def test_empty_form(self):

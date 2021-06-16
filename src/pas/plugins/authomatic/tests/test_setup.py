@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Setup tests for this package."""
 from pas.plugins.authomatic.testing import (
     PAS_PLUGINS_Authomatic_PLONE_INTEGRATION_TESTING,

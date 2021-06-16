@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from BTrees.OOBTree import OOBTree
 from pas.plugins.authomatic.testing import PAS_PLUGINS_Authomatic_ZOPE_FIXTURE
 from pas.plugins.authomatic.tests.mocks import MockResult
@@ -6,7 +5,7 @@ from pas.plugins.authomatic.tests.mocks import MockResult
 import unittest
 
 
-class _MockPlugin(object):
+class _MockPlugin:
 
     _useridentities_by_userid = OOBTree()
 
