@@ -14,7 +14,6 @@ from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 
 import logging
-import six
 
 
 logger = logging.getLogger(__file__)
@@ -115,8 +114,6 @@ class AuthomaticView(BrowserView):
             #       not an account got connected by CSRF. Research needed.
             pass
         secret = authomatic_settings().secret
-        if six.PY2 and isinstance(secret, str):
-            secret = secret.encode('utf8')
         auth = Authomatic(cfg, secret=secret)
         result = auth.login(ZopeRequestAdapter(self), self.provider)
         if not result:

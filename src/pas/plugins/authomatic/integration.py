@@ -1,7 +1,7 @@
 from authomatic.adapters import BaseAdapter
 
-import six.moves.http_cookies
 import logging
+import http
 
 
 logger = logging.getLogger(__file__)
@@ -23,11 +23,7 @@ class ZopeRequestAdapter(BaseAdapter):
 
     @property
     def url(self):
-        url = (
-            self.view.context.absolute_url()
-            + "/authomatic-handler/"
-            + self.view.provider
-        )
+        url = f"{self.view.context.absolute_url()}/authomatic-handler/{self.view.provider}"
         logger.debug("url" + url)
         return url
 
@@ -38,7 +34,7 @@ class ZopeRequestAdapter(BaseAdapter):
     @property
     def cookies(self):
         # special handling since zope parsing does to much decoding
-        cookie = six.moves.http_cookies.SimpleCookie()
+        cookie = http.cookies.SimpleCookie()
         cookie.load(self.view.request["HTTP_COOKIE"])
         cookies = {k: c.value for k, c in cookie.items()}
         return cookies

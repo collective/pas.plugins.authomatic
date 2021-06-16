@@ -19,7 +19,6 @@ from zope.interface import implementer
 
 import logging
 import os
-import six
 
 
 logger = logging.getLogger(__name__)
@@ -244,11 +243,10 @@ class AuthomaticPlugin(BasePlugin):
         if id and login and id != login:
             raise ValueError('plugin does not support id different from login')
         search_id = id or login
-        if search_id:
-            if not isinstance(search_id, str):
-                raise NotImplementedError('sequence is not supported.')
-        else:
+        if not search_id:
             return ()
+        if not isinstance(search_id, str):
+            raise NotImplementedError('sequence is not supported.')
 
         pluginid = self.getId()
         ret = list()
@@ -262,8 +260,6 @@ class AuthomaticPlugin(BasePlugin):
             identity = self._useridentities_by_userid[search_id]
         if identity is not None:
             userid = identity.userid
-            if six.PY2 and isinstance(userid, str):
-                userid = userid.encode('utf8')
             ret.append({'id': userid, 'login': userid, 'pluginid': pluginid})
             return ret
 
@@ -281,8 +277,6 @@ class AuthomaticPlugin(BasePlugin):
                 continue
             identity = self._useridentities_by_userid[userid]
             identity_userid = identity.userid
-            if six.PY2 and isinstance(identity_userid, str):
-                identity_userid = identity_userid.encode('utf8')
             ret.append(
                 {
                     'id': identity_userid,
