@@ -6,6 +6,7 @@ from plone import api
 
 import unittest
 
+
 try:
     from Products.CMFPlone.utils import get_installer
 except ImportError:
@@ -44,9 +45,7 @@ class TestSetup(unittest.TestCase):
 
     def test_browserlayer(self):
         """Test that IPasPluginsAuthomaticLayer is registered."""
-        from pas.plugins.authomatic.interfaces import (
-            IPasPluginsAuthomaticLayer,
-        )  # noqa
+        from pas.plugins.authomatic.interfaces import IPasPluginsAuthomaticLayer  # noqa
         from plone.browserlayer import utils
 
         self.assertTrue(

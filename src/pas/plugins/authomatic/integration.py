@@ -1,7 +1,7 @@
 from authomatic.adapters import BaseAdapter
 
-import logging
 import http
+import logging
 
 
 logger = logging.getLogger(__file__)

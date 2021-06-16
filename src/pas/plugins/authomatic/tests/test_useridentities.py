@@ -2,8 +2,8 @@ from pas.plugins.authomatic.testing import PAS_PLUGINS_Authomatic_ZOPE_FIXTURE
 from pas.plugins.authomatic.tests.mocks import make_user
 from pas.plugins.authomatic.tests.mocks import MockResult
 from Products.PluggableAuthService.UserPropertySheet import UserPropertySheet
-
 from unittest import mock
+
 import unittest
 
 

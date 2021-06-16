@@ -1,4 +1,6 @@
-from pas.plugins.authomatic.testing import PAS_PLUGINS_Authomatic_PLONE_ACCEPTANCE_TESTING  # noqa
+from pas.plugins.authomatic.testing import (  # noqa
+    PAS_PLUGINS_Authomatic_PLONE_ACCEPTANCE_TESTING,
+)
 from plone.app.testing import ROBOT_TEST_LEVEL
 from plone.testing import layered
 

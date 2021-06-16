@@ -8,8 +8,8 @@ from plone.protect import auto
 from plone.testing import Layer
 from plone.testing import z2
 from Products.CMFCore.interfaces import ISiteRoot
-from zope.component import provideUtility
 from Products.PlonePAS.setuphandlers import migrate_root_uf
+from zope.component import provideUtility
 
 import pas.plugins.authomatic
 

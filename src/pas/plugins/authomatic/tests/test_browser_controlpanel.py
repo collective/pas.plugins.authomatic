@@ -1,9 +1,9 @@
 from pas.plugins.authomatic.interfaces import IPasPluginsAuthomaticSettings
 from pas.plugins.authomatic.testing import (
-    PAS_PLUGINS_Authomatic_PLONE_INTEGRATION_TESTING,
+    PAS_PLUGINS_Authomatic_PLONE_FUNCTIONAL_TESTING,
 )
 from pas.plugins.authomatic.testing import (
-    PAS_PLUGINS_Authomatic_PLONE_FUNCTIONAL_TESTING,
+    PAS_PLUGINS_Authomatic_PLONE_INTEGRATION_TESTING,
 )
 from plone.app.testing import logout
 from plone.app.testing import SITE_OWNER_NAME
