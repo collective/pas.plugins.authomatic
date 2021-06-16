@@ -1,0 +1,47 @@
+
+name: Build and test
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        python-version:
+        - "2.7"
+        - "3.6"
+        - "3.7"
+        - "3.8"    
+        plone-version:
+        - "5.2"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install on Linux
+      run: |
+        sudo apt-get install libxml2-dev libxslt1-dev libjpeg-dev
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}   
+    - name: "Install Python dependencies (pip)"
+      uses: "py-actions/py-dependency-install@v2"
+      with:
+        path: "requirements-${{ matrix.plone-version }}.x.txt"
+        update-setuptools: "false"
+        update-pip: "true"
+        update-wheel: "true"
+    - name: Cache eggs
+      uses: actions/cache@v2
+      with:
+        path: |
+          eggs
+          downloads
+        key: eggs-${{ matrix.python-version }}-${{ hashFiles('**/*.cfg') }}
+        restore-keys: eggs-
+    - name: Run buildout
+      run: |
+        buildout -c plone-${{ matrix.plone-version }}.x.cfg
+    - name: Run tests
+      run: |
+        bin/test
