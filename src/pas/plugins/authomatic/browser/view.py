@@ -98,7 +98,7 @@ class AuthomaticView(BrowserView):
                 )
             )
             return "redirecting"
-        if not hasattr(self, "provider"):
+        if not getattr(self, "provider", None):
             return self.template()
         if self.provider not in cfg:
             return "Provider not supported"
