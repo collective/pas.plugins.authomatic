@@ -16,10 +16,11 @@ class TestUserIDFactories(unittest.TestCase):
 
     def test_normalizer(self):
         from pas.plugins.authomatic.useridfactories import BaseUserIDFactory
+
         bf = BaseUserIDFactory()
 
         mock_plugin = _MockPlugin()
         mock_result = MockResult()
-        self.assertEqual('fo', bf.normalize(mock_plugin, mock_result, 'fo'))
-        mock_plugin._useridentities_by_userid['fo'] = 1
-        self.assertEqual('fo_2', bf.normalize(mock_plugin, mock_result, 'fo'))
+        self.assertEqual("fo", bf.normalize(mock_plugin, mock_result, "fo"))
+        mock_plugin._useridentities_by_userid["fo"] = 1
+        self.assertEqual("fo_2", bf.normalize(mock_plugin, mock_result, "fo"))

@@ -14,9 +14,9 @@ import random
 import string
 
 
-_ = MessageFactory('pas.plugins.authomatic')
+_ = MessageFactory("pas.plugins.authomatic")
 
-DEFAULT_ID = 'authomatic'
+DEFAULT_ID = "authomatic"
 
 DEFAULT_CONFIG = """\
 {
@@ -46,34 +46,31 @@ DEFAULT_CONFIG = """\
 }
 """
 
-random_secret = ''.join(
+random_secret = "".join(
     random.SystemRandom().choice(string.ascii_letters + string.digits)
     for _ in range(10)
 )
 
 
 def validate_cfg_json(value):
-    """check that we have at least valid json and its a dict
-    """
+    """check that we have at least valid json and its a dict"""
     try:
         jv = json.loads(value)
     except ValueError as e:
         raise Invalid(
             _(
-                'invalid_json',
-                'JSON is not valid, parser complained: ${message}',
-                mapping={'message': e.message},
+                "invalid_json",
+                "JSON is not valid, parser complained: ${message}",
+                mapping={"message": f"{e.msg} {e.pos}"},
             )
         )
     if not isinstance(jv, dict):
-        raise Invalid(
-            _('invalid_cfg_no_dict', 'JSON root must be a mapping (dict)')
-        )
+        raise Invalid(_("invalid_cfg_no_dict", "JSON root must be a mapping (dict)"))
     if len(jv) < 1:
         raise Invalid(
             _(
-                'invalid_cfg_empty_dict',
-                'At least one provider must be configured.',
+                "invalid_cfg_empty_dict",
+                "At least one provider must be configured.",
             )
         )
     return True
@@ -93,7 +90,7 @@ class IPasPluginsAuthomaticSettings(Interface):
     secret = schema.TextLine(
         title=_("Secret"),
         description=_(
-            'help_secret',
+            "help_secret",
             default="Some random string used to encrypt the state",
         ),
         required=True,
@@ -108,18 +105,18 @@ class IPasPluginsAuthomaticSettings(Interface):
             "rare cases in URLs. It is the identifier used for "
             "the user inside Plone.",
         ),
-        default='uuid',
+        default="uuid",
     )
     json_config = schema.SourceText(
         title=_("JSON configuration"),
         description=_(
-            'help_json_config',
-            default='Configuration parameters for the different '
-            'authorization providers. Details at '
-            'https://authomatic.github.io/authomatic/reference/'
-            'providers.html '
+            "help_json_config",
+            default="Configuration parameters for the different "
+            "authorization providers. Details at "
+            "https://authomatic.github.io/authomatic/reference/"
+            "providers.html "
             '- difference: "class_" has to be a string, which is '
-            'then resolved as a dotted path. Also sections '
+            "then resolved as a dotted path. Also sections "
             '"display" and "propertymap" are special.',
         ),
         required=True,
@@ -139,12 +136,10 @@ class IAuthomaticPlugin(Interface):
 
 
 class IUserIDFactory(Interface):
-    """generates a userid on call
-    """
+    """generates a userid on call"""
 
     def __call__(service_name, service_user_id, raw_user):
-        """returns string, unique amongst plugins userids
-        """
+        """returns string, unique amongst plugins userids"""
 
 
 class IPasPluginsAuthomaticLayer(IDefaultBrowserLayer):

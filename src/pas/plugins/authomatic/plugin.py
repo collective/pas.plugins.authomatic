@@ -22,24 +22,23 @@ import os
 
 
 logger = logging.getLogger(__name__)
-tpl_dir = os.path.join(os.path.dirname(__file__), 'browser')
+tpl_dir = os.path.join(os.path.dirname(__file__), "browser")
 
 _marker = {}
 
 
-def manage_addAuthomaticPlugin(context, id, title='', RESPONSE=None, **kw):
-    """Create an instance of a Authomatic Plugin.
-    """
+def manage_addAuthomaticPlugin(context, id, title="", RESPONSE=None, **kw):
+    """Create an instance of a Authomatic Plugin."""
     plugin = AuthomaticPlugin(id, title, **kw)
     context._setObject(plugin.getId(), plugin)
     if RESPONSE is not None:
-        RESPONSE.redirect('manage_workspace')
+        RESPONSE.redirect("manage_workspace")
 
 
 manage_addAuthomaticPluginForm = PageTemplateFile(
-    os.path.join(tpl_dir, 'add_plugin.pt'),
+    os.path.join(tpl_dir, "add_plugin.pt"),
     globals(),
-    __name__='addAuthomaticPlugin',
+    __name__="addAuthomaticPlugin",
 )
 
 
@@ -49,14 +48,13 @@ manage_addAuthomaticPluginForm = PageTemplateFile(
     pas_interfaces.IPropertiesPlugin,
     pas_interfaces.IUserEnumerationPlugin,
     IUserManagement,
-    IDeleteCapability
+    IDeleteCapability,
 )
 class AuthomaticPlugin(BasePlugin):
-    """Authomatic PAS Plugin
-    """
+    """Authomatic PAS Plugin"""
 
     security = ClassSecurityInfo()
-    meta_type = 'Authomatic Plugin'
+    meta_type = "Authomatic Plugin"
     BasePlugin.manage_options
 
     # Tell PAS not to swallow our exceptions
@@ -76,12 +74,11 @@ class AuthomaticPlugin(BasePlugin):
         self._useridentities_by_userid = OOBTree()
 
     def _provider_id(self, result):
-        """helper to get the provider identifier
-        """
+        """helper to get the provider identifier"""
         if not result.user.id:
-            raise ValueError('Invalid: Empty user.id')
+            raise ValueError("Invalid: Empty user.id")
         if not result.provider.name:
-            raise ValueError('Invalid: Empty provider.name')
+            raise ValueError("Invalid: Empty provider.name")
         return (result.provider.name, result.user.id)
 
     @security.private
@@ -89,15 +86,12 @@ class AuthomaticPlugin(BasePlugin):
         """looks up the UserIdentities by using the provider name and the
         userid at this provider
         """
-        userid = self._userid_by_identityinfo.get(
-            self._provider_id(result), None
-        )
+        userid = self._userid_by_identityinfo.get(self._provider_id(result), None)
         return self._useridentities_by_userid.get(userid, None)
 
     @security.private
     def remember_identity(self, result, userid=None):
-        """stores authomatic result data
-        """
+        """stores authomatic result data"""
         if userid is None:
             # create a new userid
             userid = new_userid(self, result)
@@ -107,7 +101,7 @@ class AuthomaticPlugin(BasePlugin):
             # use existing userid
             useridentities = self._useridentities_by_userid.get(userid, None)
             if useridentities is None:
-                raise ValueError('Invalid userid')
+                raise ValueError("Invalid userid")
         provider_id = self._provider_id(result)
         if provider_id not in self._userid_by_identityinfo:
             self._userid_by_identityinfo[provider_id] = userid
@@ -132,29 +126,27 @@ class AuthomaticPlugin(BasePlugin):
             # new/unknown user
             useridentities = self.remember_identity(result)
             do_notify_created = True
-            logger.info(f'New User: {useridentities.userid}')
+            logger.info(f"New User: {useridentities.userid}")
         else:
             useridentities.update_userdata(result)
-            logger.info(f'Updated Userdata: {useridentities.userid}')
+            logger.info(f"Updated Userdata: {useridentities.userid}")
 
         # login (get new security manager)
-        logger.info(f'Login User: {useridentities.userid}')
-        aclu = api.portal.get_tool('acl_users')
+        logger.info(f"Login User: {useridentities.userid}")
+        aclu = api.portal.get_tool("acl_users")
         user = aclu._findUser(aclu.plugins, useridentities.userid)
         accessed, container, name, value = aclu._getObjectContext(
-            self.REQUEST['PUBLISHED'], self.REQUEST
+            self.REQUEST["PUBLISHED"], self.REQUEST
         )
-        user = aclu._authorizeUser(
-            user, accessed, container, name, value, _noroles
-        )
+        user = aclu._authorizeUser(user, accessed, container, name, value, _noroles)
         if do_notify_created:
             # be a good citizen in PAS world and notify user creation
             notify(PrincipalCreated(user))
 
         # do login post-processing
-        self.REQUEST['__ac_password'] = useridentities.secret
-        mt = api.portal.get_tool('portal_membership')
-        logger.info(f'Login Postprocessing: {useridentities.userid}')
+        self.REQUEST["__ac_password"] = useridentities.secret
+        mt = api.portal.get_tool("portal_membership")
+        logger.info(f"Login Postprocessing: {useridentities.userid}")
         mt.loginUser(self.REQUEST)
 
     # ##
@@ -162,15 +154,15 @@ class AuthomaticPlugin(BasePlugin):
 
     @security.public
     def authenticateCredentials(self, credentials):
-        """ credentials -> (userid, login)
+        """credentials -> (userid, login)
 
         - 'credentials' will be a mapping, as returned by IExtractionPlugin.
         - Return a  tuple consisting of user ID (which may be different
           from the login name) and login
         - If the credentials cannot be authenticated, return None.
         """
-        login = credentials.get('login', None)
-        password = credentials.get('password', None)
+        login = credentials.get("login", None)
+        password = credentials.get("password", None)
         if not login or login not in self._useridentities_by_userid:
             return None
         identities = self._useridentities_by_userid[login]
@@ -198,7 +190,7 @@ class AuthomaticPlugin(BasePlugin):
         exact_match=False,
         sort_by=None,
         max_results=None,
-        **kw
+        **kw,
     ):
         """-> ( user_info_1, ... user_info_N )
 
@@ -241,26 +233,22 @@ class AuthomaticPlugin(BasePlugin):
           scaling issues for some implementations.
         """
         if id and login and id != login:
-            raise ValueError('plugin does not support id different from login')
+            raise ValueError("plugin does not support id different from login")
         search_id = id or login
         if not search_id:
             return ()
         if not isinstance(search_id, str):
-            raise NotImplementedError('sequence is not supported.')
+            raise NotImplementedError("sequence is not supported.")
 
         pluginid = self.getId()
         ret = list()
         # shortcut for exact match of login/id
         identity = None
-        if (
-            exact_match
-            and search_id
-            and search_id in self._useridentities_by_userid
-        ):
+        if exact_match and search_id and search_id in self._useridentities_by_userid:
             identity = self._useridentities_by_userid[search_id]
         if identity is not None:
             userid = identity.userid
-            ret.append({'id': userid, 'login': userid, 'pluginid': pluginid})
+            ret.append({"id": userid, "login": userid, "pluginid": pluginid})
             return ret
 
         if exact_match:
@@ -271,7 +259,7 @@ class AuthomaticPlugin(BasePlugin):
         # non exact expensive search
         for userid in self._useridentities_by_userid:
             if not userid:
-                logger.warn('None userid found. This should not happen!')
+                logger.warn("None userid found. This should not happen!")
                 continue
             if not userid.startswith(search_id):
                 continue
@@ -279,14 +267,14 @@ class AuthomaticPlugin(BasePlugin):
             identity_userid = identity.userid
             ret.append(
                 {
-                    'id': identity_userid,
-                    'login': identity.userid,
-                    'pluginid': pluginid,
+                    "id": identity_userid,
+                    "login": identity.userid,
+                    "pluginid": pluginid,
                 }
             )
             if max_results and len(ret) >= max_results:
                 break
-        if sort_by in ['id', 'login']:
+        if sort_by in ["id", "login"]:
             return sorted(ret, key=itemgetter(sort_by))
         return ret
 
@@ -299,20 +287,17 @@ class AuthomaticPlugin(BasePlugin):
 
     @security.private
     def doDeleteUser(self, userid):
-        """Given a user id, delete that user
-        """
+        """Given a user id, delete that user"""
         return self.removeUser(userid)
 
     @security.private
     def doChangeUser(self, userid):
-        """do nothing
-        """
+        """do nothing"""
         return False
 
     @security.private
     def doAddUser(self, login, password):
-        """do nothing
-        """
+        """do nothing"""
         return False
 
     @security.private
@@ -323,12 +308,11 @@ class AuthomaticPlugin(BasePlugin):
         for k, v in self._userid_by_identityinfo.items():
             if v == user_id:
                 return k
-        return ''
+        return ""
 
     @security.private
     def removeUser(self, user_id):
-        """
-        """
+        """ """
         # Remove the user from all persistent dicts
         if user_id not in self._useridentities_by_userid:
             # invalid userid
@@ -339,9 +323,9 @@ class AuthomaticPlugin(BasePlugin):
         if plugin_id:
             del self._userid_by_identityinfo[plugin_id]
         # Also, remove from the cache
-        view_name = createViewName('enumerateUsers')
+        view_name = createViewName("enumerateUsers")
         self.ZCacheable_invalidate(view_name=view_name)
-        view_name = createViewName('enumerateUsers', user_id)
+        view_name = createViewName("enumerateUsers", user_id)
         self.ZCacheable_invalidate(view_name=view_name)
 
 

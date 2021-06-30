@@ -9,9 +9,8 @@ import json
 
 
 def authomatic_plugin():
-    """returns the authomatic pas-plugin instance
-    """
-    aclu = api.portal.get_tool('acl_users')
+    """returns the authomatic pas-plugin instance"""
+    aclu = api.portal.get_tool("acl_users")
     # XXX we should better iterate over all plugins and fetch the
     # authomatic plugin. There could be even 2 of them, even if this does not
     # make sense.
@@ -19,12 +18,9 @@ def authomatic_plugin():
 
 
 def authomatic_settings():
-    """fetches the authomatic settings from registry
-    """
+    """fetches the authomatic settings from registry"""
     registry = queryUtility(IRegistry)
-    return registry.forInterface(
-        IPasPluginsAuthomaticSettings
-    )
+    return registry.forInterface(IPasPluginsAuthomaticSettings)
 
 
 def authomatic_cfg():
@@ -41,14 +37,14 @@ def authomatic_cfg():
     ids = set()
     cnt = 1
     for provider in cfg:
-        if 'class_' in cfg[provider]:
-            cfg[provider]['class_'] = resolve(cfg[provider]['class_'])
-        if 'id' in cfg[provider]:
-            cfg[provider]['id'] = int(cfg[provider]['id'])
+        if "class_" in cfg[provider]:
+            cfg[provider]["class_"] = resolve(cfg[provider]["class_"])
+        if "id" in cfg[provider]:
+            cfg[provider]["id"] = int(cfg[provider]["id"])
         else:
             # pick some id
             while cnt in ids:
                 cnt += 1
-            cfg[provider]['id'] = cnt
-        ids.update([cfg[provider]['id']])
+            cfg[provider]["id"] = cnt
+        ids.update([cfg[provider]["id"]])
     return cfg

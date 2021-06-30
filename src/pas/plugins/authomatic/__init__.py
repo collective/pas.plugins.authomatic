@@ -21,10 +21,7 @@ def initialize(context):
     context.registerClass(
         AuthomaticPlugin,
         permission=add_user_folders,
-        icon=os.path.join(tpl_dir, 'authomatic.png'),
-        constructors=(
-            manage_addAuthomaticPluginForm,
-            manage_addAuthomaticPlugin
-        ),
-        visibility=None
+        icon=os.path.join(tpl_dir, "authomatic.png"),
+        constructors=(manage_addAuthomaticPluginForm, manage_addAuthomaticPlugin),
+        visibility=None,
     )

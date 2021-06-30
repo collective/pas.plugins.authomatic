@@ -8,28 +8,26 @@ import logging
 import uuid
 
 
-logger = logging.getLogger('pas.plugins.authomatic')
+logger = logging.getLogger("pas.plugins.authomatic")
 
 
 class UserIdentity(PersistentDict):
-
     def __init__(self, result):
         super().__init__()
-        self['provider_name'] = result.provider.name
+        self["provider_name"] = result.provider.name
         self.update(result.user.to_dict())
 
     @property
     def credentials(self):
         cfg = authomatic_cfg()
-        return Credentials.deserialize(cfg, self.user['credentials'])
+        return Credentials.deserialize(cfg, self.user["credentials"])
 
     @credentials.setter
     def credentials(self, credentials):
-        self.data['credentials'] = credentials.serialize()
+        self.data["credentials"] = credentials.serialize()
 
 
 class UserIdentities(Persistent):
-
     def __init__(self, userid):
         self.userid = userid
         self._identities = PersistentDict()
@@ -44,14 +42,12 @@ class UserIdentities(Persistent):
         return password == self._secret
 
     def handle_result(self, result):
-        """add a authomatic result to this user
-        """
+        """add a authomatic result to this user"""
         self._sheet = None  # invalidate property sheet
         self._identities[result.provider.name] = UserIdentity(result)
 
     def identity(self, provider):
-        """users identity at a distinct provider
-        """
+        """users identity at a distinct provider"""
         return self._identities.get(provider, None)
 
     def update_userdata(self, result):
@@ -72,10 +68,10 @@ class UserIdentities(Persistent):
                 continue
             logger.debug(identity)
             cfg = cfgs_providers[provider_name]
-            for akey, pkey in cfg.get('propertymap', {}).items():
+            for akey, pkey in cfg.get("propertymap", {}).items():
                 # Always search first on the user attributes, then on the raw
                 # data this guaratees we do not break existing configurations
-                ainfo = identity.get(akey, identity['data'].get(akey, None))
+                ainfo = identity.get(akey, identity["data"].get(akey, None))
                 if ainfo is None:
                     continue
                 if isinstance(pkey, dict):

@@ -20,27 +20,23 @@ class TestSetup(unittest.TestCase):
 
     def setUp(self):
         """Custom shared utility setup for tests."""
-        self.portal = self.layer['portal']
+        self.portal = self.layer["portal"]
         if get_installer:
-            self.installer = get_installer(self.portal, self.layer['request'])
+            self.installer = get_installer(self.portal, self.layer["request"])
         else:
-            self.installer = api.portal.get_tool('portal_quickinstaller')
+            self.installer = api.portal.get_tool("portal_quickinstaller")
 
     def test_product_installed(self):
         """Test if pas.plugins.authomatic is installed with
-           portal_quickinstaller.
+        portal_quickinstaller.
         """
-        self.assertTrue(
-            self.installer.isProductInstalled('pas.plugins.authomatic')
-        )
-        self.assertIn('authomatic', self.portal.acl_users)
+        self.assertTrue(self.installer.isProductInstalled("pas.plugins.authomatic"))
+        self.assertIn("authomatic", self.portal.acl_users)
 
     def test_uninstall(self):
         """Test if pas.plugins.authomatic is cleanly uninstalled."""
-        self.installer.uninstallProducts(['pas.plugins.authomatic'])
-        self.assertFalse(
-            self.installer.isProductInstalled('pas.plugins.authomatic')
-        )
+        self.installer.uninstallProducts(["pas.plugins.authomatic"])
+        self.assertFalse(self.installer.isProductInstalled("pas.plugins.authomatic"))
         # self.assertNotIn('authomatic', self.portal.acl_users)
 
     def test_browserlayer(self):
@@ -48,6 +44,4 @@ class TestSetup(unittest.TestCase):
         from pas.plugins.authomatic.interfaces import IPasPluginsAuthomaticLayer  # noqa
         from plone.browserlayer import utils
 
-        self.assertTrue(
-            IPasPluginsAuthomaticLayer in utils.registered_layers()
-        )
+        self.assertTrue(IPasPluginsAuthomaticLayer in utils.registered_layers())

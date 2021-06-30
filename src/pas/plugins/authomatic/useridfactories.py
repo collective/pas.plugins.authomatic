@@ -9,19 +9,18 @@ import uuid
 
 @implementer(IUserIDFactory)
 class BaseUserIDFactory:
-
     def normalize(self, plugin, result, userid):
         new_userid = userid
         counter = 2  # first was taken, so logically its second
         while new_userid in plugin._useridentities_by_userid:
-            new_userid = f'{userid}_{counter}'
+            new_userid = f"{userid}_{counter}"
             counter += 1
         return new_userid
 
 
 class UUID4UserIDFactory(BaseUserIDFactory):
 
-    title = _('UUID as User ID')
+    title = _("UUID as User ID")
 
     def __call__(self, plugin, result):
         return self.normalize(plugin, result, str(uuid.uuid4()))
@@ -29,7 +28,7 @@ class UUID4UserIDFactory(BaseUserIDFactory):
 
 class ProviderIDUserIDFactory(BaseUserIDFactory):
 
-    title = _('Provider User ID')
+    title = _("Provider User ID")
 
     def __call__(self, plugin, result):
         return self.normalize(plugin, result, result.user.id)
@@ -37,7 +36,7 @@ class ProviderIDUserIDFactory(BaseUserIDFactory):
 
 class ProviderIDUserNameFactory(BaseUserIDFactory):
 
-    title = _('Provider User Name')
+    title = _("Provider User Name")
 
     def __call__(self, plugin, result):
         return self.normalize(plugin, result, result.user.username)
@@ -46,8 +45,6 @@ class ProviderIDUserNameFactory(BaseUserIDFactory):
 def new_userid(plugin, result):
     settings = authomatic_settings()
     factory = queryUtility(
-        IUserIDFactory,
-        name=settings.userid_factory_name,
-        default=UUID4UserIDFactory()
+        IUserIDFactory, name=settings.userid_factory_name, default=UUID4UserIDFactory()
     )
     return factory(plugin, result)
