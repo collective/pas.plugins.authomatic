@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import mock
 from pas.plugins.authomatic.testing import PAS_PLUGINS_Authomatic_ZOPE_FIXTURE
 from pas.plugins.authomatic.tests.mocks import make_user
 
@@ -61,96 +62,153 @@ class TestPlugin(unittest.TestCase):
         self.assertEqual(admin['pluginid'], 'users')
         self.assertEqual(self.aclu.getUserById('admin').getId(), 'admin')
 
-    def test_user_enumaration(self):
-        make_user('123joe', testcase=self)
-        make_user('123jane', testcase=self)
-        make_user('123wily', testcase=self)
-        make_user('123willi', testcase=self)
-        # check by user id
-        self.assertEqual(
-            [{'login': '123joe', 'pluginid': 'authomatic', 'id': '123joe'}],
-            self.plugin.enumerateUsers(id='123joe', exact_match=True)
-        )
-        self.assertEqual(
-            [{'login': '123joe', 'pluginid': 'authomatic', 'id': '123joe'}],
-            self.plugin.enumerateUsers(id='123joe')
-        )
-        self.assertEqual(
-            4,
-            len(self.plugin.enumerateUsers(id='123'))
-        )
-        self.assertEqual(
-            0,
-            len(self.plugin.enumerateUsers(id='123', exact_match=True))
-        )
-        self.assertEqual(
-            2,
-            len(self.plugin.enumerateUsers(id='123j'))
-        )
-        self.assertEqual(
-            0,
-            len(self.plugin.enumerateUsers(id='123', exact_match=True))
-        )
+    def test_user_enumeration(self):
+        with mock.patch(
+                'pas.plugins.authomatic.useridentities.authomatic_cfg'
+        ) as acfg:
+            cfg = {
+                'mock_provider': {
+                    'propertymap': {
+                        'name': 'fullname',
+                    },
+                }
+            }
+            acfg.return_value = cfg
 
-        # check by login
-        self.assertEqual(
-            [{'login': '123joe', 'pluginid': 'authomatic', 'id': '123joe'}],
-            self.plugin.enumerateUsers(login='123joe', exact_match=True)
-        )
-        self.assertEqual(
-            [{'login': '123joe', 'pluginid': 'authomatic', 'id': '123joe'}],
-            self.plugin.enumerateUsers(login='123joe')
-        )
-        self.assertEqual(
-            2,
-            len(self.plugin.enumerateUsers(login='123j'))
-        )
-        self.assertEqual(
-            2,
-            len(self.plugin.enumerateUsers(login='123wil'))
-        )
-        # https://github.com/collective/pas.plugins.authomatic/pull/25/commits/5c0f6b1dc76a0d769e35a845ce4c4dd4307655ba
-        # Due to the workarround, now the enumerateUsers plugin doesn't return
-        # any users when searching with an empty query
-        self.assertEqual(
-            0,
-            len(self.plugin.enumerateUsers())
-        )
+            make_user('123joe', name='Mr Joe Black', testcase=self)
+            make_user('123jane', testcase=self)
+            make_user('123wily', name='Mr Wily Black', testcase=self)
+            make_user('123willi', name='Mrs Willie Blackwood', testcase=self)
+            # check by user id
+            self.assertEqual(
+                [{'login': '123joe', 'pluginid': 'authomatic', 'id': '123joe'}],
+                self.plugin.enumerateUsers(id='123joe', exact_match=True)
+            )
+            self.assertEqual(
+                [{'login': '123joe', 'pluginid': 'authomatic', 'id': '123joe'}],
+                self.plugin.enumerateUsers(id='123joe')
+            )
+            self.assertEqual(
+                4,
+                len(self.plugin.enumerateUsers(id='123'))
+            )
+            self.assertEqual(
+                0,
+                len(self.plugin.enumerateUsers(id='123', exact_match=True))
+            )
+            self.assertEqual(
+                2,
+                len(self.plugin.enumerateUsers(id='123j'))
+            )
+            self.assertEqual(
+                0,
+                len(self.plugin.enumerateUsers(id='123', exact_match=True))
+            )
+
+            # check by login
+            self.assertEqual(
+                [{'login': '123joe', 'pluginid': 'authomatic', 'id': '123joe'}],
+                self.plugin.enumerateUsers(login='123joe', exact_match=True)
+            )
+            self.assertEqual(
+                [{'login': '123joe', 'pluginid': 'authomatic', 'id': '123joe'}],
+                self.plugin.enumerateUsers(login='123joe')
+            )
+            self.assertEqual(
+                2,
+                len(self.plugin.enumerateUsers(login='123j'))
+            )
+            self.assertEqual(
+                2,
+                len(self.plugin.enumerateUsers(login='123wil'))
+            )
+            # https://github.com/collective/pas.plugins.authomatic/pull/25/commits/5c0f6b1dc76a0d769e35a845ce4c4dd4307655ba
+            # Due to the workarround, now the enumerateUsers plugin doesn't return
+            # any users when searching with an empty query
+            self.assertEqual(
+                0,
+                len(self.plugin.enumerateUsers())
+            )
+
+            # check by name
+            self.assertEqual(
+                [{'login': '123willi', 'pluginid': 'authomatic', 'id': '123willi'}],
+                self.plugin.enumerateUsers(login='Blackwood')
+            )
+
+            self.assertEqual(
+                3,
+                len(self.plugin.enumerateUsers(login='Black'))
+            )
+
+            self.assertEqual(
+                3,
+                len(self.plugin.enumerateUsers(login='black'))
+            )
+
+            self.assertEqual(
+                2,
+                len(self.plugin.enumerateUsers(login='il'))
+            )
 
     def test_user_delete(self):
-        make_user('123joe', testcase=self)
-        make_user('123jane', testcase=self)
-        self.assertEqual(
-            2,
-            len(self.plugin.enumerateUsers(login='123j'))
-        )
-        self.assertEqual(
-            1,
-            len(self.plugin.enumerateUsers(login='123joe'))
-        )
-        self.plugin.doDeleteUser(userid="123joe")
-        self.assertEqual(
-            1,
-            len(self.plugin.enumerateUsers(login='123j'))
-        )
-        self.assertEqual(
-            0,
-            len(self.plugin.enumerateUsers(login='123joe'))
-        )
+        with mock.patch(
+                'pas.plugins.authomatic.useridentities.authomatic_cfg'
+        ) as acfg:
+            cfg = {
+                'mock_provider': {
+                    'propertymap': {
+                        'name': 'fullname',
+                    },
+                }
+            }
+            acfg.return_value = cfg
+
+            make_user('123joe', testcase=self)
+            make_user('123jane', testcase=self)
+            self.assertEqual(
+                2,
+                len(self.plugin.enumerateUsers(login='123j'))
+            )
+            self.assertEqual(
+                1,
+                len(self.plugin.enumerateUsers(login='123joe'))
+            )
+            self.plugin.doDeleteUser(userid="123joe")
+            self.assertEqual(
+                1,
+                len(self.plugin.enumerateUsers(login='123j'))
+            )
+            self.assertEqual(
+                0,
+                len(self.plugin.enumerateUsers(login='123joe'))
+            )
 
     def test_user_delete_invalid_uid(self):
-        make_user('123joe', testcase=self)
-        make_user('123jane', testcase=self)
-        self.assertEqual(
-            2,
-            len(self.plugin.enumerateUsers(login='123j'))
-        )
-        self.assertEqual(
-            1,
-            len(self.plugin.enumerateUsers(login='123joe'))
-        )
-        self.plugin.doDeleteUser(userid="123foo")
-        self.assertEqual(
-            2,
-            len(self.plugin.enumerateUsers(login='123j'))
-        )
+        with mock.patch(
+                'pas.plugins.authomatic.useridentities.authomatic_cfg'
+        ) as acfg:
+            cfg = {
+                'mock_provider': {
+                    'propertymap': {
+                        'name': 'fullname',
+                    },
+                }
+            }
+            acfg.return_value = cfg
+
+            make_user('123joe', testcase=self)
+            make_user('123jane', testcase=self)
+            self.assertEqual(
+                2,
+                len(self.plugin.enumerateUsers(login='123j'))
+            )
+            self.assertEqual(
+                1,
+                len(self.plugin.enumerateUsers(login='123joe'))
+            )
+            self.plugin.doDeleteUser(userid="123foo")
+            self.assertEqual(
+                2,
+                len(self.plugin.enumerateUsers(login='123j'))
+            )

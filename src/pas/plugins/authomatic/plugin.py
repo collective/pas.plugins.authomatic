@@ -278,9 +278,16 @@ class AuthomaticPlugin(BasePlugin):
             if not userid:
                 logger.warn('None userid found. This should not happen!')
                 continue
-            if not userid.startswith(search_id):
-                continue
+
             identity = self._useridentities_by_userid[userid]
+
+            userid_matches = userid.startswith(search_id)
+            if not userid_matches:
+                sheet = identity.propertysheet
+                fullname = sheet.getProperty('fullname')
+                if not fullname or fullname.encode("utf8").lower().find(search_id.lower()) == -1:
+                    continue
+
             identity_userid = identity.userid
             if six.PY2 and isinstance(identity_userid, six.text_type):
                 identity_userid = identity_userid.encode('utf8')

@@ -4,6 +4,9 @@ Changelog
 1.0b2 (unreleased)
 ------------------
 
+- Search users by their name
+  [daggelpop]
+
 - Add missing no-op methods for IUserManagement to plugin.
   [jensens]
 
