@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.0b2 (unreleased)
-------------------
+1.0b202+affinitic (2021-07-06)
+------------------------------
 
 - Search users by their name
   [daggelpop]
