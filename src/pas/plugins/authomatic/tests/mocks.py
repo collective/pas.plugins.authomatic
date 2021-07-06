@@ -12,7 +12,7 @@ class MockCredentials(MockResult):
         pass
 
 
-def make_user(login, testcase=None, password=None):
+def make_user(login, testcase=None, password=None, name=None):
     from pas.plugins.authomatic.useridentities import UserIdentities
 
     uis = UserIdentities(login)
@@ -21,7 +21,7 @@ def make_user(login, testcase=None, password=None):
     if testcase:
         testcase.plugin._useridentities_by_userid[login] = uis
     mock_result = MockResult(
-        provider=MockResult(name="mock_provider"), user=MockResult()
+        provider=MockResult(name="mock_provider"), user=MockResult(name=name, data={"name": name})
     )
     uis.handle_result(mock_result)
     return uis
