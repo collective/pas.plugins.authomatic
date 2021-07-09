@@ -129,6 +129,14 @@ class TestPlugin(unittest.TestCase):
                 1,
                 len(self.plugin.enumerateUsers(login="Aurélien"))
             )
+            self.assertEqual(
+                1,
+                len(self.plugin.enumerateUsers(login="Black Joe"))
+            )
+            self.assertEqual(
+                1,
+                len(self.plugin.enumerateUsers(login="Joe Black"))
+            )
 
     def test_user_delete(self):
         with mock.patch(

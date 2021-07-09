@@ -270,9 +270,11 @@ class AuthomaticPlugin(BasePlugin):
             if not userid_matches:
                 sheet = identity.propertysheet
                 fullname = sheet.getProperty("fullname")
+                if not fullname:
+                    continue
                 if six.PY2 and isinstance(fullname, six.text_type):
                     fullname = fullname.encode('utf8')
-                if not fullname or fullname.lower().find(search_id.lower()) == -1:
+                if any(fullname.lower().find(word) == -1 for word in search_id.lower().split()):
                     continue
 
             identity_userid = identity.userid
