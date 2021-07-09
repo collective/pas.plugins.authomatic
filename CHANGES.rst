@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0b203+affinitic (unreleased)
+1.0b203+affinitic (2021-07-09)
 ------------------------------
 
 - Search by name in multiple parts
