@@ -157,6 +157,10 @@ class TestPlugin(unittest.TestCase):
             )
             self.assertEqual(
                 1,
+                len(self.plugin.enumerateUsers(login=u'Aurélien'))
+            )
+            self.assertEqual(
+                1,
                 len(self.plugin.enumerateUsers(login='Black Joe'))
             )
             self.assertEqual(

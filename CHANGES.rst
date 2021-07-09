@@ -4,7 +4,8 @@ Changelog
 1.0b204+affinitic (unreleased)
 ------------------------------
 
-- Nothing changed yet.
+- Fix search string encoding
+  [mpeeters]
 
 
 1.0b203+affinitic (2021-07-09)
