@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0b204+affinitic (unreleased)
+1.0b204+affinitic (2021-07-09)
 ------------------------------
 
 - Fix search string encoding
