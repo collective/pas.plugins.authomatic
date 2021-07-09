@@ -274,6 +274,8 @@ class AuthomaticPlugin(BasePlugin):
                     continue
                 if six.PY2 and isinstance(fullname, six.text_type):
                     fullname = fullname.encode('utf8')
+                if six.PY2 and isinstance(search_id, six.text_type):
+                    search_id = search_id.encode('utf8')
                 if any(fullname.lower().find(word) == -1 for word in search_id.lower().split()):
                     continue
 
