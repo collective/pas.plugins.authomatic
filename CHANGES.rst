@@ -4,7 +4,8 @@ Changelog
 1.0b203+affinitic (unreleased)
 ------------------------------
 
-- Nothing changed yet.
+- Fix name search encoding
+  [daggelpop]
 
 
 1.0b202+affinitic (2021-07-06)

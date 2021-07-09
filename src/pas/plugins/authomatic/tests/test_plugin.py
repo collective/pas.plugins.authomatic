@@ -79,6 +79,7 @@ class TestPlugin(unittest.TestCase):
             make_user('123jane', testcase=self)
             make_user('123wily', name='Mr Wily Black', testcase=self)
             make_user('123willi', name='Mrs Willie Blackwood', testcase=self)
+            make_user('aurel', name='Aurélien', testcase=self)
             # check by user id
             self.assertEqual(
                 [{'login': '123joe', 'pluginid': 'authomatic', 'id': '123joe'}],
@@ -150,6 +151,9 @@ class TestPlugin(unittest.TestCase):
                 2,
                 len(self.plugin.enumerateUsers(login='il'))
             )
+            self.assertEqual(
+                1,
+                len(self.plugin.enumerateUsers(login='Aurélien'))
 
     def test_user_delete(self):
         with mock.patch(
