@@ -4,6 +4,9 @@ Changelog
 1.0b203+affinitic (unreleased)
 ------------------------------
 
+- Search by name in multiple parts
+  [daggelpop]
+
 - Fix name search encoding
   [daggelpop]
 
