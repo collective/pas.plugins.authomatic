@@ -19,6 +19,7 @@ from zope.event import notify
 from zope.interface import implementer
 
 import logging
+import six
 
 
 logger = logging.getLogger(__name__)
@@ -269,10 +270,14 @@ class AuthomaticPlugin(BasePlugin):
             if not userid_matches:
                 sheet = identity.propertysheet
                 fullname = sheet.getProperty("fullname")
-                if not fullname or fullname.encode("utf8").lower().find(search_id.lower()) == -1:
+                if six.PY2 and isinstance(fullname, six.text_type):
+                    fullname = fullname.encode('utf8')
+                if not fullname or fullname.lower().find(search_id.lower()) == -1:
                     continue
 
             identity_userid = identity.userid
+            if six.PY2 and isinstance(identity_userid, six.text_type):
+                identity_userid = identity_userid.encode('utf8')
             ret.append(
                 {
                     "id": identity_userid,
