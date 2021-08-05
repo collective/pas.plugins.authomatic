@@ -41,6 +41,9 @@ Changelog
 - Drop Plone < 5.1.x compatibility.
   [cekk]
 
+- Fix #54: Notification of PrincipalCreated event.
+  [ericof]
+
 1.0b1 (2017-11-20)
 ------------------
 

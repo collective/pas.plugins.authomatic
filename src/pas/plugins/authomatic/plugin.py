@@ -138,7 +138,8 @@ class AuthomaticPlugin(BasePlugin):
         accessed, container, name, value = aclu._getObjectContext(
             self.REQUEST["PUBLISHED"], self.REQUEST
         )
-        user = aclu._authorizeUser(user, accessed, container, name, value, _noroles)
+        # Add the user to the SM stack
+        aclu._authorizeUser(user, accessed, container, name, value, _noroles)
         if do_notify_created:
             # be a good citizen in PAS world and notify user creation
             notify(PrincipalCreated(user))
