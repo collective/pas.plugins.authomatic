@@ -46,6 +46,7 @@ setup(
     install_requires=[
         "authomatic>=1.0.0",
         "Products.CMFPlone>=5.2",
+        "plone.restapi",
         "setuptools",
     ],
     extras_require={
