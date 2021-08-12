@@ -1,0 +1,33 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+>
+
+  <include package="plone.restapi" />
+  <!-- List authentication options -->
+  <plone:service
+      method="GET"
+      factory=".login.Get"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      permission="zope.Public"
+      name="@login"
+  />
+
+ <!-- Authomatic authentication services -->
+  <plone:service
+      method="GET"
+      factory=".authomatic.Get"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      permission="zope.Public"
+      name="@login-authomatic"
+  />
+
+  <plone:service
+      method="POST"
+      factory=".authomatic.Post"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      permission="zope.Public"
+      name="@login-authomatic"
+  />
+
+</configure>

@@ -108,6 +108,7 @@ class PasPluginsAuthomaticPloneLayer(PloneSandboxLayer):
         auto.CSRF_DISABLED = ORIGINAL_CSRF_DISABLED
 
     def setUpPloneSite(self, portal):
+        applyProfile(portal, "plone.restapi:default")
         applyProfile(portal, "pas.plugins.authomatic:default")
 
 
@@ -123,6 +124,12 @@ PAS_PLUGINS_Authomatic_PLONE_INTEGRATION_TESTING = IntegrationTesting(
 PAS_PLUGINS_Authomatic_PLONE_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(PAS_PLUGINS_Authomatic_PLONE_FIXTURE,),
     name="PasPluginsAuthomaticPloneLayer:FunctionalTesting",
+)
+
+
+PAS_PLUGINS_Authomatic_REST_API_TESTING = FunctionalTesting(
+    bases=(PAS_PLUGINS_Authomatic_PLONE_FIXTURE, WSGI_SERVER_FIXTURE),
+    name="PasPluginsAuthomaticPloneLayer:RestAPITesting",
 )
 
 
