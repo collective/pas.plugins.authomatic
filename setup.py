@@ -46,11 +46,14 @@ setup(
     install_requires=[
         "authomatic>=1.0.0",
         "Products.CMFPlone>=5.2",
+        "plone.restapi",
         "setuptools",
     ],
     extras_require={
         "test": [
+            "collective.MockMailHost",
             "plone.app.testing",
+            "plone.restapi[test]",
             "plone.app.robotframework[debug]",
         ]
     },

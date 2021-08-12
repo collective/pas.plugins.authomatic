@@ -44,6 +44,9 @@ Changelog
 - Fix #54: Notification of PrincipalCreated event.
   [ericof]
 
+- Closes #55: Support plone.restapi.
+  [ericof]
+
 1.0b1 (2017-11-20)
 ------------------
 
