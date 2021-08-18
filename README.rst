@@ -1,10 +1,17 @@
-.. image:: https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yaml/badge.svg
-    :target: https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yaml
-
-
 .. This README is meant for consumption by humans and pypi. Pypi can render rst files so please do not use Sphinx features.
    If you want to learn more about writing documentation, please check out: http://docs.plone.org/about/documentation_styleguide_addons.html
    This text does not appear on pypi or github. It is a comment.
+
+.. image:: https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yml/badge.svg
+  :target: https://github.com/collective/pas.plugins.authomatic
+
+.. image:: https://img.shields.io/pypi/v/pas.plugins.authomatic.svg
+    :target: https://pypi.python.org/pypi/pas.plugins.authomatic/
+    :alt: Latest Version
+
+.. image:: https://img.shields.io/pypi/l/pas.plugins.authomatic.svg
+    :target: https://pypi.python.org/pypi/pas.plugins.authomatic/
+    :alt: License
 
 
 =============================================================================
@@ -127,8 +134,7 @@ We appreciate any contribution and if a release is needed to be done on pypi, pl
 Development
 -----------
 
-You need a working ``python`` environment (system, virtualenv, pyenv, etc).
-Could be 2.7 (deprecated. Used only for Plone < 5.1) or 3 (preferred).
+You need a working ``python`` environment (system, virtualenv, pyenv, etc) version 3.7 or superior.
 
 Then you should install some requirements with pip::
 
@@ -140,9 +146,7 @@ And finally run buildout::
 
 By default we use the last Plone version (5.2).
 
-
 License
 -------
 
 The project is licensed under the GPLv2.
-
