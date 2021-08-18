@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0b2 (unreleased)
+1.0b2 (2021-08-18)
 ------------------
 
 - Fix tox setup, move CI from TravisCI to Github Actions.
