@@ -55,6 +55,7 @@ setup(
             "plone.app.testing",
             "plone.restapi[test]",
             "plone.app.robotframework[debug]",
+            "zest.releaser[recommended]",
         ]
     },
     entry_points="""
