@@ -2,8 +2,8 @@
    If you want to learn more about writing documentation, please check out: http://docs.plone.org/about/documentation_styleguide_addons.html
    This text does not appear on pypi or github. It is a comment.
 
-.. image:: https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yml/badge.svg
-  :target: https://github.com/collective/pas.plugins.authomatic
+.. image:: https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yaml/badge.svg
+  :target: https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yaml
 
 .. image:: https://img.shields.io/pypi/v/pas.plugins.authomatic.svg
     :target: https://pypi.python.org/pypi/pas.plugins.authomatic/
