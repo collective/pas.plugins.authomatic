@@ -68,12 +68,12 @@ msgstr ""
 #. Default: "Choose one of these external authentication providers"
 #: ../browser/authomatic.pt:14
 msgid "add_description"
-msgstr ""
+msgstr "Autentifica-te cu"
 
 #. Default: "Add identity"
 #: ../browser/authomatic.pt:12
 msgid "add_identity_title"
-msgstr ""
+msgstr "Intra in cont"
 
 #. Default: "Added identity provided by ${provider}"
 #: ../browser/view.py:63
@@ -108,14 +108,14 @@ msgstr ""
 #. Default: "JSON is not valid, parser complained: ${message}"
 #: ../interfaces.py:61
 msgid "invalid_json"
-msgstr ""
+msgstr "JSON invalid"
 
 #. Default: "Logged in with ${provider}"
 #: ../browser/view.py:76
 msgid "logged_in_with"
-msgstr ""
+msgstr "Ai fost autentificat cu"
 
 #. Default: "Log in with"
 #: ../browser/authomatic.pt:9
 msgid "login_title"
-msgstr ""
+msgstr "Intra in cont cu"

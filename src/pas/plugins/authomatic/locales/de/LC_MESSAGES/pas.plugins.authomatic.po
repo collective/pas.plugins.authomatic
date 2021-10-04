@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-09-30 10:45+0000\n"
+"POT-Creation-Date: 2021-10-04 21:03+0000\n"
 "PO-Revision-Date: 2015-11-12 12:20+0000\n"
 "Last-Translator: Jens Klein <jens@bluedynamics.com>\n"
 "Language-Team: BlueDynamics Alliance <dev@bluedynamics.com>\n"
@@ -15,23 +15,22 @@ msgstr ""
 "Domain: DOMAIN\n"
 "X-Is-Fallback-For: de-at de-li de-lu de-ch de-de\n"
 
-#: ../profiles.zcml:22
+#: ../profiles/default/controlpanel.xml
+msgid "Authomatic (OAuth2/OpenID)"
+msgstr ""
+
+#: ../profiles.zcml:16
 msgid "Authomatic PAS Plugin"
 msgstr "Authomatic PAS Plugin"
 
-#: ../profiles.zcml:14
-msgid "Authomatic PAS Plugin (base)"
+#: ../profiles.zcml:25
+msgid "Authomatic PAS Plugin: uninstall"
 msgstr ""
 
-#: ../profiles.zcml:37
-msgid "Authomatic PAS Plugin: base uninstall"
+#: ../profiles.zcml:16
+msgid "Authomatic: Login with OAuth/OpenID 3rd party auth providers using the pas.plugins.authomatic add-on."
 msgstr ""
 
-#: ../profiles.zcml:14
-msgid "Authomatic: Login with OAuth/OpenID 3rd party auth providers (base for Plone 4 + 5)."
-msgstr ""
-
-#: ../profiles.zcml:22
 msgid "Authomatic: Login with OAuth/OpenID 3rd party auth providers."
 msgstr "Authomatic: Anmeldung über OAuth/OpenID Drittanbieter für Authentifizierung"
 
@@ -43,34 +42,28 @@ msgstr "Generator für Plone User-Ids."
 msgid "JSON configuration"
 msgstr "JSON Konfiguration"
 
-#: ../browser/controlpanel.py:10
-#: ../profiles/plone4/controlpanel.xml
-#: ../profiles/plone5/controlpanel.xml
+#: ../browser/controlpanel.py:9
 msgid "PAS Authomatic Plugin Settings"
 msgstr "Einstellungen für das PAS Authomatic Plugin"
 
-#: ../useridfactories.py:33
+#: ../useridfactories.py:31
 msgid "Provider User ID"
 msgstr "User ID des Anbieters"
 
-#: ../useridfactories.py:41
+#: ../useridfactories.py:39
 msgid "Provider User Name"
 msgstr ""
 
-#: ../interfaces.py:93
+#: ../interfaces.py:91
 msgid "Secret"
 msgstr "Geheimes Wort"
 
-#: ../useridfactories.py:25
+#: ../useridfactories.py:23
 msgid "UUID as User ID"
 msgstr "UUID als User-ID"
 
-#: ../profiles.zcml:45
-msgid "Uninstalls the pas.plugins.authomatic add-on"
-msgstr ""
-
-#: ../profiles.zcml:37
-msgid "Uninstalls the pas.plugins.authomatic add-on (base)"
+#: ../profiles.zcml:25
+msgid "Uninstalls the pas.plugins.authomatic add-on. This REMOVES ALL USERS managed by this plugin!"
 msgstr ""
 
 #. Default: "Choose one of these external authentication providers"
@@ -84,7 +77,7 @@ msgid "add_identity_title"
 msgstr "Identität hinzufügen"
 
 #. Default: "Added identity provided by ${provider}"
-#: ../browser/view.py:68
+#: ../browser/view.py:63
 msgid "added_identity"
 msgstr "Indentität über den Anbieter ${provider} hinzugefügt"
 
@@ -97,7 +90,7 @@ msgstr ""
 "Details auf der Seite http://authomatic.github.io/authomatic/reference/providers.html - Unterschiede: 'class_' muss eine Zeichenfolge sein, diese wird dann als Punkt-Pfad zu einer Klasse aufgelöst. Die Abteilungen ``display`` und ``propertymap`` sind speziell."
 
 #. Default: "Some random string used to encrypt the state"
-#: ../interfaces.py:94
+#: ../interfaces.py:92
 msgid "help_secret"
 msgstr "Ein Zufalls-String, der zur Verschlüsselung des 'State' verwendet wird."
 
@@ -109,22 +102,22 @@ msgstr ""
 "Innerhalb von Plone wird sie zur zur Identifikation herangezogen."
 
 #. Default: "At least one provider must be configured."
-#: ../interfaces.py:74
+#: ../interfaces.py:71
 msgid "invalid_cfg_empty_dict"
 msgstr "Mindestens ein Anbieter muss konfiguriert werden."
 
 #. Default: "JSON root must be a mapping (dict)"
-#: ../interfaces.py:69
+#: ../interfaces.py:68
 msgid "invalid_cfg_no_dict"
 msgstr "Die JSON Wurzel muss ein Mapping (Schlüssel zu Wert) sein."
 
 #. Default: "JSON is not valid, parser complained: ${message}"
-#: ../interfaces.py:63
+#: ../interfaces.py:61
 msgid "invalid_json"
 msgstr "Das JSON ist nicht gültig, der Parser meldet: {$message}"
 
 #. Default: "Logged in with ${provider}"
-#: ../browser/view.py:81
+#: ../browser/view.py:76
 msgid "logged_in_with"
 msgstr "Eingeloggt mit ${provider}"
 
