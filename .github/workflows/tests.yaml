@@ -6,6 +6,7 @@ on: [push]
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         python:
           - 3.7
