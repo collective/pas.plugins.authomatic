@@ -3,14 +3,9 @@ from pas.plugins.authomatic.testing import (
     PAS_PLUGINS_Authomatic_PLONE_INTEGRATION_TESTING,
 )
 from plone import api
+from Products.CMFPlone.utils import get_installer
 
 import unittest
-
-
-try:
-    from Products.CMFPlone.utils import get_installer
-except ImportError:
-    get_installer = None
 
 
 class TestSetup(unittest.TestCase):
@@ -21,22 +16,19 @@ class TestSetup(unittest.TestCase):
     def setUp(self):
         """Custom shared utility setup for tests."""
         self.portal = self.layer["portal"]
-        if get_installer:
-            self.installer = get_installer(self.portal, self.layer["request"])
-        else:
-            self.installer = api.portal.get_tool("portal_quickinstaller")
+        self.installer = get_installer(self.portal, self.layer["request"])
 
     def test_product_installed(self):
         """Test if pas.plugins.authomatic is installed with
         portal_quickinstaller.
         """
-        self.assertTrue(self.installer.isProductInstalled("pas.plugins.authomatic"))
+        self.assertTrue(self.installer.is_product_installed("pas.plugins.authomatic"))
         self.assertIn("authomatic", self.portal.acl_users)
 
     def test_uninstall(self):
         """Test if pas.plugins.authomatic is cleanly uninstalled."""
-        self.installer.uninstallProducts(["pas.plugins.authomatic"])
-        self.assertFalse(self.installer.isProductInstalled("pas.plugins.authomatic"))
+        self.installer.uninstall_product("pas.plugins.authomatic")
+        self.assertFalse(self.installer.is_product_installed("pas.plugins.authomatic"))
         # self.assertNotIn('authomatic', self.portal.acl_users)
 
     def test_browserlayer(self):

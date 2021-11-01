@@ -5,6 +5,7 @@ on: [push]
 
 jobs:
   build:
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -19,7 +20,6 @@ jobs:
           - plone: "5.2-latest"
             python: 3.9
 
-    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
 
