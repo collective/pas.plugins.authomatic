@@ -4,8 +4,8 @@ Changelog
 1.0b3 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Use plone/plone-setup Github Action.
+  [ericof]
 
 1.0b2 (2021-08-18)
 ------------------
