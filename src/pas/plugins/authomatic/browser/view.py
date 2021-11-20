@@ -128,8 +128,10 @@ class AuthomaticView(BrowserView):
         else:
             # now we delegate to PAS plugin in order to login
             self._remember_identity(result, provider_name)
+
+        came_from = self.request.cookies.get('came_from', '/ads')
         self.request.response.redirect(
-            self.context.absolute_url() + '/ads'
+            self.context.absolute_url() + came_from
         )
         return "redirecting"
 
