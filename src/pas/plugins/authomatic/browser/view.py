@@ -104,10 +104,10 @@ class AuthomaticView(BrowserView):
             return "Provider not supported"
         if not self.is_anon:
             if self.provider in self._provider_names:
-                raise ValueError(
-                    "Provider {} is already connected to current "
-                    "user.".format(self.provider)
-                )
+                logger.warn(
+                    "Provider %s is already connected to current "
+                    "user.", self.provider)
+                return self._redirect()
             # TODO: some sort of CSRF check might be needed, so that
             #       not an account got connected by CSRF. Research needed.
             pass
@@ -129,6 +129,9 @@ class AuthomaticView(BrowserView):
             # now we delegate to PAS plugin in order to login
             self._remember_identity(result, provider_name)
 
+        return self._redirect()
+
+    def _redirect(self):
         next_url = self.request.cookies.get('next_url', "")
         self.request.response.redirect(
             self.context.absolute_url() + next_url
