@@ -14,7 +14,7 @@ jobs:
           - 3.8
           - 3.9
         plone:
-          - "6.0.0a1"
+          - "6.0-latest"
           - "5.2-latest"
         exclude:
           - plone: "5.2-latest"
@@ -33,9 +33,9 @@ jobs:
     # Install pas.plugins.authomatic with test extras
     - name: Install pas.plugins.authomatic
       run: |
-        pip install ".[test]" --use-deprecated legacy-resolver
+        pip install ".[test]"
 
     # test
-    - name: test
+    - name: Test Codebase
       run: |
         zope-testrunner --auto-color --auto-progress --test-path src
