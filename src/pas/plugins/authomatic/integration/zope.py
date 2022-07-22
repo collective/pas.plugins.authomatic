@@ -23,7 +23,8 @@ class ZopeRequestAdapter(BaseAdapter):
 
     @property
     def url(self):
-        url = f"{self.view.context.absolute_url()}/authomatic-handler/{self.view.provider}"
+        view_url = self.view.context.absolute_url()
+        url = f"{view_url}/authomatic-handler/{self.view.provider}"
         logger.debug("url" + url)
         return url
 

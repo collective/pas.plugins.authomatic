@@ -2,7 +2,6 @@
 from pas.plugins.authomatic.testing import (
     PAS_PLUGINS_Authomatic_PLONE_INTEGRATION_TESTING,
 )
-from plone import api
 from Products.CMFPlone.utils import get_installer
 
 import unittest
@@ -29,7 +28,6 @@ class TestSetup(unittest.TestCase):
         """Test if pas.plugins.authomatic is cleanly uninstalled."""
         self.installer.uninstall_product("pas.plugins.authomatic")
         self.assertFalse(self.installer.is_product_installed("pas.plugins.authomatic"))
-        # self.assertNotIn('authomatic', self.portal.acl_users)
 
     def test_browserlayer(self):
         """Test that IPasPluginsAuthomaticLayer is registered."""

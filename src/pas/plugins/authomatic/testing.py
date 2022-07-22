@@ -6,7 +6,6 @@ from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.protect import auto
 from plone.testing import Layer
-from plone.testing import z2
 from plone.testing.zope import installProduct
 from plone.testing.zope import INTEGRATION_TESTING
 from plone.testing.zope import WSGI_SERVER_FIXTURE

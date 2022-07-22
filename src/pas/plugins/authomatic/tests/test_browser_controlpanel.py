@@ -51,10 +51,9 @@ class TestAuthomaticSettingsControlPanel(unittest.TestCase):
         )
 
     def test_record_config_property(self):
-        record = self.registry.records[
-            "pas.plugins.authomatic.interfaces."
-            + "IPasPluginsAuthomaticSettings.json_config"
-        ]
+        prefix = "pas.plugins.authomatic.interfaces"
+        record_id = "IPasPluginsAuthomaticSettings.json_config"
+        record = self.registry.records[f"{prefix}.{record_id}"]
         self.assertTrue("json_config" in IPasPluginsAuthomaticSettings)
         self.assertGreater(len(record.value), 20)
 

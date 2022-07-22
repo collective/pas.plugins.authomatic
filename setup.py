@@ -1,27 +1,21 @@
-# -*- coding: utf-8 -*-
 """Installer for the pas.plugins.authomatic package."""
-
+from pathlib import Path
 from setuptools import find_packages
 from setuptools import setup
 
 
-long_description = (
-    open("README.rst").read() + "\n" + "Contributors\n"
-    "============\n"
-    + "\n"
-    + open("CONTRIBUTORS.rst").read()
-    + "\n"
-    + open("CHANGES.rst").read()
-    + "\n"
-)
-
+long_description = f"""
+{Path("README.rst").read_text()}\n
+Contributors\n============\n
+{Path("CONTRIBUTORS.rst").read_text()}\n
+{Path("CHANGES.rst").read_text()}\n
+"""
 
 setup(
     name="pas.plugins.authomatic",
     version="1.0b3.dev0",
     description="Provides OAuth2/ OpenID login for Plone using Authomatic.",
     long_description=long_description,
-    # Get more from http://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         "Development Status :: 4 - Beta",
         "Environment :: Web Environment",
