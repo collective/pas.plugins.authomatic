@@ -104,6 +104,16 @@ lint-pyroma: ## validate using pyroma
 lint-zpretty: ## validate ZCML/XML using zpretty
 	$(LINT) zpretty "$(PACKAGE_PATH)"
 
+# i18n
+bin/i18ndude:	bin/pip
+	@echo "$(GREEN)==> Install translation tools$(RESET)"
+	bin/pip install i18ndude
+
+.PHONY: i18n
+i18n: bin/i18ndude ## Update locales
+	@echo "$(GREEN)==> Updating locales$(RESET)"
+	bin/update_locale
+
 .PHONY: test
 test: ## run tests
 	PYTHONWARNINGS=ignore ./bin/zope-testrunner --auto-color --auto-progress --test-path $(PACKAGE_PATH)

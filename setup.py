@@ -57,5 +57,7 @@ setup(
     entry_points="""
     [z3c.autoinclude.plugin]
     target = plone
+    [console_scripts]
+    update_locale = pas.plugins.authomatic.locales.update:update_locale
     """,
 )
