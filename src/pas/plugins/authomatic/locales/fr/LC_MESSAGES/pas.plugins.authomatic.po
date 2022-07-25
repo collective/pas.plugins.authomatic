@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-09-30 10:45+0000\n"
+"POT-Creation-Date: 2022-07-22 15:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Martin Peeters\n"
 "Language-Team: Affinitic\n"
@@ -14,115 +14,117 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: ../profiles.zcml:22
+#: pas/plugins/authomatic/profiles/default/controlpanel.xml
+msgid "Authomatic (OAuth2/OpenID)"
+msgstr ""
+
+#: pas/plugins/authomatic/profiles.zcml:16
 msgid "Authomatic PAS Plugin"
 msgstr ""
 
-#: ../profiles.zcml:14
-msgid "Authomatic PAS Plugin (base)"
+#: pas/plugins/authomatic/profiles.zcml:25
+msgid "Authomatic PAS Plugin: uninstall"
 msgstr ""
 
-#: ../profiles.zcml:37
-msgid "Authomatic PAS Plugin: base uninstall"
+#: pas/plugins/authomatic/browser/view.py:93
+msgid "Authomatic is not configured"
 msgstr ""
 
-#: ../profiles.zcml:14
-msgid "Authomatic: Login with OAuth/OpenID 3rd party auth providers (base for Plone 4 + 5)."
-msgstr "Authomatic: Authentification via des fournisseurs externes OAuth/OpenID (base pour Plone 4 & 5)"
+#: pas/plugins/authomatic/profiles.zcml:16
+msgid "Authomatic: Login with OAuth/OpenID 3rd party auth providers using the pas.plugins.authomatic add-on."
+msgstr ""
 
-#: ../profiles.zcml:22
-msgid "Authomatic: Login with OAuth/OpenID 3rd party auth providers."
-msgstr "Authomatic: Authentification via des fournisseurs externes "
-
-#: ../interfaces.py:101
+#: pas/plugins/authomatic/interfaces.py:101
 msgid "Generator for Plone User IDs."
 msgstr "Générateur pour les identifiants des utilisateurs Plone"
 
-#: ../interfaces.py:111
+#: pas/plugins/authomatic/interfaces.py:111
 msgid "JSON configuration"
 msgstr "Configuration JSON"
 
-#: ../browser/controlpanel.py:10
-#: ../profiles/plone4/controlpanel.xml
-#: ../profiles/plone5/controlpanel.xml
+#: pas/plugins/authomatic/browser/controlpanel.py:9
 msgid "PAS Authomatic Plugin Settings"
 msgstr "Paramètres pour l'addon PAS Authomatic"
 
-#: ../useridfactories.py:33
+#: pas/plugins/authomatic/useridfactories.py:31
 msgid "Provider User ID"
 msgstr "Fournisseur d'identifiant utilisateur"
 
-#: ../useridfactories.py:41
+#: pas/plugins/authomatic/useridfactories.py:39
 msgid "Provider User Name"
 msgstr "Fournisseur de nom d'utilisateur"
 
-#: ../interfaces.py:93
+#: pas/plugins/authomatic/browser/view.py:104
+msgid "Provider not supported"
+msgstr ""
+
+#: pas/plugins/authomatic/interfaces.py:91
 msgid "Secret"
 msgstr ""
 
-#: ../useridfactories.py:25
+#: pas/plugins/authomatic/useridfactories.py:23
 msgid "UUID as User ID"
 msgstr "UUID comme identifiant utilisateur"
 
-#: ../profiles.zcml:45
-msgid "Uninstalls the pas.plugins.authomatic add-on"
-msgstr ""
-
-#: ../profiles.zcml:37
-msgid "Uninstalls the pas.plugins.authomatic add-on (base)"
+#: pas/plugins/authomatic/profiles.zcml:25
+msgid "Uninstalls the pas.plugins.authomatic add-on. This REMOVES ALL USERS managed by this plugin!"
 msgstr ""
 
 #. Default: "Choose one of these external authentication providers"
-#: ../browser/authomatic.pt:14
+#: pas/plugins/authomatic/browser/authomatic.pt:14
 msgid "add_description"
 msgstr "Choisissez un fournisseur externe d'identification"
 
 #. Default: "Add identity"
-#: ../browser/authomatic.pt:12
+#: pas/plugins/authomatic/browser/authomatic.pt:12
 msgid "add_identity_title"
 msgstr "Ajouter une identité"
 
 #. Default: "Added identity provided by ${provider}"
-#: ../browser/view.py:68
+#: pas/plugins/authomatic/browser/view.py:68
 msgid "added_identity"
 msgstr "Identitée ajoutée fournie par ${provider}"
 
 #. Default: "Configuration parameters for the different authorization providers. Details at https://authomatic.github.io/authomatic/reference/providers.html - difference: \"class_\" has to be a string, which is then resolved as a dotted path. Also sections \"display\" and \"propertymap\" are special."
-#: ../interfaces.py:112
+#: pas/plugins/authomatic/interfaces.py:112
 msgid "help_json_config"
 msgstr ""
 
 #. Default: "Some random string used to encrypt the state"
-#: ../interfaces.py:94
+#: pas/plugins/authomatic/interfaces.py:92
 msgid "help_secret"
 msgstr "Chaîne de caractères aléatoire utilisée pour l'encryption"
 
 #. Default: "It is visible if no fullname is mapped and in some rare cases in URLs. It is the identifier used for the user inside Plone."
-#: ../interfaces.py:102
+#: pas/plugins/authomatic/interfaces.py:102
 msgid "help_userid_factory_name"
 msgstr "Visible si le nom ne correspond pas ou dans de rares cas dans les URLs. Il s'agit de l'identifiant pour l'utilisateur dans Plone."
 
 #. Default: "At least one provider must be configured."
-#: ../interfaces.py:74
+#: pas/plugins/authomatic/interfaces.py:71
 msgid "invalid_cfg_empty_dict"
 msgstr "Au moins un fournisseur doit être configuré"
 
 #. Default: "JSON root must be a mapping (dict)"
-#: ../interfaces.py:69
+#: pas/plugins/authomatic/interfaces.py:68
 msgid "invalid_cfg_no_dict"
 msgstr "La racine du JSON doit être un dictionnaire"
 
 #. Default: "JSON is not valid, parser complained: ${message}"
-#: ../interfaces.py:63
+#: pas/plugins/authomatic/interfaces.py:61
 msgid "invalid_json"
 msgstr "le JSON n'est pas valide, erreur lors du traitement: ${message}"
 
 #. Default: "Logged in with ${provider}"
-#: ../browser/view.py:81
+#: pas/plugins/authomatic/browser/view.py:81
 msgid "logged_in_with"
 msgstr "Connecté via ${provider}"
 
 #. Default: "Log in with"
-#: ../browser/authomatic.pt:9
+#: pas/plugins/authomatic/browser/authomatic.pt:9
 msgid "login_title"
 msgstr "Se connecter avec"
+
+#: pas/plugins/authomatic/browser/view.py:100
+msgid "redirecting"
+msgstr ""

@@ -1,6 +1,5 @@
-exclude .editorconfig .*.cfg buildout.cfg
+exclude .editorconfig
 graft docs
 graft src/pas
 include *.cfg *.rst *.in .coveragerc *.txt
-include tox.ini
 recursive-exclude * *.pyc

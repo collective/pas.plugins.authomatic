@@ -1,8 +1,5 @@
 """Setup tests for this package."""
-from pas.plugins.authomatic.testing import (
-    PAS_PLUGINS_Authomatic_PLONE_INTEGRATION_TESTING,
-)
-from plone import api
+from pas.plugins.authomatic.testing import AUTHOMATIC_PLONE_INTEGRATION_TESTING
 from Products.CMFPlone.utils import get_installer
 
 import unittest
@@ -11,11 +8,12 @@ import unittest
 class TestSetup(unittest.TestCase):
     """Test that pas.plugins.authomatic is properly installed."""
 
-    layer = PAS_PLUGINS_Authomatic_PLONE_INTEGRATION_TESTING
+    layer = AUTHOMATIC_PLONE_INTEGRATION_TESTING
 
     def setUp(self):
         """Custom shared utility setup for tests."""
         self.portal = self.layer["portal"]
+        self.setup = self.portal.portal_setup
         self.installer = get_installer(self.portal, self.layer["request"])
 
     def test_product_installed(self):
@@ -29,7 +27,6 @@ class TestSetup(unittest.TestCase):
         """Test if pas.plugins.authomatic is cleanly uninstalled."""
         self.installer.uninstall_product("pas.plugins.authomatic")
         self.assertFalse(self.installer.is_product_installed("pas.plugins.authomatic"))
-        # self.assertNotIn('authomatic', self.portal.acl_users)
 
     def test_browserlayer(self):
         """Test that IPasPluginsAuthomaticLayer is registered."""
@@ -37,3 +34,10 @@ class TestSetup(unittest.TestCase):
         from plone.browserlayer import utils
 
         self.assertTrue(IPasPluginsAuthomaticLayer in utils.registered_layers())
+
+    def test_latest_version(self):
+        """Test latest version of default profile."""
+        self.assertEqual(
+            self.setup.getLastVersionForProfile("pas.plugins.authomatic:default")[0],
+            "1000",
+        )

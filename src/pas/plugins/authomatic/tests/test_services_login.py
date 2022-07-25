@@ -1,11 +1,11 @@
-from pas.plugins.authomatic.testing import PAS_PLUGINS_Authomatic_REST_API_TESTING
+from pas.plugins.authomatic.testing import AUTHOMATIC_REST_API_TESTING
 from plone.restapi.testing import RelativeSession
 
 import unittest
 
 
 class TestServiceLogin(unittest.TestCase):
-    layer = PAS_PLUGINS_Authomatic_REST_API_TESTING
+    layer = AUTHOMATIC_REST_API_TESTING
 
     def setUp(self):
         self.app = self.layer["app"]
