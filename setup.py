@@ -5,10 +5,8 @@ from setuptools import setup
 
 
 long_description = f"""
-{Path("README.rst").read_text()}\n
-Contributors\n============\n
-{Path("CONTRIBUTORS.rst").read_text()}\n
-{Path("CHANGES.rst").read_text()}\n
+{Path("README.md").read_text()}\n
+{Path("CHANGELOG.md").read_text()}\n
 """
 
 setup(
