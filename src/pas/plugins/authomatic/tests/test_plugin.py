@@ -1,4 +1,4 @@
-from pas.plugins.authomatic.testing import PAS_PLUGINS_Authomatic_ZOPE_FIXTURE
+from pas.plugins.authomatic.testing import AUTHOMATIC_ZOPE_FIXTURE
 from pas.plugins.authomatic.tests.mocks import make_user
 
 import unittest
@@ -6,7 +6,7 @@ import unittest
 
 class TestPlugin(unittest.TestCase):
 
-    layer = PAS_PLUGINS_Authomatic_ZOPE_FIXTURE
+    layer = AUTHOMATIC_ZOPE_FIXTURE
 
     def setUp(self):
         # create plugin

@@ -1,7 +1,5 @@
 """Setup tests for this package."""
-from pas.plugins.authomatic.testing import (
-    PAS_PLUGINS_Authomatic_PLONE_INTEGRATION_TESTING,
-)
+from pas.plugins.authomatic.testing import AUTHOMATIC_PLONE_INTEGRATION_TESTING
 from Products.CMFPlone.utils import get_installer
 
 import unittest
@@ -10,7 +8,7 @@ import unittest
 class TestSetup(unittest.TestCase):
     """Test that pas.plugins.authomatic is properly installed."""
 
-    layer = PAS_PLUGINS_Authomatic_PLONE_INTEGRATION_TESTING
+    layer = AUTHOMATIC_PLONE_INTEGRATION_TESTING
 
     def setUp(self):
         """Custom shared utility setup for tests."""

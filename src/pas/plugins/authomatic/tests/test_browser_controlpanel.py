@@ -1,10 +1,6 @@
 from pas.plugins.authomatic.interfaces import IPasPluginsAuthomaticSettings
-from pas.plugins.authomatic.testing import (
-    PAS_PLUGINS_Authomatic_PLONE_FUNCTIONAL_TESTING,
-)
-from pas.plugins.authomatic.testing import (
-    PAS_PLUGINS_Authomatic_PLONE_INTEGRATION_TESTING,
-)
+from pas.plugins.authomatic.testing import AUTHOMATIC_PLONE_FUNCTIONAL_TESTING
+from pas.plugins.authomatic.testing import AUTHOMATIC_PLONE_INTEGRATION_TESTING
 from plone.app.testing import logout
 from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
@@ -18,7 +14,7 @@ import unittest
 
 class TestAuthomaticSettingsControlPanel(unittest.TestCase):
 
-    layer = PAS_PLUGINS_Authomatic_PLONE_INTEGRATION_TESTING
+    layer = AUTHOMATIC_PLONE_INTEGRATION_TESTING
 
     def setUp(self):
         self.portal = self.layer["portal"]
@@ -60,7 +56,7 @@ class TestAuthomaticSettingsControlPanel(unittest.TestCase):
 
 class ControlpanelFunctionalTest(unittest.TestCase):
 
-    layer = PAS_PLUGINS_Authomatic_PLONE_FUNCTIONAL_TESTING
+    layer = AUTHOMATIC_PLONE_FUNCTIONAL_TESTING
 
     def setUp(self):
         app = self.layer["app"]

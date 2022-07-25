@@ -5,6 +5,7 @@ from operator import itemgetter
 from pas.plugins.authomatic.interfaces import IAuthomaticPlugin
 from pas.plugins.authomatic.useridentities import UserIdentities
 from pas.plugins.authomatic.useridfactories import new_userid
+from pathlib import Path
 from plone import api
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.PlonePAS.interfaces.capabilities import IDeleteCapability
@@ -18,11 +19,10 @@ from zope.event import notify
 from zope.interface import implementer
 
 import logging
-import os
 
 
 logger = logging.getLogger(__name__)
-tpl_dir = os.path.join(os.path.dirname(__file__), "browser")
+tpl_dir = Path(__file__).parent.resolve() / "browser"
 
 _marker = {}
 
@@ -36,7 +36,7 @@ def manage_addAuthomaticPlugin(context, id, title="", RESPONSE=None, **kw):
 
 
 manage_addAuthomaticPluginForm = PageTemplateFile(
-    os.path.join(tpl_dir, "add_plugin.pt"),
+    tpl_dir / "add_plugin.pt",
     globals(),
     __name__="addAuthomaticPlugin",
 )

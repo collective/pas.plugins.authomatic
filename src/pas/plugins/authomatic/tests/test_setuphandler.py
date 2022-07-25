@@ -1,4 +1,4 @@
-from pas.plugins.authomatic.testing import PAS_PLUGINS_Authomatic_ZOPE_FIXTURE
+from pas.plugins.authomatic.testing import AUTHOMATIC_ZOPE_FIXTURE
 
 import unittest
 
@@ -9,7 +9,7 @@ class TestPluginForGroupCapability(unittest.TestCase):
     Test if above interface works as expected
     """
 
-    layer = PAS_PLUGINS_Authomatic_ZOPE_FIXTURE
+    layer = AUTHOMATIC_ZOPE_FIXTURE
 
     def setUp(self):
         """Custom shared utility setup for tests."""

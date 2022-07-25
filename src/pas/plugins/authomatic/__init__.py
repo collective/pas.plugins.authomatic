@@ -5,8 +5,6 @@ from pas.plugins.authomatic.plugin import manage_addAuthomaticPluginForm
 from pas.plugins.authomatic.plugin import tpl_dir
 from Products.PluggableAuthService import registerMultiPlugin
 
-import os
-
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product.
@@ -21,7 +19,7 @@ def initialize(context):
     context.registerClass(
         AuthomaticPlugin,
         permission=add_user_folders,
-        icon=os.path.join(tpl_dir, "authomatic.png"),
+        icon=tpl_dir / "authomatic.png",
         constructors=(manage_addAuthomaticPluginForm, manage_addAuthomaticPlugin),
         visibility=None,
     )
