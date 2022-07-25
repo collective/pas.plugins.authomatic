@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # PAS Plugin Authomatic documentation build configuration file, created by
 # sphinx-quickstart on Tue Jul 28 17:01:47 2015.
@@ -10,10 +9,6 @@
 #
 # All configuration values have a default; values that are commented out
 # serve to show the default.
-
-import os
-import sys
-
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -42,8 +37,8 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u"PAS Plugin Authomatic"
-copyright = u"2015, collective"
+project = "PAS Plugin Authomatic"
+copyright = "2015, collective"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -173,11 +168,11 @@ htmlhelp_basename = "PASPluginAuthomaticdoc"
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
-    #'papersize': 'letterpaper',
+    # 'papersize': 'letterpaper',
     # The font size ('10pt', '11pt' or '12pt').
-    #'pointsize': '10pt',
+    # 'pointsize': '10pt',
     # Additional stuff for the LaTeX preamble.
-    #'preamble': '',
+    # 'preamble': '',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -186,8 +181,8 @@ latex_documents = [
     (
         "index",
         "PASPluginAuthomatic.tex",
-        u"PAS Plugin Authomatic Documentation",
-        u"collective",
+        "PAS Plugin Authomatic Documentation",
+        "collective",
         "manual",
     ),
 ]
@@ -221,8 +216,8 @@ man_pages = [
     (
         "index",
         "paspluginauthomatic",
-        u"PAS Plugin Authomatic Documentation",
-        [u"collective"],
+        "PAS Plugin Authomatic Documentation",
+        ["collective"],
         1,
     )
 ]
@@ -240,8 +235,8 @@ texinfo_documents = [
     (
         "index",
         "PASPluginAuthomatic",
-        u"PAS Plugin Authomatic Documentation",
-        u"collective",
+        "PAS Plugin Authomatic Documentation",
+        "collective",
         "PASPluginAuthomatic",
         "One line description of project.",
         "Miscellaneous",
