@@ -82,7 +82,7 @@ zpretty: bin/zpretty ## Format xml and zcml with zpretty
 format: black isort zpretty ## Format the codebase according to our standards
 
 .PHONY: lint
-lint: lint-isort lint-black lint-flake8 lint-zpretty ## check code style
+lint: lint-isort lint-black lint-flake8 lint-zpretty lint-pyroma ## check code style
 
 .PHONY: lint-black
 lint-black: ## validate black formating

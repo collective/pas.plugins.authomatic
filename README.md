@@ -1,5 +1,8 @@
-OAuth2 / OpenId Authentication in Plone
-=======================================
+<div align="center"><img alt="logo" src="./docs/authomatic.svg" width="70" /></div>
+
+<h2 align="center">OAuth2 / OpenId Authentication in Plone</h2>
+
+<div align="center">
 
 [![PyPI](https://img.shields.io/pypi/v/pas.plugins.authomatic)](https://pypi.org/project/pas.plugins.authomatic/)
 [![PyPI - License](https://img.shields.io/pypi/l/pas.plugins.authomatic)](https://pypi.org/project/pas.plugins.authomatic/)
@@ -7,7 +10,8 @@ OAuth2 / OpenId Authentication in Plone
 [![PyPI - Wheel](https://img.shields.io/pypi/wheel/pas.plugins.authomatic)](https://pypi.org/project/pas.plugins.authomatic/)
 [![PyPI - Status](https://img.shields.io/pypi/status/pas.plugins.authomatic)](https://pypi.org/project/pas.plugins.authomatic/)
 
-![Plone](https://img.shields.io/badge/Plone-6-000000?labelColor=0083be)
+
+![Plone](https://img.shields.io/badge/Plone-5.2|6.0-000000?labelColor=0083be)
 
 [![Code analysis checks](https://github.com/collective/pas.plugins.authomatic/actions/workflows/code-analysis.yml/badge.svg)](https://github.com/collective/pas.plugins.authomatic/actions/workflows/code-analysis.yml)
 [![Tests](https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yaml/badge.svg)](https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yaml)
@@ -16,10 +20,12 @@ OAuth2 / OpenId Authentication in Plone
 [![GitHub contributors](https://img.shields.io/github/contributors/collective/pas.plugins.authomatic)](https://github.com/collective/pas.plugins.authomatic)
 [![GitHub Repo stars](https://img.shields.io/github/stars/collective/pas.plugins.authomatic?style=social)](https://github.com/collective/pas.plugins.authomatic)
 
+</div>
+
 Features
 --------
 
-**pas.plugins.authomatic** provides OAuth2 and OpenID login capability for Plone sites by integrating the awesome [Authomatic](https://authomatic.github.io/authomatic/reference/providers.html) package.
+**pas.plugins.authomatic** provides OAuth2 and OpenID login capability for Plone sites by integrating the awesome [Authomatic](https://authomatic.github.io/authomatic/) package.
 
 ```
 Authomatic is a framework agnostic library
@@ -155,12 +161,11 @@ Configuration
 
 Using Classic UI, go to the `Authomatic` controlpanel.
 
-<img alt="Screenshot" src="./docs/plone-control-panel.png" width="300" />
+<img alt="Screenshot" src="https://raw.githubusercontent.com/collective/pas.plugins.authomatic/main/docs/plone-control-panel.png" width="300" />
 
 Configuration parameters for the different authorization are provided as JSON text in there. We use JSON because of its flexibility.
 
-
-<img alt="Screenshot" src="./docs/plugin-settings.png" width="300" />
+<img alt="Screenshot" src="https://raw.githubusercontent.com/collective/pas.plugins.authomatic/main/docs/plugin-settings.png" width="300" />
 
 Details about the configuration of each provider can be found at [Authomatic provider section](https://authomatic.github.io/authomatic/reference/providers.html).
 

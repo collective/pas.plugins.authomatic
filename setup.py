@@ -35,11 +35,17 @@ setup(
     author="Jens Klein and Matthias Dollfuss",
     author_email="dev@bluedynamics.com",
     url="https://github.com/collective/pas.plugins.authomatic",
+    project_urls={
+        "Repository": "https://github.com/collective/pas.plugins.authomatic/",
+        "Changelog": "https://github.com/collective/pas.plugins.authomatic/blob/main/CHANGES.md",
+        "Issues": "https://github.com/collective/pas.plugins.authomatic/issues",
+    },
     license="GPL",
     packages=find_packages("src", exclude=["ez_setup"]),
     namespace_packages=["pas", "pas.plugins"],
     package_dir={"": "src"},
     include_package_data=True,
+    python_requires=">=3.7",
     zip_safe=False,
     install_requires=[
         "authomatic>=1.0.0",
