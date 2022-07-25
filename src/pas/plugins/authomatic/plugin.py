@@ -292,7 +292,7 @@ class AuthomaticPlugin(BasePlugin):
         return self.removeUser(userid)
 
     @security.private
-    def doChangeUser(self, userid):
+    def doChangeUser(self, userid, password=None, **kw):
         """do nothing"""
         return False
 

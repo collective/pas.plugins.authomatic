@@ -8,6 +8,7 @@
 
 - Use plone/code-analysis-action GitHub Action for code analysis. @ericof
 
+- Fix doChangeUser takes 2 positional arguments but 3 were given @avoinea
 
 # 1.0b2 (2021-08-18)
 
