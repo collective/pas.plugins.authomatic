@@ -16,7 +16,7 @@
            remove="True"
   />
   <record name="plone.external_login_url">
-    <value></value>
+    <value />
   </record>
 
   <records interface="Products.CMFPlone.interfaces.IResourceRegistry"

@@ -1,4 +1,4 @@
-from pas.plugins.authomatic.testing import PAS_PLUGINS_Authomatic_REST_API_TESTING
+from pas.plugins.authomatic.testing import AUTHOMATIC_REST_API_TESTING
 from plone.restapi.testing import RelativeSession
 from urllib.parse import quote_plus
 
@@ -6,7 +6,7 @@ import unittest
 
 
 class TestServiceAuthomaticGet(unittest.TestCase):
-    layer = PAS_PLUGINS_Authomatic_REST_API_TESTING
+    layer = AUTHOMATIC_REST_API_TESTING
 
     def setUp(self):
         self.app = self.layer["app"]
@@ -29,7 +29,9 @@ class TestServiceAuthomaticGet(unittest.TestCase):
         data = response.json()
         error = data["error"]
         self.assertEqual(error["type"], "Provider not found")
-        self.assertEqual(error["message"], "Provider unknown-provider is not available.")
+        self.assertEqual(
+            error["message"], "Provider unknown-provider is not available."
+        )
 
     def test_service_valid_provider_id(self):
         response = self.api_session.get("@login-authomatic/github")
@@ -40,8 +42,12 @@ class TestServiceAuthomaticGet(unittest.TestCase):
         self.assertIn(quote_plus("/plone/login-authomatic"), data["next_url"])
 
     def test_service_with_publicUrl(self):
-        response = self.api_session.get("@login-authomatic/github?publicUrl=https://plone.org")
+        response = self.api_session.get(
+            "@login-authomatic/github?publicUrl=https://plone.org"
+        )
         self.assertEqual(200, response.status_code)
         data = response.json()
         self.assertIn("next_url", data)
-        self.assertIn(quote_plus("https://plone.org/login-authomatic"), data["next_url"])
+        self.assertIn(
+            quote_plus("https://plone.org/login-authomatic"), data["next_url"]
+        )

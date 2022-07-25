@@ -19,6 +19,11 @@ import logging
 logger = logging.getLogger(__file__)
 
 
+def is_root(obj):
+    """Check if current context is Navigation root or a Portal."""
+    return ISiteRoot.providedBy(obj) or INavigationRoot.providedBy(obj)
+
+
 @implementer(IPublishTraverse)
 class AuthomaticView(BrowserView):
 
@@ -83,30 +88,24 @@ class AuthomaticView(BrowserView):
 
     def __call__(self):
         cfg = authomatic_cfg()
+        provider = getattr(self, "provider", "")
         if cfg is None:
-            return "Authomatic is not configured"
-        if not (
-            ISiteRoot.providedBy(self.context)
-            or INavigationRoot.providedBy(self.context)
-        ):
+            return _("Authomatic is not configured")
+        if not is_root(self.context):
             # callback url is expected on either navigationroot or site root
             # so bevor going on redirect
             root = api.portal.get_navigation_root(self.context)
-            self.request.response.redirect(
-                "{}/authomatic-handler/{}".format(
-                    root.absolute_url(), getattr(self, "provider", "")
-                )
-            )
-            return "redirecting"
-        if not getattr(self, "provider", None):
+            root_url = root.absolute_url()
+            self.request.response.redirect(f"{root_url}/authomatic-handler/{provider}")
+            return _("redirecting")
+        if not provider:
             return self.template()
-        if self.provider not in cfg:
-            return "Provider not supported"
+        elif provider not in cfg:
+            return _("Provider not supported")
         if not self.is_anon:
-            if self.provider in self._provider_names:
+            if provider in self._provider_names:
                 raise ValueError(
-                    "Provider {} is already connected to current "
-                    "user.".format(self.provider)
+                    f"Provider {provider} is already connected to current user"
                 )
             # TODO: some sort of CSRF check might be needed, so that
             #       not an account got connected by CSRF. Research needed.
@@ -129,7 +128,7 @@ class AuthomaticView(BrowserView):
             # now we delegate to PAS plugin in order to login
             self._remember_identity(result, provider_name)
         self.request.response.redirect(self.context.absolute_url())
-        return "redirecting"
+        return _("redirecting")
 
     @property
     def is_anon(self):

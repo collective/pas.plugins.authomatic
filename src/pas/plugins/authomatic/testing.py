@@ -6,7 +6,6 @@ from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.protect import auto
 from plone.testing import Layer
-from plone.testing import z2
 from plone.testing.zope import installProduct
 from plone.testing.zope import INTEGRATION_TESTING
 from plone.testing.zope import WSGI_SERVER_FIXTURE
@@ -92,7 +91,7 @@ class PasPluginsAuthomaticZopeLayer(Layer):
             installProduct(self["app"], prd)
 
 
-PAS_PLUGINS_Authomatic_ZOPE_FIXTURE = PasPluginsAuthomaticZopeLayer()
+AUTHOMATIC_ZOPE_FIXTURE = PasPluginsAuthomaticZopeLayer()
 
 
 class PasPluginsAuthomaticPloneLayer(PloneSandboxLayer):
@@ -112,30 +111,30 @@ class PasPluginsAuthomaticPloneLayer(PloneSandboxLayer):
         applyProfile(portal, "pas.plugins.authomatic:default")
 
 
-PAS_PLUGINS_Authomatic_PLONE_FIXTURE = PasPluginsAuthomaticPloneLayer()
+AUTHOMATIC_PLONE_FIXTURE = PasPluginsAuthomaticPloneLayer()
 
 
-PAS_PLUGINS_Authomatic_PLONE_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(PAS_PLUGINS_Authomatic_PLONE_FIXTURE,),
+AUTHOMATIC_PLONE_INTEGRATION_TESTING = IntegrationTesting(
+    bases=(AUTHOMATIC_PLONE_FIXTURE,),
     name="PasPluginsAuthomaticPloneLayer:IntegrationTesting",
 )
 
 
-PAS_PLUGINS_Authomatic_PLONE_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(PAS_PLUGINS_Authomatic_PLONE_FIXTURE,),
+AUTHOMATIC_PLONE_FUNCTIONAL_TESTING = FunctionalTesting(
+    bases=(AUTHOMATIC_PLONE_FIXTURE,),
     name="PasPluginsAuthomaticPloneLayer:FunctionalTesting",
 )
 
 
-PAS_PLUGINS_Authomatic_REST_API_TESTING = FunctionalTesting(
-    bases=(PAS_PLUGINS_Authomatic_PLONE_FIXTURE, WSGI_SERVER_FIXTURE),
+AUTHOMATIC_REST_API_TESTING = FunctionalTesting(
+    bases=(AUTHOMATIC_PLONE_FIXTURE, WSGI_SERVER_FIXTURE),
     name="PasPluginsAuthomaticPloneLayer:RestAPITesting",
 )
 
 
-PAS_PLUGINS_Authomatic_PLONE_ACCEPTANCE_TESTING = FunctionalTesting(
+AUTHOMATIC_PLONE_ACCEPTANCE_TESTING = FunctionalTesting(
     bases=(
-        PAS_PLUGINS_Authomatic_PLONE_FIXTURE,
+        AUTHOMATIC_PLONE_FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
         WSGI_SERVER_FIXTURE,
     ),
