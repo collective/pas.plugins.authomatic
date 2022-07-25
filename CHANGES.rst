@@ -4,13 +4,20 @@ Changelog
 1.0b3 (unreleased)
 ------------------
 
-- Use plone/plone-setup Github Action.
+- Use plone/plone-setup GitHub Action.
   [ericof]
+
+- Add Brazilian Portuguese translation.
+  [ericof]
+
+- Use plone/code-analysis-action GitHub Action for code analysis.
+  [ericof]
+
 
 1.0b2 (2021-08-18)
 ------------------
 
-- Fix tox setup, move CI from TravisCI to Github Actions.
+- Fix tox setup, move CI from TravisCI to GitHub Actions.
   [jensens]
 
 - Code Style Black, Isort, zpretty and Pyupgrade applied.

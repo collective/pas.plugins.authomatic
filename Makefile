@@ -98,7 +98,7 @@ lint-isort: ## validate using isort
 
 .PHONY: lint-pyroma
 lint-pyroma: ## validate using pyroma
-	$(LINT) .
+	$(LINT) pyroma ./
 
 .PHONY: lint-zpretty
 lint-zpretty: ## validate ZCML/XML using zpretty
