@@ -29,4 +29,16 @@
       name="pas.plugins.authomatic"
       />
 
+  <!-- Upgrades -->
+  <genericsetup:upgradeSteps
+      profile="pas.plugins.authomatic:default"
+      source="1"
+      destination="1000"
+      >
+    <genericsetup:upgradeDepends
+        title="Update Control Panel"
+        import_steps="controlpanel"
+        />
+  </genericsetup:upgradeSteps>
+
 </configure>

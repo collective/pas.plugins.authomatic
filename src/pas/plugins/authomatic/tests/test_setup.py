@@ -13,6 +13,7 @@ class TestSetup(unittest.TestCase):
     def setUp(self):
         """Custom shared utility setup for tests."""
         self.portal = self.layer["portal"]
+        self.setup = self.portal.portal_setup
         self.installer = get_installer(self.portal, self.layer["request"])
 
     def test_product_installed(self):
@@ -33,3 +34,10 @@ class TestSetup(unittest.TestCase):
         from plone.browserlayer import utils
 
         self.assertTrue(IPasPluginsAuthomaticLayer in utils.registered_layers())
+
+    def test_latest_version(self):
+        """Test latest version of default profile."""
+        self.assertEqual(
+            self.setup.getLastVersionForProfile("pas.plugins.authomatic:default")[0],
+            "1000",
+        )

@@ -9,7 +9,7 @@
              appId="pas.plugins.authomatic"
              category="plone-users"
              condition_expr=""
-             icon_expr="string:$portal_url/group.png"
+             icon_expr="string:people-fill"
              title="Authomatic (OAuth2/OpenID)"
              url_expr="string:${portal_url}/@@authomatic-controlpanel"
              visible="True"
