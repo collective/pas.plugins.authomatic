@@ -140,7 +140,7 @@ pip install pas.plugins.authomatic
 or add it as a dependency on your package's `setup.py`
 
 ```python
-    install_requires=[
+    install_requires = [
         "pas.plugins.authomatic",
         "Products.CMFPlone",
         "plone.restapi",

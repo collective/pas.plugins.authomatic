@@ -14,6 +14,7 @@ setup(
     version="1.0b3.dev0",
     description="Provides OAuth2/OpenID login for Plone using Authomatic.",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
