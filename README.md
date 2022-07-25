@@ -1,6 +1,6 @@
-<div align="center"><img alt="logo" src="./docs/authomatic.svg" width="70" /></div>
+<div align="center"><img alt="logo" src="https://raw.githubusercontent.com/collective/pas.plugins.authomatic/main/docs/authomatic.svg" width="70" /></div>
 
-<h2 align="center">OAuth2 / OpenId Authentication in Plone</h2>
+<h1 align="center">OAuth2 / OpenId Authentication in Plone</h1>
 
 <div align="center">
 
