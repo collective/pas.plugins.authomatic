@@ -11,7 +11,7 @@ long_description = f"""
 
 setup(
     name="pas.plugins.authomatic",
-    version="1.0b3.dev0",
+    version="1.0.0",
     description="Provides OAuth2/OpenID login for Plone using Authomatic.",
     long_description=long_description,
     long_description_content_type="text/markdown",

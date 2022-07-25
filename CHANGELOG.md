@@ -1,6 +1,6 @@
 # Changelog
 
-# 1.0b3 (unreleased)
+1.0.0 (2022-07-25)
 
 - Use plone/plone-setup GitHub Action. @ericof
 
