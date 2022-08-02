@@ -5,13 +5,13 @@
 <div align="center">
 
 [![PyPI](https://img.shields.io/pypi/v/pas.plugins.authomatic)](https://pypi.org/project/pas.plugins.authomatic/)
-[![PyPI - License](https://img.shields.io/pypi/l/pas.plugins.authomatic)](https://pypi.org/project/pas.plugins.authomatic/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pas.plugins.authomatic)](https://pypi.org/project/pas.plugins.authomatic/)
 [![PyPI - Wheel](https://img.shields.io/pypi/wheel/pas.plugins.authomatic)](https://pypi.org/project/pas.plugins.authomatic/)
+[![PyPI - License](https://img.shields.io/pypi/l/pas.plugins.authomatic)](https://pypi.org/project/pas.plugins.authomatic/)
 [![PyPI - Status](https://img.shields.io/pypi/status/pas.plugins.authomatic)](https://pypi.org/project/pas.plugins.authomatic/)
 
 
-![Plone](https://img.shields.io/badge/Plone-5.2|6.0-000000?labelColor=0083be)
+[![PyPI - Plone Versions](https://img.shields.io/pypi/frameworkversions/plone/pas.plugins.authomatic)](https://pypi.org/project/pas.plugins.authomatic/)
 
 [![Code analysis checks](https://github.com/collective/pas.plugins.authomatic/actions/workflows/code-analysis.yml/badge.svg)](https://github.com/collective/pas.plugins.authomatic/actions/workflows/code-analysis.yml)
 [![Tests](https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yaml/badge.svg)](https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yaml)
@@ -100,7 +100,7 @@ For Volto:
 - Endpoint `@login` with GET: Returns list of authentication options
 - Endpoint `@login-authomatic` with GET: Provide information to start the OAuth process.
 - Endpoint `@login-authomatic` with POST: Handles OAuth login and returns a JSON web token (JWT).
-- For Volto sites you must also install [volto-authomatic](https://github.com/collective/volto-authomatic).
+- For Volto sites you must also install [@plone-collective/volto-authomatic](https://github.com/collective/volto-authomatic).
 
 
 Configuration is, currently, done via Classic UI:
