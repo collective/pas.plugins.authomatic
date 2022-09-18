@@ -1,4 +1,4 @@
-from pas.plugins.authomatic.testing import PAS_PLUGINS_Authomatic_ZOPE_FIXTURE
+from pas.plugins.authomatic.testing import AUTHOMATIC_ZOPE_FIXTURE
 from pas.plugins.authomatic.tests.mocks import make_user
 from pas.plugins.authomatic.tests.mocks import MockResult
 from Products.PluggableAuthService.UserPropertySheet import UserPropertySheet
@@ -9,7 +9,7 @@ import unittest
 
 class TestUserIdentity(unittest.TestCase):
 
-    layer = PAS_PLUGINS_Authomatic_ZOPE_FIXTURE
+    layer = AUTHOMATIC_ZOPE_FIXTURE
 
     def test_init(self):
         input_name = "mockprovider"
@@ -25,7 +25,7 @@ class TestUserIdentity(unittest.TestCase):
 
 class TestUserIdentities(unittest.TestCase):
 
-    layer = PAS_PLUGINS_Authomatic_ZOPE_FIXTURE
+    layer = AUTHOMATIC_ZOPE_FIXTURE
 
     def _make_authomatic_user(self, provider_name="MockPlone", data=None):
         from authomatic.core import User

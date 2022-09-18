@@ -3,14 +3,14 @@ from pas.plugins.authomatic.integration import RestAPIAdapter
 from pas.plugins.authomatic.utils import authomatic_cfg
 from pas.plugins.authomatic.utils import authomatic_settings
 from plone import api
+from plone.protect.interfaces import IDisableCSRFProtection
 from plone.restapi.deserializer import json_body
 from plone.restapi.services import Service
-from zope.interface import alsoProvides
-from plone.protect.interfaces import IDisableCSRFProtection
 from Products.PluggableAuthService.interfaces.plugins import IAuthenticationPlugin
+from urllib.parse import parse_qsl
+from zope.interface import alsoProvides
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
-from urllib.parse import parse_qsl
 
 
 @implementer(IPublishTraverse)
