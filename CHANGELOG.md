@@ -3,7 +3,7 @@
 1.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add possibility to redirect to `next_url` via provided cookie @avoinea
 
 
 1.0.0 (2022-07-25)
