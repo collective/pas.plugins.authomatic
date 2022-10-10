@@ -30,4 +30,12 @@
       permission="zope2.View"
       layer="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticLayer"
       />
+
+  <include package="plone.restapi" />
+  <adapter
+      factory=".controlpanel.AuthomaticSettingsConfigletPanel"
+      name="authomatic"
+      />
+
+
 </configure>
