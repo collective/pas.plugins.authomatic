@@ -1,0 +1,121 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2021-10-04 21:03+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: ../profiles/default/controlpanel.xml
+msgid "Authomatic (OAuth2/OpenID)"
+msgstr ""
+
+#: ../profiles.zcml:16
+msgid "Authomatic PAS Plugin"
+msgstr ""
+
+#: ../profiles.zcml:25
+msgid "Authomatic PAS Plugin: uninstall"
+msgstr ""
+
+#: ../profiles.zcml:16
+msgid "Authomatic: Login with OAuth/OpenID 3rd party auth providers using the pas.plugins.authomatic add-on."
+msgstr ""
+
+msgid "Authomatic: Login with OAuth/OpenID 3rd party auth providers."
+msgstr ""
+
+#: ../interfaces.py:101
+msgid "Generator for Plone User IDs."
+msgstr ""
+
+#: ../interfaces.py:111
+msgid "JSON configuration"
+msgstr ""
+
+#: ../browser/controlpanel.py:9
+msgid "PAS Authomatic Plugin Settings"
+msgstr ""
+
+#: ../useridfactories.py:31
+msgid "Provider User ID"
+msgstr ""
+
+#: ../useridfactories.py:39
+msgid "Provider User Name"
+msgstr ""
+
+#: ../interfaces.py:91
+msgid "Secret"
+msgstr ""
+
+#: ../useridfactories.py:23
+msgid "UUID as User ID"
+msgstr ""
+
+#: ../profiles.zcml:25
+msgid "Uninstalls the pas.plugins.authomatic add-on. This REMOVES ALL USERS managed by this plugin!"
+msgstr ""
+
+#. Default: "Choose one of these external authentication providers"
+#: ../browser/authomatic.pt:14
+msgid "add_description"
+msgstr "Autentifica-te cu"
+
+#. Default: "Add identity"
+#: ../browser/authomatic.pt:12
+msgid "add_identity_title"
+msgstr "Intra in cont"
+
+#. Default: "Added identity provided by ${provider}"
+#: ../browser/view.py:63
+msgid "added_identity"
+msgstr ""
+
+#. Default: "Configuration parameters for the different authorization providers. Details at https://authomatic.github.io/authomatic/reference/providers.html - difference: \"class_\" has to be a string, which is then resolved as a dotted path. Also sections \"display\" and \"propertymap\" are special."
+#: ../interfaces.py:112
+msgid "help_json_config"
+msgstr ""
+
+#. Default: "Some random string used to encrypt the state"
+#: ../interfaces.py:92
+msgid "help_secret"
+msgstr ""
+
+#. Default: "It is visible if no fullname is mapped and in some rare cases in URLs. It is the identifier used for the user inside Plone."
+#: ../interfaces.py:102
+msgid "help_userid_factory_name"
+msgstr ""
+
+#. Default: "At least one provider must be configured."
+#: ../interfaces.py:71
+msgid "invalid_cfg_empty_dict"
+msgstr ""
+
+#. Default: "JSON root must be a mapping (dict)"
+#: ../interfaces.py:68
+msgid "invalid_cfg_no_dict"
+msgstr ""
+
+#. Default: "JSON is not valid, parser complained: ${message}"
+#: ../interfaces.py:61
+msgid "invalid_json"
+msgstr "JSON invalid"
+
+#. Default: "Logged in with ${provider}"
+#: ../browser/view.py:76
+msgid "logged_in_with"
+msgstr "Ai fost autentificat cu ${provider}"
+
+#. Default: "Log in with"
+#: ../browser/authomatic.pt:9
+msgid "login_title"
+msgstr "Intra in cont cu"

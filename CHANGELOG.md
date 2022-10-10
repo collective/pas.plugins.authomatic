@@ -5,6 +5,8 @@
 
 - Add the plone.restapi adapter to show the controlpanel in Volto. @erral
 
+- Add possibility to redirect to `next_url` via provided cookie @avoinea
+
 
 1.0.0 (2022-07-25)
 
