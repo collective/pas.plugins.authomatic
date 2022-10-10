@@ -1,12 +1,10 @@
 from pas.plugins.authomatic.interfaces import _
-from pas.plugins.authomatic.interfaces import (
-    IPasPluginsAuthomaticSettings,
-    IPasPluginsAuthomaticLayer,
-)
+from pas.plugins.authomatic.interfaces import IPasPluginsAuthomaticLayer
+from pas.plugins.authomatic.interfaces import IPasPluginsAuthomaticSettings
 from plone.app.registry.browser import controlpanel
-from zope.interface import Interface
 from plone.restapi.controlpanels import RegistryConfigletPanel
 from zope.component import adapter
+from zope.interface import Interface
 
 
 class AuthomaticSettingsEditForm(controlpanel.RegistryEditForm):
