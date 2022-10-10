@@ -38,6 +38,4 @@ class AuthomaticSettingsConfigletPanel(RegistryConfigletPanel):
     configlet_category_id = "Products"
     title = _("Authomatic settings")
     group = ""
-    schema_prefix = (
-        "pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticSettings"
-    )
+    schema_prefix = "pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticSettings"
