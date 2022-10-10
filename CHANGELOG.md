@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.1 (unreleased)
+
+- Nothing changed yet.
+
+
 ## 1.1.0 (2022-10-10)
 
 - Add the plone.restapi adapter to show the controlpanel in Volto. @erral
