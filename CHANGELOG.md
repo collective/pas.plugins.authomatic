@@ -1,14 +1,13 @@
 # Changelog
 
-1.0.1 (unreleased)
-------------------
+## 1.0.1 (unreleased)
 
 - Add the plone.restapi adapter to show the controlpanel in Volto. @erral
 
 - Add possibility to redirect to `next_url` via provided cookie @avoinea
 
 
-1.0.0 (2022-07-25)
+## 1.0.0 (2022-07-25)
 
 - Use plone/plone-setup GitHub Action. @ericof
 
@@ -18,7 +17,7 @@
 
 - Fix doChangeUser takes 2 positional arguments but 3 were given @avoinea
 
-# 1.0b2 (2021-08-18)
+## 1.0b2 (2021-08-18)
 
 - Fix tox setup, move CI from TravisCI to GitHub Actions. @jensens
 
@@ -49,7 +48,7 @@
 
 - Closes #55: Support plone.restapi. @ericof
 
-# 1.0b1 (2017-11-20)
+## 1.0b1 (2017-11-20)
 
 - Slighly beautify login modal. @jensens
 
@@ -74,7 +73,7 @@
 - fix typo and wording of login message @tkimnguyen
 
 
-# 1.0a7 (2016-02-15)
+## 1.0a7 (2016-02-15)
 
 - Workaround for None users. @sneridagh
 
@@ -84,7 +83,7 @@
 - Fix #21: When you logout and then login again, a new user is created. @jensens
 
 
-# 1.0a5 (2015-12-04)
+## 1.0a5 (2015-12-04)
 
 - Fix: #18 "Provider Login" option for "Generator for Plone User ID" seems
   broken @jensens
@@ -94,7 +93,7 @@
 - Fix: Correct usage of plone.protect @jensens
 
 
-# 1.0a4 (2015-11-20)
+## 1.0a4 (2015-11-20)
 
 - Added german translation @jensens
 
@@ -104,7 +103,7 @@
 
 - Proper uninstall @keul
 
-# 1.0a3 (2015-11-15)
+## 1.0a3 (2015-11-15)
 
 - Refactor authomatic-handler to enable adding identities. @jensens
 
@@ -115,7 +114,7 @@
   side sometimes and we want to do this only once). @jensens
 
 
-# 1.0a2 (2015-11-14)
+## 1.0a2 (2015-11-14)
 
 - Minimal validation of JSON. @jensens
 
@@ -130,6 +129,6 @@
 - Use authomatic.core.User attributes instead of raw provider data. closes [#9](https://github.com/collective/pas.plugins.authomatic/issues/9) @ericof
 
 
-# 1.0a1 (2015-10-28)
+## 1.0a1 (2015-10-28)
 
 - Initial release.
