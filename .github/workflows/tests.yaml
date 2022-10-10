@@ -19,6 +19,8 @@ jobs:
         exclude:
           - plone: "5.2-latest"
             python: 3.9
+          - plone: "6.0-latest"
+            python: 3.7
 
     steps:
     - uses: actions/checkout@v2

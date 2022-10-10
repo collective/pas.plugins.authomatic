@@ -3,6 +3,8 @@
 1.0.1 (unreleased)
 ------------------
 
+- Add the plone.restapi adapter to show the controlpanel in Volto. @erral
+
 - Add possibility to redirect to `next_url` via provided cookie @avoinea
 
 

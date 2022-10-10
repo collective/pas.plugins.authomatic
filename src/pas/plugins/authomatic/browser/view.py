@@ -130,11 +130,9 @@ class AuthomaticView(BrowserView):
         return self._redirect()
 
     def _redirect(self):
-        next_url = self.request.cookies.get('next_url', "")
-        self.request.response.expireCookie('next_url')
-        self.request.response.redirect(
-            self.context.absolute_url() + next_url
-        )
+        next_url = self.request.cookies.get("next_url", "")
+        self.request.response.expireCookie("next_url")
+        self.request.response.redirect(self.context.absolute_url() + next_url)
         return _("redirecting")
 
     @property
