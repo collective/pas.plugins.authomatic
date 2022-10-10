@@ -135,7 +135,7 @@ class AuthomaticView(BrowserView):
         self.request.response.redirect(
             self.context.absolute_url() + next_url
         )
-        return _(f"redirecting")
+        return _("redirecting")
 
     @property
     def is_anon(self):
