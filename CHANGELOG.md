@@ -78,7 +78,7 @@
 - Workaround for None users. @sneridagh
 
 
-# 1.0a6 (2016-01-11)
+## 1.0a6 (2016-01-11)
 
 - Fix #21: When you logout and then login again, a new user is created. @jensens
 
