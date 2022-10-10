@@ -3,7 +3,7 @@
 1.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add the plone.restapi adapter to show the controlpanel in Volto. @erral
 
 
 1.0.0 (2022-07-25)
