@@ -29,6 +29,7 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Programming Language :: Python",
     ],
     keywords="Python Plone PAS OAuth Authentication",
@@ -37,7 +38,7 @@ setup(
     url="https://github.com/collective/pas.plugins.authomatic",
     project_urls={
         "Repository": "https://github.com/collective/pas.plugins.authomatic/",
-        "Changelog": "https://github.com/collective/pas.plugins.authomatic/blob/main/CHANGES.md",
+        "Changelog": "https://github.com/collective/pas.plugins.authomatic/blob/main/CHANGELOG.md",  # noQA
         "Issues": "https://github.com/collective/pas.plugins.authomatic/issues",
     },
     license="GPL",

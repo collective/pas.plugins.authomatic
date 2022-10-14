@@ -2,7 +2,11 @@
 
 ## 1.1.1 (unreleased)
 
-- Nothing changed yet.
+- Upgrade plone/code-analysis-action to version 2. @ericof
+
+- Fix packaging issue related to CHANGELOG.md not being included in the source package. @ericof
+
+- Support Python 3.10 for Plone 6. @ericof
 
 
 ## 1.1.0 (2022-10-10)

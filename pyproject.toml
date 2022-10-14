@@ -24,7 +24,7 @@ profile = "black"
 force_alphabetical_sort = true
 force_single_line = true
 lines_after_imports = 2
-line_length = 88
+line_length = 120
 
 [tool.flakeheaven]
 format="grouped"
@@ -33,13 +33,9 @@ show_source=true
 max-complexity=25
 
 [tool.flakeheaven.plugins]
-# Disable some checks.
-# - E501 line too long
-#   flake8 is already testing this, with max-line-length=100000 in .flake8,
-#   so pycodestyle should not test it.
-# - W503 line break before binary operator
-#   Outdated recommendation, see https://www.flake8rules.com/rules/W503.html
-mccabe = ["+*"]
-pycodestyle = ["+*", "-E501", "-W503"]
+pycodestyle = ["+*"]
 pyflakes = ["+*"]
-pylint = ["+*"]
+"flake8-*" = ["+*"]
+
+[tool.plone-code-analysis]
+paths = "setup.py src/"

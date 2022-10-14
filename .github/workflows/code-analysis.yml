@@ -12,12 +12,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run check
-        uses: plone/code-analysis-action@v1
+        uses: plone/code-analysis-action@v2
         with:
           check: 'black'
-          path: |
-            src
-            setup.py
 
   flake8:
     name: flake8
@@ -28,12 +25,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run check
-        uses: plone/code-analysis-action@v1
+        uses: plone/code-analysis-action@v2
         with:
           check: 'flake8'
-          path: |
-            src
-            setup.py
 
   isort:
     runs-on: ubuntu-latest
@@ -42,12 +36,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run check
-        uses: plone/code-analysis-action@v1
+        uses: plone/code-analysis-action@v2
         with:
           check: 'isort'
-          path: |
-            src
-            setup.py
 
   pyroma:
     name: pyroma
@@ -58,11 +49,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run check
-        uses: plone/code-analysis-action@v1
+        uses: plone/code-analysis-action@v2
         with:
           check: 'pyroma'
-          path: |
-            ./
 
   zpretty:
     name: zpretty
@@ -73,8 +62,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run check
-        uses: plone/code-analysis-action@v1
+        uses: plone/code-analysis-action@v2
         with:
           check: 'zpretty'
-          path: |
-            src

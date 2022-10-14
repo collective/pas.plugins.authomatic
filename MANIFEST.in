@@ -1,5 +1,5 @@
 exclude .editorconfig
 graft docs
 graft src/pas
-include *.cfg *.rst *.in .coveragerc *.txt
+include *.cfg *.md *.in .coveragerc *.txt
 recursive-exclude * *.pyc
