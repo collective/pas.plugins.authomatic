@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1.1 (unreleased)
+## 1.1.1 (2022-10-14)
 
 - Upgrade plone/code-analysis-action to version 2. @ericof
 
