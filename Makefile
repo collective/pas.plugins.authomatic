@@ -18,8 +18,16 @@ YELLOW=`tput setaf 3`
 PLONE5=5.2-latest
 PLONE6=6.0-latest
 
-CODE_QUALITY_VERSION=1.0.1
-LINT=docker run --rm -v "$(PWD)":/github/workspace plone/code-quality:${CODE_QUALITY_VERSION} check
+BACKEND_FOLDER=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+
+CODE_QUALITY_VERSION=2.0.0
+ifndef LOG_LEVEL
+	LOG_LEVEL=INFO
+endif
+CURRENT_USER=$$(whoami)
+USER_INFO=$$(id -u ${CURRENT_USER}):$$(getent group ${CURRENT_USER}|cut -d: -f3)
+LINT=docker run --rm -e LOG_LEVEL="${LOG_LEVEL}" -v "${BACKEND_FOLDER}":/github/workspace plone/code-quality:${CODE_QUALITY_VERSION} check
+FORMAT=docker run --rm --user="${USER_INFO}" -e LOG_LEVEL="${LOG_LEVEL}" -v "${BACKEND_FOLDER}":/github/workspace plone/code-quality:${CODE_QUALITY_VERSION} format
 
 PACKAGE_NAME=pas.plugins.authomatic
 PACKAGE_PATH=src/
@@ -37,12 +45,6 @@ bin/pip:
 	@echo "$(GREEN)==> Setup Virtual Env$(RESET)"
 	python3 -m venv .
 	bin/pip install -U pip wheel
-
-bin/black bin/isort bin/pyroma bin/zpretty: bin/pip
-	@echo "$(GREEN)==> Install Code Quality tools$(RESET)"
-	bin/pip install -r https://raw.githubusercontent.com/plone/code-quality/v$(CODE_QUALITY_VERSION)/requirements.txt
-	@echo "$(GREEN)==> Install pre-commit hook$(RESET)"
-	echo -e '#!/usr/bin/env bash\nmake lint' > .git/hooks/pre-commit && chmod ug+x .git/hooks/pre-commit
 
 .PHONY: build-plone-5.2
 build-plone-5.2: bin/pip bin/black ## Build Plone 5.2
@@ -66,43 +68,34 @@ clean: ## Remove old virtualenv and creates a new one
 	@echo "$(RED)==> Cleaning environment and build$(RESET)"
 	rm -rf bin lib lib64 include share etc var inituser pyvenv.cfg .installed.cfg
 
-.PHONY: black
-black: bin/black ## Format codebase
-	bin/black $(CHECK_PATH)
-
-.PHONY: isort
-isort: bin/isort ## Format imports in the codebase
-	bin/isort $(CHECK_PATH)
-
-zpretty: bin/zpretty ## Format xml and zcml with zpretty
-	find "${PACKAGE_PATH}" -name '*.xml' | xargs bin/zpretty -x -i
-	find "${PACKAGE_PATH}" -name '*.zcml' | xargs bin/zpretty -z -i
-
 .PHONY: format
-format: black isort zpretty ## Format the codebase according to our standards
+format: ## Format the codebase according to our standards
+	@echo "$(GREEN)==> Format codebase$(RESET)"
+	$(FORMAT)
 
 .PHONY: lint
-lint: lint-isort lint-black lint-flake8 lint-zpretty lint-pyroma ## check code style
+lint: ## check code style
+	$(LINT)
 
 .PHONY: lint-black
 lint-black: ## validate black formating
-	$(LINT) black "$(CHECK_PATH)"
+	$(LINT) black
 
 .PHONY: lint-flake8
 lint-flake8: ## validate black formating
-	$(LINT) flake8 "$(CHECK_PATH)"
+	$(LINT) flake8
 
 .PHONY: lint-isort
 lint-isort: ## validate using isort
-	$(LINT) isort "$(CHECK_PATH)"
+	$(LINT) isort
 
 .PHONY: lint-pyroma
 lint-pyroma: ## validate using pyroma
-	$(LINT) pyroma ./
+	$(LINT) pyroma
 
 .PHONY: lint-zpretty
 lint-zpretty: ## validate ZCML/XML using zpretty
-	$(LINT) zpretty "$(PACKAGE_PATH)"
+	$(LINT) zpretty
 
 # i18n
 bin/i18ndude:	bin/pip

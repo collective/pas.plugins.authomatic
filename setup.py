@@ -37,7 +37,7 @@ setup(
     url="https://github.com/collective/pas.plugins.authomatic",
     project_urls={
         "Repository": "https://github.com/collective/pas.plugins.authomatic/",
-        "Changelog": "https://github.com/collective/pas.plugins.authomatic/blob/main/CHANGES.md",
+        "Changelog": "https://github.com/collective/pas.plugins.authomatic/blob/main/CHANGELOG.md",  # noQA
         "Issues": "https://github.com/collective/pas.plugins.authomatic/issues",
     },
     license="GPL",
