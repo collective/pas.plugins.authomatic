@@ -1,8 +1,15 @@
 # Changelog
 
-## 1.1.2 (unreleased)
+## 1.1.101+affinitic (unreleased)
 
-- Nothing changed yet.
+
+- Fix search string encoding @mpeeters
+
+- Search by name in multiple parts @daggelpop
+
+- Fix name search encoding @daggelpop
+
+- Search users by their name @daggelpop
 
 
 ## 1.1.1 (2022-10-14)
