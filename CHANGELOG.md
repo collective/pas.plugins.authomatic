@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1.101+affinitic (unreleased)
+1.1.101+affinitic (2022-11-03)
 
 
 - Fix search string encoding @mpeeters
