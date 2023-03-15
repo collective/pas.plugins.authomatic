@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <registry>
 
   <records field="secret"
@@ -23,12 +23,12 @@
            prefix="plone.resources/pas-plugins-authomatic"
            remove="True"
   >
-  </records>
+</records>
 
   <records interface="Products.CMFPlone.interfaces.IBundleRegistry"
            prefix="plone.bundles/authomatic-addon"
            remove="True"
   >
-  </records>
+</records>
 
 </registry>

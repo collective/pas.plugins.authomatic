@@ -19,6 +19,9 @@ exclude = '''
 )
 '''
 
+[tool.check-manifest]
+ignore = ["*.cfg", ".gitattributes"]
+
 [tool.isort]
 profile = "black"
 force_alphabetical_sort = true

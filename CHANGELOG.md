@@ -2,7 +2,9 @@
 
 ## 1.1.2 (unreleased)
 
-- Nothing changed yet.
+- Support Python 3.11 for Plone 6. @ericof
+
+- Lint fixes @ericof
 
 
 ## 1.1.1 (2022-10-14)
