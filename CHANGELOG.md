@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.3 (unreleased)
+
+
+- Nothing changed yet.
+
+
 ## 1.1.2 (2023-03-15)
 
 - Support Python 3.11 for Plone 6. @ericof
