@@ -20,7 +20,7 @@ PLONE6=6.0-latest
 
 BACKEND_FOLDER=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
-CODE_QUALITY_VERSION=2.0.0
+CODE_QUALITY_VERSION=2
 ifndef LOG_LEVEL
 	LOG_LEVEL=INFO
 endif
@@ -47,14 +47,14 @@ bin/pip:
 	bin/pip install -U pip wheel
 
 .PHONY: build-plone-5.2
-build-plone-5.2: bin/pip bin/black ## Build Plone 5.2
+build-plone-5.2: bin/pip ## Build Plone 5.2
 	@echo "$(GREEN)==> Build with Plone 5.2$(RESET)"
 	bin/pip install Plone plone.app.testing -c https://dist.plone.org/release/$(PLONE5)/constraints.txt
 	bin/pip install -e ".[test]"
 	bin/mkwsgiinstance -d . -u admin:admin
 
 .PHONY: build-plone-6.0
-build-plone-6.0: bin/pip bin/black ## Build Plone 6.0
+build-plone-6.0: bin/pip ## Build Plone 6.0
 	@echo "$(GREEN)==> Build with Plone 6.0$(RESET)"
 	bin/pip install Plone plone.app.testing -c https://dist.plone.org/release/$(PLONE6)/constraints.txt
 	bin/pip install -e ".[test]"
