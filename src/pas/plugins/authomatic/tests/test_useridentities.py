@@ -135,7 +135,7 @@ class TestUserIdentities(unittest.TestCase):
     def test_read_attribute_from_provider_data_if_default_is_none(self):
         PNAME = "mockhub"
         user = self._make_authomatic_user(
-            provider_name=PNAME, data={'email': 'jdoe@foobar.com'}
+            provider_name=PNAME, data={"email": "jdoe@foobar.com"}
         )
         user.email = None
         authomatic_result = MockResult(
