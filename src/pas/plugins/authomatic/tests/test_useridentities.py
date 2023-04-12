@@ -132,5 +132,25 @@ class TestUserIdentities(unittest.TestCase):
         self.assertEqual(sheet.getProperty("email"), "andrewpipkin@foobar.com")
         self.assertEqual(sheet.getProperty("customdomain"), "foobar.com")
 
+    def test_read_attribute_from_provider_data_if_default_is_none(self):
+        PNAME = "mockhub"
+        user = self._make_authomatic_user(
+            provider_name=PNAME, data={"email": "jdoe@foobar.com"}
+        )
+        user.email = None
+        authomatic_result = MockResult(
+            user=user,
+            provider=MockResult(name=PNAME),
+        )
+        uis = make_user("mustermann")
+        uis.handle_result(authomatic_result)
+
+        # mock cfg
+        with mock.patch("pas.plugins.authomatic.useridentities.authomatic_cfg") as acfg:
+            cfg = self._make_cfg(PNAME)
+            acfg.return_value = cfg
+            sheet = uis.propertysheet
+        self.assertEqual(sheet.getProperty("email"), "jdoe@foobar.com")
+
     def test_credentials(self):
         pass

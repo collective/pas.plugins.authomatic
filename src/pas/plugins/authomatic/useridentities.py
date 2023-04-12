@@ -71,7 +71,7 @@ class UserIdentities(Persistent):
             for akey, pkey in cfg.get("propertymap", {}).items():
                 # Always search first on the user attributes, then on the raw
                 # data this guaratees we do not break existing configurations
-                ainfo = identity.get(akey, identity["data"].get(akey, None))
+                ainfo = identity.get(akey, None) or identity["data"].get(akey, None)
                 if ainfo is None:
                     continue
                 if isinstance(pkey, dict):
