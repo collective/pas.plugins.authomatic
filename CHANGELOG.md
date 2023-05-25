@@ -2,6 +2,7 @@
 
 ## 1.1.3 (unreleased)
 
+- Add Spanish translation. @macagua
 
 - Better handle values from identity data. @cekk
 
