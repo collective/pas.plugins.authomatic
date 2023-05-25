@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: pas.plugins.authomatic\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-07-22 15:19+0000\n"
-"PO-Revision-Date: 2023-05-25 12:55-0400\n"
+"PO-Revision-Date: 2023-05-25 14:22-0400\n"
 "Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>\n"
 "Language: es\n"
 "Language-Team: ES <LL@li.org>\n"
@@ -93,7 +93,7 @@ msgstr "Añadir identidad proveída por ${provider}"
 #. Default: "Configuration parameters for the different authorization providers. Details at https://authomatic.github.io/authomatic/reference/providers.html - difference: \"class_\" has to be a string, which is then resolved as a dotted path. Also sections \"display\" and \"propertymap\" are special."
 #: pas/plugins/authomatic/interfaces.py:112
 msgid "help_json_config"
-msgstr "Parámetros de configuración de los diferentes proveedores de autorización. Detalles en https://authomatic.github.io/authomatic/reference/providers.html - diferencia: \\\"class_\\\" tiene que ser una cadena, que luego se resuelve como una ruta punteada. También las secciones \\\"display\\\" y \\\"propertymap\\\" son especiales."
+msgstr "Parámetros de configuración de los diferentes proveedores de autorización. Detalles en https://authomatic.github.io/authomatic/reference/providers.html - diferencia: \"class_\" tiene que ser una cadena, que luego se resuelve como una ruta punteada. También las secciones \"display\" y \"propertymap\" son especiales."
 
 #. Default: "Some random string used to encrypt the state"
 #: pas/plugins/authomatic/interfaces.py:92
