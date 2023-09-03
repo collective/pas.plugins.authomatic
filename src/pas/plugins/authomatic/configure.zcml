@@ -40,5 +40,9 @@
       factory=".useridfactories.ProviderIDUserNameFactory"
       name="username"
       />
+  <utility
+      factory=".useridfactories.ProviderIDUserNameIdFactory"
+      name="username_userid"
+      />
 
 </configure>

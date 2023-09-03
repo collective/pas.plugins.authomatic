@@ -48,3 +48,13 @@ def new_userid(plugin, result):
         IUserIDFactory, name=settings.userid_factory_name, default=UUID4UserIDFactory()
     )
     return factory(plugin, result)
+
+
+class ProviderIDUserNameIdFactory(BaseUserIDFactory):
+    title = _("Provider User Name or User ID")
+
+    def __call__(self, plugin, result):
+        user_id = result.user.username
+        if not user_id:
+            user_id = result.user.id
+        return self.normalize(plugin, result, user_id)

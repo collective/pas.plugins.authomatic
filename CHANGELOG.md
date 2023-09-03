@@ -6,6 +6,8 @@
 
 - Better handle values from identity data. @cekk
 
+- Add `username_userid` User ID factory . @ericof
+
 
 ## 1.1.2 (2023-03-15)
 
