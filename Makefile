@@ -20,7 +20,7 @@ PLONE6=6.0-latest
 
 BACKEND_FOLDER=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
-CODE_QUALITY_VERSION=2
+CODE_QUALITY_VERSION=2.1.1
 ifndef LOG_LEVEL
 	LOG_LEVEL=INFO
 endif
