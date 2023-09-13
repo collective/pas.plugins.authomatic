@@ -7,10 +7,13 @@ from plone.protect.interfaces import IDisableCSRFProtection
 from plone.restapi.deserializer import json_body
 from plone.restapi.services import Service
 from Products.PluggableAuthService.interfaces.plugins import IAuthenticationPlugin
+from transaction.interfaces import NoTransaction
 from urllib.parse import parse_qsl
 from zope.interface import alsoProvides
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
+
+import transaction
 
 
 @implementer(IPublishTraverse)
@@ -189,6 +192,23 @@ class Post(LoginAuthomatic):
             token = plugin.create_token(user.getId(), data=payload)
         return token
 
+    def _annotate_transaction(self, action, user):
+        """Add a note to the current transaction."""
+        try:
+            # Get the current transaction
+            tx = transaction.get()
+        except NoTransaction:
+            return None
+        # Set user on the transaction
+        tx.setUser(user.getUser())
+        user_info = user.getProperty("fullname") or user.getUserName()
+        msg = ""
+        if action == "login":
+            msg = f"(Logged in {user_info})"
+        elif action == "add_identity":
+            msg = f"(Added new identity to user {user_info})"
+        tx.note(msg)
+
     def reply(self) -> dict:
         """Process OAuth callback, authenticate the user and return a JWT Token.
 
@@ -219,12 +239,15 @@ class Post(LoginAuthomatic):
             alsoProvides(self.request, IDisableCSRFProtection)
             if api.user.is_anonymous():
                 self._remember_identity(result)
+                action = "login"
             else:
                 # Authenticated user, add an identity to it
                 self._add_identity(result)
+                action = "add_identity"
             user = api.user.get_current()
             # Make sure we are not setting cookies here
             # as it will break the authentication mechanism with JWT tokens
             self.request.response.cookies = {}
             token = self.get_token(user)
+            self._annotate_transaction(action, user=user)
             return {"token": token}
