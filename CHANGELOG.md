@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1 (unreleased)
+
+
+- Nothing changed yet.
+
+
 ## 1.2.0 (2023-09-13)
 
 - Add Spanish translation. @macagua
