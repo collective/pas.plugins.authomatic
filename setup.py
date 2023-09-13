@@ -34,7 +34,7 @@ setup(
         "Programming Language :: Python",
     ],
     keywords="Python Plone PAS OAuth Authentication",
-    author="Jens Klein and Matthias Dollfuss",
+    author="Jens Klein, Matthias Dollfuss, and Érico Andrei",
     author_email="dev@bluedynamics.com",
     url="https://github.com/collective/pas.plugins.authomatic",
     project_urls={
