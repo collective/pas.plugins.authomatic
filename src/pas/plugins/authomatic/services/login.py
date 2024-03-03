@@ -22,9 +22,10 @@ class AuthomaticLoginProviders:
                     id=provider_id,
                     plugin="authomatic",
                     title=title,
-                    url=self.context.absolute_url() + '/@login-authomatic/' + provider_id
+                    url=self.context.absolute_url()
+                    + "/@login-authomatic/"
+                    + provider_id,
                 )
             )
 
         return {"options": options}
-
