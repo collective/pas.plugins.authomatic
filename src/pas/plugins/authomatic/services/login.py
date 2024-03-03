@@ -18,14 +18,12 @@ class AuthomaticLoginProviders:
             entry = provider.get("display", {})
             title = entry.get("title", provider_id)
             options.append(
-                dict(
-                    id=provider_id,
-                    plugin="authomatic",
-                    title=title,
-                    url=self.context.absolute_url()
-                    + "/@login-authomatic/"
-                    + provider_id,
-                )
+                {
+                    "id": provider_id,
+                    "plugin": "authomatic",
+                    "title": title,
+                    "url": f"{self.context.absolute_url()}/@login-authomatic/${provider_id}",
+                }
             )
 
         return {"options": options}
