@@ -3,7 +3,7 @@
 ## 1.2.1 (unreleased)
 
 
-- Nothing changed yet.
+- Search users by fullname and email. @alecghica
 
 
 ## 1.2.0 (2023-09-13)
