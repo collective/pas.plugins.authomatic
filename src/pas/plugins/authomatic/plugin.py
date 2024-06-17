@@ -92,10 +92,6 @@ class AuthomaticPlugin(BasePlugin):
     @security.private
     def remember_identity(self, result, userid=None):
         """stores authomatic result data"""
-        if not getattr(result.user, "id", None):
-            # fetch provider specific user-data
-            result.user.update()
-
         if userid is None:
             # create a new userid
             userid = new_userid(self, result)
