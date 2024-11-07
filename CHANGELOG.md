@@ -2,8 +2,7 @@
 
 ## 1.2.1 (unreleased)
 
-
-- Nothing changed yet.
+- Add the possibility to override the ZopeRequestAdapter.
 
 
 ## 1.2.0 (2023-09-13)
