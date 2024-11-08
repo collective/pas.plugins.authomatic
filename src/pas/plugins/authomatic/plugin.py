@@ -272,9 +272,9 @@ class AuthomaticPlugin(BasePlugin):
             ).lower()
             identity_email = identity.propertysheet.getProperty("email", "").lower()
             if (
-                not search_term in identity_userid
-                and not search_term in identity_fullname
-                and not search_term in identity_email
+                search_term not in identity_userid
+                and search_term not in identity_fullname  # noqa: W503
+                and search_term not in identity_email  # noqa: W503
             ):
                 continue
 
