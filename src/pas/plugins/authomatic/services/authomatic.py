@@ -15,6 +15,7 @@ from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 
 import transaction
+
 logger = logging.getLogger("pas.plugins.authomatic")
 
 
@@ -169,8 +170,7 @@ class Post(LoginAuthomatic):
         :param result: Authomatic login result.
         """
         aclu = self._get_acl_users()
-        aclu.authomatic.remember_identity(
-            result, userid)
+        aclu.authomatic.remember_identity(result, userid)
 
     def _remember_identity(self, result):
         """Store identity information.
@@ -238,7 +238,7 @@ class Post(LoginAuthomatic):
             }
         elif result:
             alsoProvides(self.request, IDisableCSRFProtection)
-            action = ''
+            action = ""
             if api.user.is_anonymous():
                 self._remember_identity(result)
                 action = "login"

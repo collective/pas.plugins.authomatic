@@ -1,4 +1,5 @@
 """Update locales."""
+
 from pathlib import Path
 
 import logging
