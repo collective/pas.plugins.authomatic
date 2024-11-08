@@ -1,3 +1,4 @@
+from pas.plugins.authomatic.testing import AUTHOMATIC_PLONE_INTEGRATION_TESTING
 from pas.plugins.authomatic.testing import AUTHOMATIC_ZOPE_FIXTURE
 from pas.plugins.authomatic.tests.mocks import make_user
 
@@ -55,6 +56,19 @@ class TestPlugin(unittest.TestCase):
         self.assertEqual(administrator["pluginid"], "authomatic")
         self.assertEqual(admin["pluginid"], "users")
         self.assertEqual(self.aclu.getUserById("admin").getId(), "admin")
+
+
+class TestPlonePlugin(unittest.TestCase):
+
+    layer = AUTHOMATIC_PLONE_INTEGRATION_TESTING
+
+    def setUp(self):
+        # create plugin
+        from pas.plugins.authomatic.setuphandlers import _add_plugin
+
+        self.aclu = self.layer["app"].acl_users
+        _add_plugin(self.aclu, "authomatic")
+        self.plugin = self.aclu["authomatic"]
 
     def test_user_enumaration(self):
         make_user("123joe", testcase=self)
