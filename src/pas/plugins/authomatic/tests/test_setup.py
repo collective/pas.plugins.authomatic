@@ -1,4 +1,5 @@
 """Setup tests for this package."""
+
 from pas.plugins.authomatic.testing import AUTHOMATIC_PLONE_INTEGRATION_TESTING
 from Products.CMFPlone.utils import get_installer
 

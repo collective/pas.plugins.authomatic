@@ -1,4 +1,5 @@
 """Upgrades tests for this package."""
+
 from parameterized import parameterized
 from pas.plugins.authomatic.testing import AUTHOMATIC_PLONE_INTEGRATION_TESTING
 from plone.app.testing import setRoles
