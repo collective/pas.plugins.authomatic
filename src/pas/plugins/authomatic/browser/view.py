@@ -123,7 +123,10 @@ class AuthomaticView(BrowserView):
             # let authomatic do its work
             return
         if result.error:
-            return result.error.message
+            try:
+                return result.error.message
+            except AttributeError:
+                return str(result.error)
         display = cfg[self.provider].get("display", {})
         provider_name = display.get("title", self.provider)
         if not self.is_anon:
