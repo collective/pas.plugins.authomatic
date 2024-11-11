@@ -267,19 +267,21 @@ class AuthomaticPlugin(BasePlugin):
             identity = self._useridentities_by_userid[userid]
             search_term = search_id.lower()
             identity_userid = identity.userid
-            identity_fullname = identity.propertysheet.getProperty("fullname", "").lower()
+            identity_fullname = identity.propertysheet.getProperty(
+                "fullname", ""
+            ).lower()
             identity_email = identity.propertysheet.getProperty("email", "").lower()
             if (
-                not search_term in identity_userid
-                and not search_term in identity_fullname
-                and not search_term in identity_email
+                search_term not in identity_userid
+                and search_term not in identity_fullname  # noqa: W503
+                and search_term not in identity_email  # noqa: W503
             ):
                 continue
 
-#            if not userid.startswith(search_id):
-#                continue
-#            identity = self._useridentities_by_userid[userid]
-#            identity_userid = identity.userid
+            #            if not userid.startswith(search_id):
+            #                continue
+            #            identity = self._useridentities_by_userid[userid]
+            #            identity_userid = identity.userid
             ret.append(
                 {
                     "id": identity_userid,
