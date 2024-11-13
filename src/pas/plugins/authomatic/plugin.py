@@ -262,10 +262,26 @@ class AuthomaticPlugin(BasePlugin):
             if not userid:
                 logger.warn("None userid found. This should not happen!")
                 continue
-            if not userid.startswith(search_id):
-                continue
+
+            # search for a match in fullname, email and userid
             identity = self._useridentities_by_userid[userid]
+            search_term = search_id.lower()
             identity_userid = identity.userid
+            identity_fullname = identity.propertysheet.getProperty(
+                "fullname", ""
+            ).lower()
+            identity_email = identity.propertysheet.getProperty("email", "").lower()
+            if (
+                search_term not in identity_userid
+                and search_term not in identity_fullname  # noqa: W503
+                and search_term not in identity_email  # noqa: W503
+            ):
+                continue
+
+            #            if not userid.startswith(search_id):
+            #                continue
+            #            identity = self._useridentities_by_userid[userid]
+            #            identity_userid = identity.userid
             ret.append(
                 {
                     "id": identity_userid,

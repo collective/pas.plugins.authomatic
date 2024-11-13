@@ -2,8 +2,10 @@
 
 ## 1.2.1 (unreleased)
 
-
-- Nothing changed yet.
+- Search users by fullname and email. @alecghica
+- Fix login on Volto frontend when already logged-in in Plone Classic. @avoinea
+- Add the possibility to override the ZopeRequestAdapter.
+- Fix the authomatic view when it is reporting an exception that does not have a message attribute
 
 
 ## 1.2.0 (2023-09-13)

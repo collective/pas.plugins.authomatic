@@ -13,7 +13,11 @@ from zope.interface import alsoProvides
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 
+import logging
 import transaction
+
+
+logger = logging.getLogger("pas.plugins.authomatic")
 
 
 @implementer(IPublishTraverse)
@@ -161,15 +165,13 @@ class Post(LoginAuthomatic):
                 break
         return plugin
 
-    def _add_identity(self, result):
+    def _add_identity(self, result, userid=None):
         """Add an identity to an existing user.
 
         :param result: Authomatic login result.
         """
         aclu = self._get_acl_users()
-        aclu.authomatic.remember_identity(
-            result,
-        )
+        aclu.authomatic.remember_identity(result, userid)
 
     def _remember_identity(self, result):
         """Store identity information.
@@ -237,17 +239,23 @@ class Post(LoginAuthomatic):
             }
         elif result:
             alsoProvides(self.request, IDisableCSRFProtection)
+            action = ""
             if api.user.is_anonymous():
                 self._remember_identity(result)
                 action = "login"
             else:
                 # Authenticated user, add an identity to it
-                self._add_identity(result)
-                action = "add_identity"
+                try:
+                    userid = api.user.get_current().getId()
+                    self._add_identity(result, userid)
+                    action = "add_identity"
+                except ValueError as err:
+                    logger.exception(err)
+
             user = api.user.get_current()
             # Make sure we are not setting cookies here
             # as it will break the authentication mechanism with JWT tokens
             self.request.response.cookies = {}
-            token = self.get_token(user)
-            self._annotate_transaction(action, user=user)
-            return {"token": token}
+            if action:
+                self._annotate_transaction(action, user=user)
+            return {"token": self.get_token(user)}

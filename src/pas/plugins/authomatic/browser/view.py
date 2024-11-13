@@ -29,6 +29,12 @@ class AuthomaticView(BrowserView):
 
     template = ViewPageTemplateFile("authomatic.pt")
 
+    zope_request_adapter_factory = ZopeRequestAdapter
+
+    @property
+    def zope_request_adapter(self):
+        return self.zope_request_adapter_factory(self)
+
     def publishTraverse(self, request, name):
         if name and not hasattr(self, "provider"):
             self.provider = name
@@ -111,13 +117,16 @@ class AuthomaticView(BrowserView):
             pass
         secret = authomatic_settings().secret
         auth = Authomatic(cfg, secret=secret)
-        result = auth.login(ZopeRequestAdapter(self), self.provider)
+        result = auth.login(self.zope_request_adapter, self.provider)
         if not result:
             logger.info("return from view")
             # let authomatic do its work
             return
         if result.error:
-            return result.error.message
+            try:
+                return result.error.message
+            except AttributeError:
+                return str(result.error)
         display = cfg[self.provider].get("display", {})
         provider_name = display.get("title", self.provider)
         if not self.is_anon:
