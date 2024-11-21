@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.1 (unreleased)
+
+
+- Nothing changed yet.
+
+
 ## 1.3.0 (2024-11-21)
 
 - Search users by fullname and email. @alecghica
