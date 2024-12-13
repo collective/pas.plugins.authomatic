@@ -43,6 +43,8 @@ jobs:
             python: "3.10"
           - plone: "6.1-latest"
             python: "3.11"
+          - plone: "6.1-latest"
+            python: "3.12"
 
     steps:
     - uses: actions/checkout@v4
