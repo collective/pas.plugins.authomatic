@@ -17,6 +17,7 @@ jobs:
           - "3.11"
           - "3.12"
         plone:
+          - "6.1-latest"
           - "6.0-latest"
           - "5.2-latest"
         exclude:
@@ -30,9 +31,21 @@ jobs:
             python: "3.12"
           - plone: "6.0-latest"
             python: 3.7
+          - plone: "6.0-latest"
+            python: "3.12"
+          - plone: "6.1-latest"
+            python: 3.7
+          - plone: "6.1-latest"
+            python: 3.8
+          - plone: "6.1-latest"
+            python: 3.9
+          - plone: "6.1-latest"
+            python: "3.10"
+          - plone: "6.1-latest"
+            python: "3.11"
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Setup Plone ${{ matrix.plone }} with Python ${{ matrix.python }}
       id: setup
