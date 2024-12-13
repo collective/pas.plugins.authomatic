@@ -3,7 +3,7 @@
 ## 1.3.1 (unreleased)
 
 
-- Nothing changed yet.
+- Patch `authomatic.providers.BaseProvider._fetch` to support Python 3.12 @ericof.
 
 
 ## 1.3.0 (2024-11-21)

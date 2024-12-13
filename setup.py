@@ -1,4 +1,5 @@
 """Installer for the pas.plugins.authomatic package."""
+
 from pathlib import Path
 from setuptools import find_packages
 from setuptools import setup
@@ -50,7 +51,7 @@ setup(
     python_requires=">=3.7",
     zip_safe=False,
     install_requires=[
-        "authomatic>=1.0.0",
+        "authomatic>=1.3.0",
         "Products.CMFPlone>=5.2",
         "plone.restapi",
         "setuptools",
