@@ -1,3 +1,4 @@
+from contextlib import suppress
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
@@ -20,7 +21,6 @@ ORIGINAL_CSRF_DISABLED = auto.CSRF_DISABLED
 
 
 class PasPluginsAuthomaticZopeLayer(Layer):
-
     defaultBases = (INTEGRATION_TESTING,)
 
     # Products that will be installed, plus options
@@ -68,16 +68,14 @@ class PasPluginsAuthomaticZopeLayer(Layer):
             for p, config in self.products:
                 if not config["loadZCML"]:
                     continue
-                try:
+
+                with suppress(ImportError):
                     package = resolve(p)
-                except ImportError:
-                    continue
-                try:
+
+                with suppress(OSError):
                     xmlconfig.file(
                         filename, package, context=self["configurationContext"]
                     )
-                except OSError:
-                    pass
 
         loadAll("meta.zcml")
         loadAll("configure.zcml")
@@ -87,7 +85,7 @@ class PasPluginsAuthomaticZopeLayer(Layer):
         """Install all old-style products listed in the the ``products`` tuple
         of this class.
         """
-        for prd, config in self.products:
+        for prd, _ in self.products:
             installProduct(self["app"], prd)
 
 
@@ -95,7 +93,6 @@ AUTHOMATIC_ZOPE_FIXTURE = PasPluginsAuthomaticZopeLayer()
 
 
 class PasPluginsAuthomaticPloneLayer(PloneSandboxLayer):
-
     defaultBases = (PLONE_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
@@ -111,30 +108,30 @@ class PasPluginsAuthomaticPloneLayer(PloneSandboxLayer):
         applyProfile(portal, "pas.plugins.authomatic:default")
 
 
-AUTHOMATIC_PLONE_FIXTURE = PasPluginsAuthomaticPloneLayer()
+FIXTURE = PasPluginsAuthomaticPloneLayer()
 
 
-AUTHOMATIC_PLONE_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(AUTHOMATIC_PLONE_FIXTURE,),
+INTEGRATION_TESTING = IntegrationTesting(
+    bases=(FIXTURE,),
     name="PasPluginsAuthomaticPloneLayer:IntegrationTesting",
 )
 
 
-AUTHOMATIC_PLONE_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(AUTHOMATIC_PLONE_FIXTURE,),
+FUNCTIONAL_TESTING = FunctionalTesting(
+    bases=(FIXTURE,),
     name="PasPluginsAuthomaticPloneLayer:FunctionalTesting",
 )
 
 
-AUTHOMATIC_REST_API_TESTING = FunctionalTesting(
-    bases=(AUTHOMATIC_PLONE_FIXTURE, WSGI_SERVER_FIXTURE),
+RESTAPI_TESTING = FunctionalTesting(
+    bases=(FIXTURE, WSGI_SERVER_FIXTURE),
     name="PasPluginsAuthomaticPloneLayer:RestAPITesting",
 )
 
 
-AUTHOMATIC_PLONE_ACCEPTANCE_TESTING = FunctionalTesting(
+ACCEPTANCE_TESTING = FunctionalTesting(
     bases=(
-        AUTHOMATIC_PLONE_FIXTURE,
+        FIXTURE,
         REMOTE_LIBRARY_BUNDLE_FIXTURE,
         WSGI_SERVER_FIXTURE,
     ),

@@ -8,7 +8,6 @@ from zope.interface import Interface
 
 
 class AuthomaticSettingsEditForm(controlpanel.RegistryEditForm):
-
     schema = IPasPluginsAuthomaticSettings
     label = _("PAS Authomatic Plugin Settings")
     description = ""

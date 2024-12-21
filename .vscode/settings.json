@@ -1,0 +1,7 @@
+{
+  "flake8.cwd": "${workspaceFolder}",
+  "flake8.args": ["--config=pyproject.toml"],
+  "black-formatter.cwd": "${workspaceFolder}",
+  "isort.args": ["--settings-path=${workspaceFolder}/pyproject.toml"],
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
+}

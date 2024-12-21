@@ -15,23 +15,28 @@ GREEN=`tput setaf 2`
 RESET=`tput sgr0`
 YELLOW=`tput setaf 3`
 
-PLONE5=5.2-latest
-PLONE6=6.0-latest
+# Python checks
+PYTHON?=python3
 
-BACKEND_FOLDER=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
-
-CODE_QUALITY_VERSION=2.1.1
-ifndef LOG_LEVEL
-	LOG_LEVEL=INFO
+# installed?
+ifeq (, $(shell which $(PYTHON) ))
+  $(error "PYTHON=$(PYTHON) not found in $(PATH)")
 endif
-CURRENT_USER=$$(whoami)
-USER_INFO=$$(id -u ${CURRENT_USER}):$$(getent group ${CURRENT_USER}|cut -d: -f3)
-LINT=docker run --rm -e LOG_LEVEL="${LOG_LEVEL}" -v "${BACKEND_FOLDER}":/github/workspace plone/code-quality:${CODE_QUALITY_VERSION} check
-FORMAT=docker run --rm --user="${USER_INFO}" -e LOG_LEVEL="${LOG_LEVEL}" -v "${BACKEND_FOLDER}":/github/workspace plone/code-quality:${CODE_QUALITY_VERSION} format
 
-PACKAGE_NAME=pas.plugins.authomatic
-PACKAGE_PATH=src/
-CHECK_PATH=setup.py $(PACKAGE_PATH)
+# version ok?
+PYTHON_VERSION_MIN=3.11
+PYTHON_VERSION_OK=$(shell $(PYTHON) -c "import sys; print((int(sys.version_info[0]), int(sys.version_info[1])) >= tuple(map(int, '$(PYTHON_VERSION_MIN)'.split('.'))))")
+ifeq ($(PYTHON_VERSION_OK),0)
+  $(error "Need python $(PYTHON_VERSION) >= $(PYTHON_VERSION_MIN)")
+endif
+
+PLONE_SITE_ID=Plone
+BACKEND_FOLDER=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
+PLONE_VERSION=$(shell cat $(BACKEND_FOLDER)/version.txt)
+
+GIT_FOLDER=$(BACKEND_FOLDER)/.git
+VENV_FOLDER=$(BACKEND_FOLDER)/.venv
+BIN_FOLDER=$(VENV_FOLDER)/bin
 
 all: build
 
@@ -41,76 +46,64 @@ all: build
 help: ## This help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-bin/pip:
-	@echo "$(GREEN)==> Setup Virtual Env$(RESET)"
-	python3 -m venv .
-	bin/pip install -U pip wheel
+$(BIN_FOLDER)/hatch:  ## Setup virtual env
+	@echo "$(GREEN)==> Install dependencies$(RESET)"
+	@pipx run hatch env create
 
-.PHONY: build-plone-5.2
-build-plone-5.2: bin/pip ## Build Plone 5.2
-	@echo "$(GREEN)==> Build with Plone 5.2$(RESET)"
-	bin/pip install Plone plone.app.testing -c https://dist.plone.org/release/$(PLONE5)/constraints.txt
-	bin/pip install -e ".[test]"
-	bin/mkwsgiinstance -d . -u admin:admin
+instance/etc/zope.ini:  ## Create instance configuration
+	@echo "$(GREEN)==> Create instance configuration$(RESET)"
+	@pipx run cookiecutter -f --no-input --config-file instance.yaml gh:plone/cookiecutter-zope-instance
 
-.PHONY: build-plone-6.0
-build-plone-6.0: bin/pip ## Build Plone 6.0
-	@echo "$(GREEN)==> Build with Plone 6.0$(RESET)"
-	bin/pip install Plone plone.app.testing -c https://dist.plone.org/release/$(PLONE6)/constraints.txt
-	bin/pip install -e ".[test]"
-	bin/mkwsgiinstance -d . -u admin:admin
+.PHONY: config
+config: instance/etc/zope.ini
+
+constraints-mxdev.txt: ## Generate constraints file
+	@echo "$(GREEN)==> Generate constraints file$(RESET)"
+	@echo '-c https://dist.plone.org/release/$(PLONE_VERSION)/constraints.txt' > requirements.txt
+	@pipx run mxdev -c mx.ini
+
+.PHONY: build-dev
+build-dev: constraints-mxdev.txt config $(BIN_FOLDER)/hatch ## Install Plone packages
+
+.PHONY: install
+install: build-dev ## Install Plone
 
 .PHONY: build
-build: build-plone-6.0 ## Build Plone 6.0
+build: build-dev ## Install Plone
 
 .PHONY: clean
-clean: ## Remove old virtualenv and creates a new one
+clean: ## Clean environment
 	@echo "$(RED)==> Cleaning environment and build$(RESET)"
-	rm -rf bin lib lib64 include share etc var inituser pyvenv.cfg .installed.cfg
-
-.PHONY: format
-format: ## Format the codebase according to our standards
-	@echo "$(GREEN)==> Format codebase$(RESET)"
-	$(FORMAT)
-
-.PHONY: lint
-lint: ## check code style
-	$(LINT)
-
-.PHONY: lint-black
-lint-black: ## validate black formating
-	$(LINT) black
-
-.PHONY: lint-flake8
-lint-flake8: ## validate black formating
-	$(LINT) flake8
-
-.PHONY: lint-isort
-lint-isort: ## validate using isort
-	$(LINT) isort
-
-.PHONY: lint-pyroma
-lint-pyroma: ## validate using pyroma
-	$(LINT) pyroma
-
-.PHONY: lint-zpretty
-lint-zpretty: ## validate ZCML/XML using zpretty
-	$(LINT) zpretty
-
-# i18n
-bin/i18ndude:	bin/pip
-	@echo "$(GREEN)==> Install translation tools$(RESET)"
-	bin/pip install i18ndude
-
-.PHONY: i18n
-i18n: bin/i18ndude ## Update locales
-	@echo "$(GREEN)==> Updating locales$(RESET)"
-	bin/update_locale
-
-.PHONY: test
-test: ## run tests
-	PYTHONWARNINGS=ignore ./bin/zope-testrunner --auto-color --auto-progress --test-path $(PACKAGE_PATH)
+	rm -rf $(VENV_FOLDER) pyvenv.cfg dist instance .venv .pytest_cache requirements-mxdev.txt constraints-mxdev.txt requirements.lock
 
 .PHONY: start
 start: ## Start a Plone instance on localhost:8080
-	PYTHONWARNINGS=ignore ./bin/runwsgi etc/zope.ini
+	PYTHONWARNINGS=ignore $(BIN_FOLDER)/runwsgi instance/etc/zope.ini
+
+.PHONY: console
+console: instance/etc/zope.ini ## Start a console into a Plone instance
+	PYTHONWARNINGS=ignore $(BIN_FOLDER)/zconsole debug instance/etc/zope.conf
+
+.PHONY: lint
+lint: $(BIN_FOLDER)/hatch ## Check and fix code base according to Plone standards
+	@echo "$(GREEN)==> Lint codebase$(RESET)"
+	$(BIN_FOLDER)/hatch run lint
+
+.PHONY: format
+format: $(BIN_FOLDER)/hatch ## Check and fix code base according to Plone standards
+	@echo "$(GREEN)==> Format codebase$(RESET)"
+	$(BIN_FOLDER)/hatch run format
+
+.PHONY: i18n
+i18n: ## Update locales
+	@echo "$(GREEN)==> Updating locales$(RESET)"
+	$(BIN_FOLDER)/hatch run i18n
+
+# Tests
+.PHONY: test
+test: $(BIN_FOLDER)/pytest ## run tests
+	$(BIN_FOLDER)/hatch run test
+
+.PHONY: test-coverage
+test-coverage: $(BIN_FOLDER)/pytest ## run tests with coverage
+	$(BIN_FOLDER)/hatch run cov

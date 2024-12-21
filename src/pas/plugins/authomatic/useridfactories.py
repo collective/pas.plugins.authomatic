@@ -19,7 +19,6 @@ class BaseUserIDFactory:
 
 
 class UUID4UserIDFactory(BaseUserIDFactory):
-
     title = _("UUID as User ID")
 
     def __call__(self, plugin, result):
@@ -27,7 +26,6 @@ class UUID4UserIDFactory(BaseUserIDFactory):
 
 
 class ProviderIDUserIDFactory(BaseUserIDFactory):
-
     title = _("Provider User ID")
 
     def __call__(self, plugin, result):
@@ -35,7 +33,6 @@ class ProviderIDUserIDFactory(BaseUserIDFactory):
 
 
 class ProviderIDUserNameFactory(BaseUserIDFactory):
-
     title = _("Provider User Name")
 
     def __call__(self, plugin, result):
