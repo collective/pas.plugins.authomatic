@@ -69,9 +69,13 @@ def patch_base_provider_fetch():
                 body = query
                 query = ""
                 headers.update({"Content-Type": "application/x-www-form-urlencoded"})
-        request_path = parse.urlunsplit(
-            ("", "", url_parsed.path or "", query or "", "")
-        )
+        request_path = parse.urlunsplit((
+            "",
+            "",
+            url_parsed.path or "",
+            query or "",
+            "",
+        ))
 
         self._log_param("host", url_parsed.hostname, last=False)
         self._log_param("method", method, last=False)
@@ -88,7 +92,7 @@ def patch_base_provider_fetch():
                     purpose=ssl.Purpose.SERVER_AUTH, cafile=certificate_file
                 )
             else:
-                context = ssl._create_unverified_context()
+                context = ssl._create_unverified_context()  # noQA: S323
 
             connection = http_client.HTTPSConnection(
                 url_parsed.hostname, port=url_parsed.port, context=context
@@ -100,10 +104,10 @@ def patch_base_provider_fetch():
 
         try:
             connection.request(method, request_path, body, headers)
-        except Exception as e:  # noQA: B902
+        except Exception as e:
             raise FetchError(
                 "Fetching URL failed", original_message=str(e), url=request_path
-            )
+            ) from None
 
         response = connection.getresponse()
         location = response.getheader("Location")

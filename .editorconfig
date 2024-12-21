@@ -1,13 +1,4 @@
-# EditorConfig Configurtaion file, for more details see:
-# https://EditorConfig.org
-# EditorConfig is a convention description, that could be interpreted
-# by multiple editors to enforce common coding conventions for specific
-# file types
-
-# top-most EditorConfig file:
-# Will ignore other EditorConfig files in Home directory or upper tree level.
 root = true
-
 
 [*]  # For All Files
 # Unix-style newlines with a newline ending every file
@@ -25,9 +16,14 @@ max_line_length = off
 # 4 space indentation
 indent_size = 4
 
-[*.{html,dtml,pt,zpt,xml,zcml,js,json,less,css,yml,yaml}]
+[*.{yml,zpt,pt,dtml,zcml}]
 # 2 space indentation
 indent_size = 2
+
+[*.{json,jsonl,js,jsx,ts,tsx,css,less,scss,html}]  # Frontend development
+# 2 space indentation
+indent_size = 2
+max_line_length = 80
 
 [{Makefile,.gitmodules}]
 # Tab indentation (no size specified, but view as 4 spaces)

@@ -159,7 +159,7 @@ class Post(LoginAuthomatic):
         plugins = aclu._getOb("plugins")
         authenticators = plugins.listPlugins(IAuthenticationPlugin)
         plugin = None
-        for id_, authenticator in authenticators:
+        for _, authenticator in authenticators:
             if authenticator.meta_type == "JWT Authentication Plugin":
                 plugin = authenticator
                 break

@@ -60,7 +60,7 @@ class UserIdentities(Persistent):
         if self._sheet is not None:
             return self._sheet
         # build sheet from identities
-        pdata = dict(id=self.userid)
+        pdata = {"id": self.userid}
         cfgs_providers = authomatic_cfg()
         for provider_name in cfgs_providers:
             identity = self.identity(provider_name)

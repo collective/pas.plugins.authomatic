@@ -1,6 +1,4 @@
 from authomatic.adapters import BaseAdapter
-from typing import Dict
-from typing import Optional
 
 import logging
 
@@ -8,7 +6,7 @@ import logging
 logger = logging.getLogger(__file__)
 
 
-Headers = Optional[Dict]
+Headers = dict | None
 
 
 class RestAPIAdapter(BaseAdapter):

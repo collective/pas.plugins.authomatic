@@ -27,7 +27,13 @@ tpl_dir = Path(__file__).parent.resolve() / "browser"
 _marker = {}
 
 
-def manage_addAuthomaticPlugin(context, id, title="", RESPONSE=None, **kw):
+def manage_addAuthomaticPlugin(
+    context,
+    id,  # noQA: A002
+    title="",
+    RESPONSE=None,
+    **kw,
+):
     """Create an instance of a Authomatic Plugin."""
     plugin = AuthomaticPlugin(id, title, **kw)
     context._setObject(plugin.getId(), plugin)
@@ -55,12 +61,12 @@ class AuthomaticPlugin(BasePlugin):
 
     security = ClassSecurityInfo()
     meta_type = "Authomatic Plugin"
-    BasePlugin.manage_options
+    manage_options = BasePlugin.manage_options
 
     # Tell PAS not to swallow our exceptions
     _dont_swallow_my_exceptions = True
 
-    def __init__(self, id, title=None, **kw):
+    def __init__(self, id, title=None, **kw):  # noQA: A002
         self._setId(id)
         self.title = title
         self.plugin_caching = True
@@ -186,7 +192,7 @@ class AuthomaticPlugin(BasePlugin):
     @security.private
     def enumerateUsers(
         self,
-        id=None,
+        id=None,  # noQA: A002
         login=None,
         exact_match=False,
         sort_by=None,
@@ -236,13 +242,11 @@ class AuthomaticPlugin(BasePlugin):
         if id and login and id != login:
             raise ValueError("plugin does not support id different from login")
         search_id = id or login
-        if not search_id:
+        if not (search_id and isinstance(search_id, str)):
             return ()
-        if not isinstance(search_id, str):
-            raise NotImplementedError("sequence is not supported.")
 
         pluginid = self.getId()
-        ret = list()
+        ret = []
         # shortcut for exact match of login/id
         identity = None
         if exact_match and search_id and search_id in self._useridentities_by_userid:
@@ -273,27 +277,21 @@ class AuthomaticPlugin(BasePlugin):
             identity_email = identity.propertysheet.getProperty("email", "").lower()
             if (
                 search_term not in identity_userid
-                and search_term not in identity_fullname  # noqa: W503
-                and search_term not in identity_email  # noqa: W503
+                and search_term not in identity_fullname
+                and search_term not in identity_email
             ):
                 continue
 
-            #            if not userid.startswith(search_id):
-            #                continue
-            #            identity = self._useridentities_by_userid[userid]
-            #            identity_userid = identity.userid
-            ret.append(
-                {
-                    "id": identity_userid,
-                    "login": identity.userid,
-                    "pluginid": pluginid,
-                }
-            )
+            ret.append({
+                "id": identity_userid,
+                "login": identity.userid,
+                "pluginid": pluginid,
+            })
             if max_results and len(ret) >= max_results:
                 break
-        if sort_by in ["id", "login"]:
-            return sorted(ret, key=itemgetter(sort_by))
-        return ret
+        return (
+            sorted(ret, key=itemgetter(sort_by)) if sort_by in ["id", "login"] else ret
+        )
 
     @security.public
     def allowDeletePrincipal(self, principal_id):
