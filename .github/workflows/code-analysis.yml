@@ -16,7 +16,7 @@ jobs:
         run: pipx install hatch
 
       - name: Generate Constraints file
-        run: pipx run mxdev -c mx.ini
+        run: make constraints-mxdev.txt
 
       - uses: actions/setup-python@v5
         with:
