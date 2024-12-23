@@ -63,7 +63,7 @@ def validate_cfg_json(value):
                 "JSON is not valid, parser complained: ${message}",
                 mapping={"message": f"{e.msg} {e.pos}"},
             )
-        )
+        ) from None
     if not isinstance(jv, dict):
         raise Invalid(_("invalid_cfg_no_dict", "JSON root must be a mapping (dict)"))
     if len(jv) < 1:
@@ -86,7 +86,6 @@ def userid_factory_vocabulary(context):
 
 
 class IPasPluginsAuthomaticSettings(Interface):
-
     secret = schema.TextLine(
         title=_("Secret"),
         description=_(

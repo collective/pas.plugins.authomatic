@@ -2,66 +2,29 @@ name: Code Analysis
 on:
   push:
 
+env:
+  PYTHON_VERSION: "3.12"
+
 jobs:
-  black:
-    name: Black
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout codebase
-        uses: actions/checkout@v4
-
-      - name: Run check
-        uses: plone/code-analysis-action@v2.1
-        with:
-          check: 'black'
-
-  flake8:
-    name: flake8
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout codebase
-        uses: actions/checkout@v4
-
-      - name: Run check
-        uses: plone/code-analysis-action@v2.1
-        with:
-          check: 'flake8'
-
-  isort:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout codebase
         uses: actions/checkout@v4
 
-      - name: Run check
-        uses: plone/code-analysis-action@v2.1
+      - name: Install hatch
+        run: pipx install hatch
+
+      - name: Generate Constraints file
+        run: make constraints-mxdev.txt
+
+      - uses: actions/setup-python@v5
         with:
-          check: 'isort'
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
 
-  pyroma:
-    name: pyroma
-    runs-on: ubuntu-latest
+      - name: "Install Environment"
+        run: hatch env create
 
-    steps:
-      - name: Checkout codebase
-        uses: actions/checkout@v4
-
-      - name: Run check
-        uses: plone/code-analysis-action@v2.1
-        with:
-          check: 'pyroma'
-
-  zpretty:
-    name: zpretty
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout codebase
-        uses: actions/checkout@v4
-
-      - name: Run check
-        uses: plone/code-analysis-action@v2.1
-        with:
-          check: 'zpretty'
+      - name: "Run checks"
+        run: hatch run lint

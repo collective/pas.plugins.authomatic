@@ -1,67 +1,32 @@
 
-name: Build and test
+name: Tests
 
-on: [push]
+on:
+  push:
+
+env:
+  PYTHON_VERSION: "3.12"
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        python:
-          - 3.7
-          - 3.8
-          - 3.9
-          - "3.10"
-          - "3.11"
-          - "3.12"
-        plone:
-          - "6.1-latest"
-          - "6.0-latest"
-          - "5.2-latest"
-        exclude:
-          - plone: "5.2-latest"
-            python: 3.9
-          - plone: "5.2-latest"
-            python: "3.10"
-          - plone: "5.2-latest"
-            python: "3.11"
-          - plone: "5.2-latest"
-            python: "3.12"
-          - plone: "6.0-latest"
-            python: 3.7
-          - plone: "6.0-latest"
-            python: "3.12"
-          - plone: "6.1-latest"
-            python: 3.7
-          - plone: "6.1-latest"
-            python: 3.8
-          - plone: "6.1-latest"
-            python: 3.9
-          - plone: "6.1-latest"
-            python: "3.10"
-          - plone: "6.1-latest"
-            python: "3.11"
-          - plone: "6.1-latest"
-            python: "3.12"
-
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout codebase
+        uses: actions/checkout@v4
 
-    - name: Setup Plone ${{ matrix.plone }} with Python ${{ matrix.python }}
-      id: setup
-      uses: plone/setup-plone@v2.0.0
-      with:
-        python-version: ${{ matrix.python }}
-        plone-version: ${{ matrix.plone }}
+      - name: Install hatch
+        run: pipx install hatch
 
-    # Install pas.plugins.authomatic with test extras
-    - name: Install pas.plugins.authomatic
-      run: |
-        pip install ".[test]"
+      - name: Generate Constraints file
+        run: make constraints-mxdev.txt
 
-    # test
-    - name: Test Codebase
-      run: |
-        zope-testrunner --auto-color --auto-progress --test-path src
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: "Install Environment"
+        run: hatch env create
+
+      - name: "Test Codebase"
+        run: hatch run test

@@ -1,44 +1,271 @@
-[tool.black]
-line-length = 88
-target-version = ['py38']
-include = '\.pyi?$'
-exclude = '''
-(
-  /(
-      \.eggs         # exclude a few common directories in the
-    | \.git          # root of the project
-    | \.hg
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | _build
-    | buck-out
-    | build
-    | dist
-  )/
-)
-'''
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.check-manifest]
-ignore = ["*.cfg", ".gitattributes"]
+[project]
+name = "pas.plugins.authomatic"
+dynamic = ["version"]
+description = "Provides OAuth2/OpenID login for Plone using Authomatic."
+readme = "README.md"
+license = {text = "GNU General Public License v2 (GPLv2)"}
+requires-python = ">=3.11"
+authors = [
+    { name = "Jens Klein", email = "dev@bluedynamics.com" },
+    { name = "Érico Andrei", email = "ericof@plone.org" },
+    { name = "Matthias Dollfuss" },
+]
+keywords = [
+    "Authentication",
+    "OAuth",
+    "PAS",
+    "Plone",
+    "Python",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: Plone",
+    "Framework :: Plone :: 6.0",
+    "Framework :: Plone :: Addon",
+    "Framework :: Zope",
+    "Framework :: Zope :: 5",
+    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "authomatic>=1.3.0",
+    "plone.restapi",
+    "Products.CMFPlone>=6.0",
+    "setuptools",
+]
+
+[project.optional-dependencies]
+test = [
+    "collective.MockMailHost",
+    "parameterized",
+    "plone.app.robotframework[debug]",
+    "plone.app.testing",
+    "plone.restapi[test]",
+    "zest.releaser[recommended]",
+]
+
+[project.urls]
+Changelog = "https://github.com/collective/pas.plugins.authomatic/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/collective/pas.plugins.authomatic"
+Issues = "https://github.com/collective/pas.plugins.authomatic/issues"
+Repository = "https://github.com/collective/pas.plugins.authomatic/"
+
+
+[project.entry-points."z3c.autoinclude.plugin"]
+target = "plone"
+
+[tool.hatch.version]
+path = "src/pas/plugins/authomatic/about.py"
+
+[tool.hatch.build]
+strict-naming = false
+packages = ["src/pas","src/pas/plugins"]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "/.github",
+]
+
+[tool.hatch.env]
+requires = [
+    "hatch-pip-compile"
+]
+
+[tool.hatch.envs.default]
+type = "pip-compile"
+path = ".venv"
+pip-compile-resolver = "uv"
+pip-compile-installer = "uv"
+lock-filename = "requirements.lock"
+pip-compile-args = [
+    "--constraint",
+    "constraints-mxdev.txt",
+]
+dependencies = [
+  "hatch",
+  "hatchling",
+  "i18ndude",
+  "isort",
+  "plone.app.testing",
+  "plone.app.upgrade",
+  "plone.restapi[test]",
+  "pytest-cov==5.0.0",
+  "pytest-plone>=0.5.0",
+  "pytest",
+  "ruff",
+  "towncrier==23.11.0",
+  "zpretty",
+  "zest.releaser[recommended]",
+]
+
+[tool.hatch.envs.default.scripts]
+test = "pytest {args:tests}"
+test-cov = "coverage run -m pytest {args:tests}"
+cov-report = [
+  "- coverage combine",
+  "coverage report",
+]
+cov = [
+  "test-cov",
+  "cov-report",
+]
+zpretty_lint = [
+  "find src -name '*.xml'|xargs zpretty -x --check",
+  "find src -name '*.zcml'|xargs zpretty -z --check",
+]
+zpretty_format = [
+  "find src -name '*.xml'|xargs zpretty -x -i",
+  "find src -name '*.zcml'|xargs zpretty -z -i",
+]
+lint = [
+  "ruff check",
+  "isort --check-only src/ tests/",
+  "zpretty_lint"
+]
+format = [
+  "ruff format",
+  "isort src/ tests/",
+  "zpretty_format"
+]
+i18n = [
+  "python -m pas.plugins.authomatic.locales.update"
+]
+changelog-draft = "towncrier --draft"
+
+[[tool.hatch.envs.all.matrix]]
+python = ["3.11", "3.12"]
+
+[tool.coverage.run]
+source_pkgs = ["pas.plugins.authomatic", "tests"]
+branch = true
+parallel = true
+omit = [
+  "pas/plugins/authomatic/locales/__init__.py",
+  "pas/plugins/authomatic/locales/update.py",
+]
+
+[tool.coverage.paths]
+pas.plugins.authomatic = ["src/pas/plugins/authomatic"]
+tests = ["tests",]
+
+[tool.coverage.report]
+skip_empty = true
+show_missing = true
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 [tool.isort]
-profile = "black"
-force_alphabetical_sort = true
-force_single_line = true
-lines_after_imports = 2
-line_length = 120
+profile = "plone"
 
-[tool.flakeheaven]
-format="grouped"
-max_line_length=88
-show_source=true
-max-complexity=25
+[tool.towncrier]
+package = "pas.plugins.authomatic"
+package_dir = "src"
+directory = "news/"
+filename = "CHANGES.md"
+start_string = "<!-- towncrier release notes start -->\n"
+title_format = "## {version} ({project_date})"
+template = "news/.changelog_template.jinja"
+underlines = ["", "", ""]
 
-[tool.flakeheaven.plugins]
-pycodestyle = ["+*"]
-pyflakes = ["+*"]
-"flake8-*" = ["+*"]
+[[tool.towncrier.type]]
+directory = "breaking"
+name = "Breaking changes:"
+showcontent = true
 
-[tool.plone-code-analysis]
-paths = "setup.py src/"
+[[tool.towncrier.type]]
+directory = "feature"
+name = "New features:"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "bugfix"
+name = "Bug fixes:"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "internal"
+name = "Internal:"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "documentation"
+name = "Documentation:"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "tests"
+name = "Tests"
+showcontent = true
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+fix = true
+lint.select = [
+    # flake8-2020
+    "YTT",
+    # flake8-bandit
+    "S",
+    # flake8-bugbear
+    "B",
+    # flake8-builtins
+    "A",
+    # flake8-comprehensions
+    "C4",
+    # flake8-debugger
+    "T10",
+    # flake8-simplify
+    "SIM",
+    # mccabe
+    "C90",
+    # pycodestyle
+    "E", "W",
+    # pyflakes
+    "F",
+    # pygrep-hooks
+    "PGH",
+    # pyupgrade
+    "UP",
+    # ruff
+    "RUF",
+]
+lint.ignore = [
+    # DoNotAssignLambda
+    "E731",
+    "S602",
+    "SIM102",
+    "S314",
+    "S324"
+]
+
+[tool.ruff.format]
+preview = true
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]
+
+[tool.codespell]
+ignore-words-list = "discreet,vew"
+skip = "*.po,*.min.js"
+
+[tool.check-manifest]
+ignore = [
+    ".editorconfig",
+    ".flake8",
+    "dependabot.yml",
+    "mx.ini",
+]

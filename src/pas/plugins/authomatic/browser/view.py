@@ -26,7 +26,6 @@ def is_root(obj):
 
 @implementer(IPublishTraverse)
 class AuthomaticView(BrowserView):
-
     template = ViewPageTemplateFile("authomatic.pt")
 
     zope_request_adapter_factory = ZopeRequestAdapter
@@ -92,10 +91,15 @@ class AuthomaticView(BrowserView):
             self.request,
         )
 
+    def _handle_error(self, error):
+        try:
+            return error.message
+        except AttributeError:
+            return str(error)
+
     def __call__(self):
-        cfg = authomatic_cfg()
         provider = getattr(self, "provider", "")
-        if cfg is None:
+        if cfg := authomatic_cfg() is None:
             return _("Authomatic is not configured")
         if not is_root(self.context):
             # callback url is expected on either navigationroot or site root
@@ -110,7 +114,9 @@ class AuthomaticView(BrowserView):
             return _("Provider not supported")
         if not self.is_anon:
             if provider in self._provider_names:
-                logger.warn(f"Provider {provider} is already connected to current user")
+                logger.warning(
+                    f"Provider {provider} is already connected to current user"
+                )
                 return self._redirect()
             # TODO: some sort of CSRF check might be needed, so that
             #       not an account got connected by CSRF. Research needed.
@@ -122,11 +128,8 @@ class AuthomaticView(BrowserView):
             logger.info("return from view")
             # let authomatic do its work
             return
-        if result.error:
-            try:
-                return result.error.message
-            except AttributeError:
-                return str(result.error)
+        elif error := result.error:
+            return self._handle_error(error)
         display = cfg[self.provider].get("display", {})
         provider_name = display.get("title", self.provider)
         if not self.is_anon:
