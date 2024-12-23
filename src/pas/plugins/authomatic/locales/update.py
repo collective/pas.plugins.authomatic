@@ -17,7 +17,7 @@ cwd = Path.cwd()
 target_path = Path(__file__).parent.parent.resolve()
 locale_path = target_path / "locales"
 
-i18ndude = cwd / "bin" / "i18ndude"
+i18ndude = cwd / ".venv" / "bin" / "i18ndude"
 if not i18ndude.exists():
     i18ndude = cwd / "i18ndude"
 
@@ -77,3 +77,7 @@ def update_locale():
             _sync(domain)
     else:
         logger.error("Not able to find i18ndude")
+
+
+if __name__ == "__main__":
+    update_locale()
