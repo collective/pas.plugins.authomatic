@@ -62,7 +62,7 @@ Repository = "https://github.com/collective/pas.plugins.authomatic/"
 target = "plone"
 
 [tool.hatch.version]
-path = "src/pas/plugins/authomatic/about.py"
+path = "src/pas/plugins/authomatic/__init__.py"
 
 [tool.hatch.build]
 strict-naming = false
@@ -209,6 +209,9 @@ showcontent = true
 directory = "tests"
 name = "Tests"
 showcontent = true
+
+[tool.zest-releaser]
+python-file-with-version = "src/pas/plugins/authomatic/__init__.py"
 
 [tool.ruff]
 target-version = "py311"
