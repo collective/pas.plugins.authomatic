@@ -22,8 +22,7 @@
 
 </div>
 
-Features
---------
+## Features
 
 **pas.plugins.authomatic** provides OAuth2 and OpenID login capability for Plone sites by integrating the awesome [Authomatic](https://authomatic.github.io/authomatic/) package.
 
@@ -38,12 +37,11 @@ through standards like OAuth and OpenID.
 *by author Peter Hudec on Authomatic website*
 
 
-Supported Providers
--------------------
+### Supported Providers
 
 Out of the box,  **pas.plugins.authomatic** supports the following providers
 
-*OAuth 1.0a*
+#### OAuth 1.0
 
 - Bitbucket
 - Flickr
@@ -57,7 +55,7 @@ Out of the box,  **pas.plugins.authomatic** supports the following providers
 - Xing
 - Yahoo
 
-*OAuth 2.0*
+#### OAuth 2.0
 
 - Amazon
 - Behance
@@ -78,33 +76,58 @@ Out of the box,  **pas.plugins.authomatic** supports the following providers
 - Yammer
 - Yandex
 
-*OpenID*
+#### OpenID
 
 - python-openid
 - Google App Engine based OpenID.
 
 
-Documentation
--------------
+## Documentation
 
 This package supports Plone sites using Volto or the Classic UI.
 
-For the Classic UI:
-
-- This package creates a view called `authomatic-handler` where you can login with different providers.
-- The view can be used as well to add an identity from a provider to an existing account.
-- The provider is choosen in the URL so if you call `/authomatic-handler/PROVIDER` you will use PROVIDER to login.
-
-For Volto:
+### Volto Frontend
 
 - Endpoint `@login` with GET: Returns list of authentication options
 - Endpoint `@login-authomatic` with GET: Provide information to start the OAuth process.
 - Endpoint `@login-authomatic` with POST: Handles OAuth login and returns a JSON web token (JWT).
 - For Volto sites you must also install [@plone-collective/volto-authomatic](https://github.com/collective/volto-authomatic).
+- Plugin configuration is available in the Control-panel `/controlpanel/authomatic` (linked under users)
+- Example JSON configuration (first level key is the PROVIDER):
+
+```json
+{
+  "github": {
+    "display": {
+      "title": "Github",
+      "cssclasses": {
+          "button": "plone-btn plone-btn-default",
+          "icon": "glypicon glyphicon-github"
+      },
+      "as_form": false
+    },
+    "propertymap": {
+      "email": "email",
+      "link": "home_page",
+      "location": "location",
+      "name": "fullname"
+    },
+    "class_": "authomatic.providers.oauth2.GitHub",
+    "consumer_key": "5c4901d141e736f114a7",
+    "consumer_secret": "d4692ca3c0ab6cc1f8b28d3ccb1ea15b61e7ef5c",
+    "access_headers": {
+      "User-Agent": "Plone Authomatic Plugin"
+    }
+  },
+}
+```
 
 
-Configuration is, currently, done via Classic UI:
+### Classic UI
 
+- This package creates a view called `authomatic-handler` where you can login with different providers.
+- The view can be used as well to add an identity from a provider to an existing account.
+- The provider is choosen in the URL so if you call `/authomatic-handler/PROVIDER` you will use PROVIDER to login.
 - Plugin configuration is available in the Controlpanel `@@authomatic-controlpanel` (linked under users)
 - Example JSON configuration (first level key is the PROVIDER):
 
@@ -135,8 +158,7 @@ Configuration is, currently, done via Classic UI:
 }
 ```
 
-Installation
-------------
+## Installation
 
 Add **pas.plugins.authomatic** to the Plone installation using `pip`:
 
@@ -156,8 +178,7 @@ or add it as a dependency on your package's `setup.py`
 
 Start Plone and activate the plugin in the addons control-panel.
 
-Configuration
--------------
+## Configuration
 
 Using Classic UI, go to the `Authomatic` controlpanel.
 
@@ -183,8 +204,7 @@ There are some differences in configuration:
   It is a mapping from authomatic/provider user properties to plone user properties, like `"fullname": "name",`. Look at each providers documentation which properties are available.
 
 
-Source Code and Contributions
------------------------------
+## Source Code and Contributions
 
 If you want to help with the development (improvement, update, bug-fixing, ...) of `pas.plugins.authomatic` this is a great idea!
 
@@ -198,15 +218,14 @@ Creator of **pas.plugins.authomatic** is Jens Klein.
 
 We appreciate any contribution and if a release is needed to be done on PyPI, please just contact one of us.
 
-Development
------------
+### Development
 
 You need a working `python` environment (system, virtualenv, pyenv, etc) version 3.7 or superior.
 
 Then install the dependencies and a development instance using:
 
 ```bash
-make build
+make install
 ```
 
 To run tests for this package:
@@ -215,9 +234,14 @@ To run tests for this package:
 make test
 ```
 
+To lint the codebase:
+
+```bash
+make lint
+```
+
 By default we use the latest Plone version in the 6.x series.
 
-License
--------
+## License
 
 The project is licensed under the GPLv2.

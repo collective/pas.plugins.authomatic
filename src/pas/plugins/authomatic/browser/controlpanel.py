@@ -32,7 +32,7 @@ class AuthomaticSettingsConfigletPanel(RegistryConfigletPanel):
 
     schema = IPasPluginsAuthomaticSettings
     configlet_id = "authomatic"
-    configlet_category_id = "Products"
+    configlet_category_id = "plone-users"
     title = _("Authomatic settings")
     group = ""
     schema_prefix = "pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticSettings"
