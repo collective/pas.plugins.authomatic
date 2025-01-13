@@ -103,6 +103,7 @@ dependencies = [
   "towncrier==23.11.0",
   "zpretty",
   "zest.releaser[recommended]",
+  "zestreleaser.towncrier",
 ]
 
 [tool.hatch.envs.default.scripts]
