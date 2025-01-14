@@ -1,7 +1,7 @@
 from pas.plugins.authomatic.patches import apply_patches
 
 
-__version__ = "2.0.0dev0"
+__version__ = "2.0.0b1"
 
 
 PACKAGE_NAME = "pas.plugins.authomatic"
