@@ -242,6 +242,64 @@ make lint
 
 By default we use the latest Plone version in the 6.x series.
 
+### Changelog entries
+
+The `CHANGES.md` file is managed using [towncrier](https://towncrier.readthedocs.io/). All non trivial changes must be accompanied by an entry in the `news` directory. Using such a tool instead of editing the file directly, has the following benefits:
+
+* It avoids merge conflicts in CHANGES.md.
+* It avoids news entries ending up under the wrong version header.
+
+The best way of adding news entries is this:
+
+* First create an issue describing the change you want to make. The issue number serves as a unique indicator for the news entry. As example, let's say you have created issue 42.
+
+* Create a file inside of the news/ directory, named after that issue number:
+
+  * For bug fixes: 42.bugfix.
+  * For new features: 42.feature.
+  * For internal changes: 42.internal.
+  * For breaking changs: 42.breaking.
+  * Any other extensions are ignored.
+
+* The contents of this file should be markdown formatted text that will be used as the content of the CHANGES.md entry.
+
+Towncrier will automatically add a reference to the issue when rendering the CHANGES.md file.
+
+### Releasing `pas.plugins.authomatic`
+
+Releasing `pas.plugins.authomatic` is done using a combination of [zest.releaser](https://zestreleaser.readthedocs.io/) and [hatch](https://hatch.pypa.io/latest/).
+
+The release process consists of three steps: **Pre-release**, **Release**, and **Post-release**.
+
+#### Pre-release
+Run the following command to populate the `CHANGES.md` file with the entries available in the `news/` directory:
+
+```bash
+.venv/bin/prerelease
+```
+
+#### Release
+
+1. Create a new Git tag:
+   ```bash
+   git tag -a {VERSION} -m "Release {VERSION}"
+   ```
+2. Build the project:
+   ```bash
+   hatch build
+   ```
+3. Publish the package to PyPI:
+   ```bash
+   hatch publish
+   ```
+
+#### Post-release
+Run the following command to bump the package version, create a new commit, and push all changes to GitHub:
+
+```bash
+.venv/bin/postrelease
+```
+
 ## License
 
 The project is licensed under the GPLv2.
