@@ -1,7 +1,7 @@
 from authomatic.exceptions import FetchError
 from authomatic.providers import BaseProvider
 from http import client as http_client
-from pas.plugins.authomatic.logging import logger
+from pas.plugins.authomatic.log import logger
 from urllib import parse
 
 import authomatic.core
