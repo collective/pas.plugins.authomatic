@@ -8,6 +8,15 @@
 
 <!-- towncrier release notes start -->
 
+## 2.0.0b2 (2025-01-14)
+
+
+### Internal:
+
+- Move CHANGELOG.md entries to CHANGES.md [@ericof] [#84](https://github.com/collective/pas.plugins.authomatic/issues/84)
+- Document release process [@ericof] [#85](https://github.com/collective/pas.plugins.authomatic/issues/85)
+- Rename logging.py to log.py [@ericof] [#86](https://github.com/collective/pas.plugins.authomatic/issues/86)
+
 ## 2.0.0b1 (2025-01-14)
 
 
