@@ -177,6 +177,7 @@ package_dir = "src"
 directory = "news/"
 filename = "CHANGES.md"
 start_string = "<!-- towncrier release notes start -->\n"
+issue_format = "[#{issue}](https://github.com/collective/pas.plugins.authomatic/issues/{issue})"
 title_format = "## {version} ({project_date})"
 template = "news/.changelog_template.jinja"
 underlines = ["", "", ""]
