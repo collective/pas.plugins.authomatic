@@ -1,36 +1,29 @@
 from pas.plugins.authomatic.utils import authomatic_cfg
-from plone.restapi.services import Service
+from plone.base.interfaces import IPloneSiteRoot
+from plone.restapi.interfaces import IExternalLoginProviders
+from zope.component import adapter
+from zope.interface import implementer
 
 
-class Get(Service):
-    """List available login options for the site."""
+@adapter(IPloneSiteRoot)
+@implementer(IExternalLoginProviders)
+class AuthomaticLoginProviders:
+    def __init__(self, context):
+        self.context = context
 
-    @staticmethod
-    def list_plugins() -> list[dict]:
-        """List all configured Authomatic plugins.
-
-        :returns: List of login options.
-        """
-        try:
-            providers = authomatic_cfg()
-        except KeyError:
-            # Authomatic is not configured
-            providers = {}
-        plugins = []
+    def get_providers(self):
+        options = []
+        providers = authomatic_cfg()
         for provider_id, provider in providers.items():
             entry = provider.get("display", {})
             title = entry.get("title", provider_id)
-            plugins.append({
-                "id": provider_id,
-                "plugin": "authomatic",
-                "title": title,
-            })
-        return plugins
+            options.append(
+                {
+                    "id": provider_id,
+                    "plugin": "authomatic",
+                    "title": title,
+                    "url": f"{self.context.absolute_url()}/@login-authomatic/${provider_id}",
+                }
+            )
 
-    def reply(self) -> dict[str, list[dict]]:
-        """List login options available for the site.
-
-        :returns: Login options information.
-        """
-        providers = self.list_plugins()
-        return {"options": providers}
+        return options
