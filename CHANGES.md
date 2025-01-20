@@ -1,6 +1,40 @@
 # Changelog
+<!--
+   You should *NOT* be adding new change log entries to this file.
+   You should create a file in the news directory instead.
+   For helpful instructions, please see:
+   https://github.com/plone/plone.releaser/blob/master/ADD-A-NEWS-ITEM.rst
+-->
 
-## 1.2.1 (unreleased)
+<!-- towncrier release notes start -->
+
+## 2.0.0b2 (2025-01-14)
+
+
+### Internal:
+
+- Move CHANGELOG.md entries to CHANGES.md [@ericof] [#84](https://github.com/collective/pas.plugins.authomatic/issues/84)
+- Document release process [@ericof] [#85](https://github.com/collective/pas.plugins.authomatic/issues/85)
+- Rename logging.py to log.py [@ericof] [#86](https://github.com/collective/pas.plugins.authomatic/issues/86)
+
+## 2.0.0b1 (2025-01-14)
+
+
+### Internal:
+
+- Modernize package repository [@ericof] [#71](https://github.com/collective/pas.plugins.authomatic/issues/71)
+- Move tests to pytest [@ericof] [#72](https://github.com/collective/pas.plugins.authomatic/issues/72)
+- Drop Plone 5.2 support [@ericof] [#80](https://github.com/collective/pas.plugins.authomatic/issues/80)
+- Update i18n mechanism, update Brazilian Portuguese translation [@ericof] [#82](https://github.com/collective/pas.plugins.authomatic/issues/82)
+
+
+## 1.4.0 (2024-12-13)
+
+
+- Patch `authomatic.providers.BaseProvider._fetch` to support Python 3.12 @ericof.
+
+
+## 1.3.0 (2024-11-21)
 
 - Search users by fullname and email. @alecghica
 - Fix login on Volto frontend when already logged-in in Plone Classic. @avoinea

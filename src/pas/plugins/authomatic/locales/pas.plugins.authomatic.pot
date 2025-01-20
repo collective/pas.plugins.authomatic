@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-07-22 15:19+0000\n"
+"POT-Creation-Date: 2024-12-23 19:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,43 +29,51 @@ msgstr ""
 msgid "Authomatic PAS Plugin: uninstall"
 msgstr ""
 
-#: pas/plugins/authomatic/browser/view.py:93
+#: pas/plugins/authomatic/browser/view.py:103
 msgid "Authomatic is not configured"
+msgstr ""
+
+#: pas/plugins/authomatic/browser/controlpanel.py:36
+msgid "Authomatic settings"
 msgstr ""
 
 #: pas/plugins/authomatic/profiles.zcml:16
 msgid "Authomatic: Login with OAuth/OpenID 3rd party auth providers using the pas.plugins.authomatic add-on."
 msgstr ""
 
-#: pas/plugins/authomatic/interfaces.py:101
+#: pas/plugins/authomatic/interfaces.py:100
 msgid "Generator for Plone User IDs."
 msgstr ""
 
-#: pas/plugins/authomatic/interfaces.py:111
+#: pas/plugins/authomatic/interfaces.py:110
 msgid "JSON configuration"
 msgstr ""
 
-#: pas/plugins/authomatic/browser/controlpanel.py:9
+#: pas/plugins/authomatic/browser/controlpanel.py:12
 msgid "PAS Authomatic Plugin Settings"
 msgstr ""
 
-#: pas/plugins/authomatic/useridfactories.py:31
+#: pas/plugins/authomatic/useridfactories.py:29
 msgid "Provider User ID"
 msgstr ""
 
-#: pas/plugins/authomatic/useridfactories.py:39
+#: pas/plugins/authomatic/useridfactories.py:36
 msgid "Provider User Name"
 msgstr ""
 
-#: pas/plugins/authomatic/browser/view.py:104
+#: pas/plugins/authomatic/useridfactories.py:51
+msgid "Provider User Name or User ID"
+msgstr ""
+
+#: pas/plugins/authomatic/browser/view.py:114
 msgid "Provider not supported"
 msgstr ""
 
-#: pas/plugins/authomatic/interfaces.py:91
+#: pas/plugins/authomatic/interfaces.py:90
 msgid "Secret"
 msgstr ""
 
-#: pas/plugins/authomatic/useridfactories.py:23
+#: pas/plugins/authomatic/useridfactories.py:22
 msgid "UUID as User ID"
 msgstr ""
 
@@ -84,22 +92,22 @@ msgid "add_identity_title"
 msgstr ""
 
 #. Default: "Added identity provided by ${provider}"
-#: pas/plugins/authomatic/browser/view.py:68
+#: pas/plugins/authomatic/browser/view.py:73
 msgid "added_identity"
 msgstr ""
 
 #. Default: "Configuration parameters for the different authorization providers. Details at https://authomatic.github.io/authomatic/reference/providers.html - difference: \"class_\" has to be a string, which is then resolved as a dotted path. Also sections \"display\" and \"propertymap\" are special."
-#: pas/plugins/authomatic/interfaces.py:112
+#: pas/plugins/authomatic/interfaces.py:111
 msgid "help_json_config"
 msgstr ""
 
 #. Default: "Some random string used to encrypt the state"
-#: pas/plugins/authomatic/interfaces.py:92
+#: pas/plugins/authomatic/interfaces.py:91
 msgid "help_secret"
 msgstr ""
 
 #. Default: "It is visible if no fullname is mapped and in some rare cases in URLs. It is the identifier used for the user inside Plone."
-#: pas/plugins/authomatic/interfaces.py:102
+#: pas/plugins/authomatic/interfaces.py:101
 msgid "help_userid_factory_name"
 msgstr ""
 
@@ -119,7 +127,7 @@ msgid "invalid_json"
 msgstr ""
 
 #. Default: "Logged in with ${provider}"
-#: pas/plugins/authomatic/browser/view.py:81
+#: pas/plugins/authomatic/browser/view.py:86
 msgid "logged_in_with"
 msgstr ""
 
@@ -128,6 +136,6 @@ msgstr ""
 msgid "login_title"
 msgstr ""
 
-#: pas/plugins/authomatic/browser/view.py:100
+#: pas/plugins/authomatic/browser/view.py:110
 msgid "redirecting"
 msgstr ""

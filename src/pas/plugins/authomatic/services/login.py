@@ -26,4 +26,4 @@ class AuthomaticLoginProviders:
                 }
             )
 
-        return {"options": options}
+        return options
