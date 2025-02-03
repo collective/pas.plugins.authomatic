@@ -8,6 +8,18 @@
 
 <!-- towncrier release notes start -->
 
+## 2.0.0b3 (2025-02-03)
+
+
+### New features:
+
+- Register the adapter as needed by the @login endpoint present in plone.restapi @erral [#73](https://github.com/collective/pas.plugins.authomatic/issues/73)
+
+
+### Internal:
+
+- Require plone.restapi higher than 9.10.0 [@ericof] 
+
 ## 2.0.0b2 (2025-01-14)
 
 
