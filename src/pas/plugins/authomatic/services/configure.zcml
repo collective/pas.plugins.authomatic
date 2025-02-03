@@ -5,12 +5,9 @@
 
   <include package="plone.restapi" />
   <!-- List authentication options -->
-  <plone:service
-      method="GET"
-      factory=".login.Get"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      permission="zope.Public"
-      name="@login"
+  <adapter
+      factory=".login.AuthomaticLoginProviders"
+      name="pas-plugins-authomatic-providers"
       />
 
   <!-- Authomatic authentication services -->
