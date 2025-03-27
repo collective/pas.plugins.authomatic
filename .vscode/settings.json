@@ -1,7 +1,13 @@
 {
-  "flake8.cwd": "${workspaceFolder}",
   "flake8.args": ["--config=pyproject.toml"],
-  "black-formatter.cwd": "${workspaceFolder}",
-  "isort.args": ["--settings-path=${workspaceFolder}/pyproject.toml"],
-  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
+  "ruff.organizeImports": true,
+  "python.terminal.activateEnvironment": true,
+  "python.testing.pytestArgs": [
+    "tests"
+  ],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "[markdown]": {
+    "editor.formatOnSave": false
+  }
 }

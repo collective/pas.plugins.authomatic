@@ -63,19 +63,19 @@ def patch_base_provider_fetch():
         url_parsed = parse.urlsplit(url)
         query = parse.urlencode(params)
 
-        if method in ("POST", "PUT", "PATCH"):
-            if not body:
-                # Put querystring to body
-                body = query
-                query = ""
-                headers.update({"Content-Type": "application/x-www-form-urlencoded"})
-        request_path = parse.urlunsplit((
+        if method in ("POST", "PUT", "PATCH") and not body:
+            # Put querystring to body
+            body = query
+            query = ""
+            headers.update({"Content-Type": "application/x-www-form-urlencoded"})
+        params = (
             "",
             "",
             url_parsed.path or "",
             query or "",
             "",
-        ))
+        )
+        request_path = parse.urlunsplit(params)
 
         self._log_param("host", url_parsed.hostname, last=False)
         self._log_param("method", method, last=False)

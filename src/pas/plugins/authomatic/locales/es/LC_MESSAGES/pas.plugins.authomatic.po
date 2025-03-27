@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pas.plugins.authomatic\n"
-"POT-Creation-Date: 2024-12-23 19:54+0000\n"
+"POT-Creation-Date: 2025-03-27 17:12+0000\n"
 "PO-Revision-Date: 2023-05-25 14:22-0400\n"
 "Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>\n"
 "Language-Team: ES <LL@li.org>\n"
@@ -84,12 +84,12 @@ msgid "Uninstalls the pas.plugins.authomatic add-on. This REMOVES ALL USERS mana
 msgstr "Desinstala el complemento pas.plugins.authomatic. ¡Esto ELIMINA TODOS LOS USUARIOS administrados por este complemento!"
 
 #. Default: "Choose one of these external authentication providers"
-#: pas/plugins/authomatic/browser/authomatic.pt:14
+#: pas/plugins/authomatic/browser/authomatic.pt:15
 msgid "add_description"
 msgstr "Elija uno de estos proveedores de autenticación externos"
 
 #. Default: "Add identity"
-#: pas/plugins/authomatic/browser/authomatic.pt:12
+#: pas/plugins/authomatic/browser/authomatic.pt:13
 msgid "add_identity_title"
 msgstr "Añadir identidad"
 
@@ -134,7 +134,7 @@ msgid "logged_in_with"
 msgstr "Iniciado sesión con ${provider}"
 
 #. Default: "Log in with"
-#: pas/plugins/authomatic/browser/authomatic.pt:9
+#: pas/plugins/authomatic/browser/authomatic.pt:10
 msgid "login_title"
 msgstr "Inicia con"
 

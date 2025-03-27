@@ -5,9 +5,8 @@ import pytest
 
 
 @pytest.fixture
-def available_steps(portal):
+def available_steps(setup_tool):
     """Test available steps."""
-    setup_tool = portal.portal_setup
 
     def _match(item, source, dest):
         source, dest = (source,), (dest,)

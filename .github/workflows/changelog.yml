@@ -1,0 +1,31 @@
+name: Change log check
+on:
+  pull_request:
+    types: [assigned, opened, synchronize, reopened, labeled, unlabeled]
+    branches:
+      - main
+
+env:
+  python-version: 3.12
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Fetch all history
+          fetch-depth: '0'
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ env.python-version }}
+
+      - name: Check for presence of a Change Log fragment (only pull requests)
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_BRANCH: ${{ github.base_ref }}
+        run: |
+          git fetch --no-tags origin ${BASE_BRANCH}
+          uvx towncrier check  --compare-with origin/${{ env.BASE_BRANCH }} --config pyproject.toml --dir .
