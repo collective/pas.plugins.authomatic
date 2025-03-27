@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-12-23 19:54+0000\n"
+"POT-Creation-Date: 2025-03-27 17:12+0000\n"
 "PO-Revision-Date: 2015-11-12 12:20+0000\n"
 "Last-Translator: Jens Klein <jens@bluedynamics.com>\n"
 "Language-Team: BlueDynamics Alliance <dev@bluedynamics.com>\n"
@@ -80,12 +80,12 @@ msgid "Uninstalls the pas.plugins.authomatic add-on. This REMOVES ALL USERS mana
 msgstr ""
 
 #. Default: "Choose one of these external authentication providers"
-#: pas/plugins/authomatic/browser/authomatic.pt:14
+#: pas/plugins/authomatic/browser/authomatic.pt:15
 msgid "add_description"
 msgstr "Wählen Sie einens dieser externen Authentisierungs-Anbieter"
 
 #. Default: "Add identity"
-#: pas/plugins/authomatic/browser/authomatic.pt:12
+#: pas/plugins/authomatic/browser/authomatic.pt:13
 msgid "add_identity_title"
 msgstr "Identität hinzufügen"
 
@@ -135,7 +135,7 @@ msgid "logged_in_with"
 msgstr "Eingeloggt mit ${provider}"
 
 #. Default: "Log in with"
-#: pas/plugins/authomatic/browser/authomatic.pt:9
+#: pas/plugins/authomatic/browser/authomatic.pt:10
 msgid "login_title"
 msgstr "Einloggen mit"
 

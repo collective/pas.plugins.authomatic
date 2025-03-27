@@ -6,23 +6,40 @@
 Adds the pas.plugin.authomatic plugin.
 </p>
 
-<form action="manage_addAuthomaticPlugin" method="POST">
-    <table>
-        <tr>
-           <td class="form-label"> Id </td>
-           <td> <input type="hidden" name="id" value="authomatic"/> </td>
-        </tr>
-        <tr>
-           <td class="form-label"> Title </td>
-           <td> <input type="text" name="title" /> </td>
-        </tr>
-        <tr>
-           <td colspan="2">
-            <div class="form-element">
-             <input type="submit" value="submit"/>
-             </div>
-           </td>
-        </tr>
-    </table>
+<form action="manage_addAuthomaticPlugin"
+      method="POST"
+>
+  <table>
+    <tr>
+      <td class="form-label">
+        Id
+      </td>
+      <td>
+        <input name="id"
+               type="hidden"
+               value="authomatic"
+        />
+      </td>
+    </tr>
+    <tr>
+      <td class="form-label">
+        Title
+      </td>
+      <td>
+        <input name="title"
+               type="text"
+        />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div class="form-element">
+          <input type="submit"
+                 value="submit"
+          />
+        </div>
+      </td>
+    </tr>
+  </table>
 </form>
 <h1 tal:replace="structure here/manage_page_footer">Footer</h1>
