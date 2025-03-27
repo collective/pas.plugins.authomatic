@@ -8,6 +8,22 @@
 
 <!-- towncrier release notes start -->
 
+## 2.0.0rc1 (2025-03-27)
+
+
+### New features:
+
+- - Documented integration with Microsoft Entra ID @alecghica [#87](https://github.com/collective/pas.plugins.authomatic/issues/87)
+
+
+### Internal:
+
+- Add suuport to Python 3.13 @ericof [#89](https://github.com/collective/pas.plugins.authomatic/issues/89)
+- Use UV to manage the environment @ericof [#90](https://github.com/collective/pas.plugins.authomatic/issues/90)
+- Update .vscode configuration @ericof [#91](https://github.com/collective/pas.plugins.authomatic/issues/91)
+- GHA: Update workflows. @ericof [#92](https://github.com/collective/pas.plugins.authomatic/issues/92)
+- Use pytest-plone 1.0.0a1 @ericof [#93](https://github.com/collective/pas.plugins.authomatic/issues/93)
+
 ## 2.0.0b3 (2025-02-03)
 
 
