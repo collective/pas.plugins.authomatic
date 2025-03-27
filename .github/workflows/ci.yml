@@ -1,4 +1,4 @@
-name: pas.plugins.oidc CI
+name: pas.plugins.authomatic CI
 
 on:
   push:
