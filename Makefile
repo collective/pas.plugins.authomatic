@@ -166,23 +166,6 @@ test: $(VENV_FOLDER) ## run tests
 test-coverage: $(VENV_FOLDER) ## run tests with coverage
 	@uv run pytest --cov=pas.plugins.authomatic --cov-report term-missing
 
-############################################
-# Keycloak
-############################################
-.PHONY: keycloak-start
-keycloak-start: ## Start Keycloak stack
-	@echo "$(GREEN)==> Start keycloak stack$(RESET)"
-	@docker compose -f $(TESTS_FOLDER)/docker-compose.yml up -d
-
-.PHONY: keycloak-status
-keycloak-status: ## Check Keycloak stack status
-	@echo "$(GREEN)==> Check Keycloak stack status$(RESET)"
-	@docker compose -f $(TESTS_FOLDER)/docker-compose.yml ps
-
-.PHONY: keycloak-stop
-keycloak-stop: ## Stop Keycloak stack
-	@echo "$(GREEN)==> Stop Keycloak stack$(RESET)"
-	@docker compose -f $(TESTS_FOLDER)/docker-compose.yml down
 
 ############################################
 # Release
