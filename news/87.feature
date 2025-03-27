@@ -1,0 +1,1 @@
+- Documented integration with Microsoft Entra ID @alecghica

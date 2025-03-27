@@ -36,7 +36,6 @@ through standards like OAuth and OpenID.
 ```
 *by author Peter Hudec on Authomatic website*
 
-
 ### Supported Providers
 
 Out of the box,  **pas.plugins.authomatic** supports the following providers
@@ -122,7 +121,6 @@ This package supports Plone sites using Volto or the Classic UI.
 }
 ```
 
-
 ### Classic UI
 
 - This package creates a view called `authomatic-handler` where you can login with different providers.
@@ -203,6 +201,9 @@ There are some differences in configuration:
 - Each provider can get an optional entry `propertymap`.
   It is a mapping from authomatic/provider user properties to plone user properties, like `"fullname": "name",`. Look at each providers documentation which properties are available.
 
+## Integration with Entra ID
+
+Enumeration PAS plugin: if you're using **pas.plugins.authomatic** with *Microsoft Entra ID*, we recommend pairing it with [pas.plugins.eea](https://github.com/eea/pas.plugins.eea) for proper user enumeration and metadata synchronization. This complementary plugin enables listing all the Entra ID users and groups and is compatible with both Plone 5 and Plone 6.
 
 ## Source Code and Contributions
 
@@ -210,7 +211,6 @@ If you want to help with the development (improvement, update, bug-fixing, ...) 
 
 - [Issue Tracker](https://github.com/collective/pas.plugins.authomatic/issues)
 - [Source Code](https://github.com/collective/pas.plugins.authomatic/)
-
 
 Please do larger changes on a branch and submit a Pull Request.
 
