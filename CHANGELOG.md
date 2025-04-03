@@ -3,7 +3,7 @@
 ## 1.4.1 (unreleased)
 
 
-- Nothing changed yet.
+- Restore compatibility with Plone 6.0.15. Fixes [#97](https://github.com/collective/pas.plugins.authomatic/issues/97). @ale-rt
 
 
 ## 1.4.0 (2024-12-13)
