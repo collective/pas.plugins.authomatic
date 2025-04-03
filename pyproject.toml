@@ -38,6 +38,7 @@ dependencies = [
     "Products.CMFPlone>=6.0",
     "authomatic>=1.3.0",
     "plone.restapi>=9.10.0",
+    "plone.api",
 ]
 
 [project.optional-dependencies]
