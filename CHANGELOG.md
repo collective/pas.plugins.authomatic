@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.4.1 (unreleased)
+## 1.4.1a1+slc.0 (2025-04-03)
 
 
 - Restore compatibility with Plone 6.0.15. Fixes [#97](https://github.com/collective/pas.plugins.authomatic/issues/97). @ale-rt
