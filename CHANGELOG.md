@@ -8,6 +8,13 @@
 
 <!-- towncrier release notes start -->
 
+## 2.0.0rc2 (2025-04-03)
+
+
+### Bug fixes:
+
+- Add missing `plone.api` dependency. @mauritsvanrees [#95](https://github.com/collective/pas.plugins.authomatic/issues/95)
+
 ## 2.0.0rc1 (2025-03-27)
 
 
