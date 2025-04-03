@@ -10,6 +10,7 @@
       factory=".login.Get"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       permission="zope.Public"
+      layer="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticLayer"
       name="@login"
       />
 
@@ -19,6 +20,7 @@
       factory=".authomatic.Get"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       permission="zope.Public"
+      layer="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticLayer"
       name="@login-authomatic"
       />
 
@@ -27,6 +29,7 @@
       factory=".authomatic.Post"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       permission="zope.Public"
+      layer="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticLayer"
       name="@login-authomatic"
       />
 
