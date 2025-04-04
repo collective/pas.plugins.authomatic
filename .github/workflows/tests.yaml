@@ -19,10 +19,10 @@ jobs:
 
     - name: "Set up packages"
       run: |
-        pip install -IU "pip<23" -r https://dist.plone.org/release/${{ matrix.plone }}/requirements.txt
-        pip --version
-        pip install Products.CMFPlone -c https://dist.plone.org/release/${{ matrix.plone }}/constraints.txt
-        pip install plone.restapi -c https://dist.plone.org/release/${{ matrix.plone }}/constraints.txt
+        pip${{ matrix.python }} install -IU "pip<23" -r https://dist.plone.org/release/${{ matrix.plone }}/requirements.txt
+        pip${{ matrix.python }} --version
+        pip${{ matrix.python }} install Products.CMFPlone -c https://dist.plone.org/release/${{ matrix.plone }}/constraints.txt
+        pip${{ matrix.python }} install plone.restapi -c https://dist.plone.org/release/${{ matrix.plone }}/constraints.txt
       if: ${{ matrix.plone == '5.2-latest' }}
 
     - name: Setup Plone ${{ matrix.plone }} with Python ${{ matrix.python }}
@@ -35,7 +35,7 @@ jobs:
     # Install pas.plugins.authomatic with test extras
     - name: Install pas.plugins.authomatic
       run: |
-        pip install ".[test]"
+        pip${{ matrix.python }} install ".[test]"
 
     # test
     - name: Test Codebase
