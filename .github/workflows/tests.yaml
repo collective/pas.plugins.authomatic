@@ -17,14 +17,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: "Set up build tools"
-      run: |
-        pip install -IUr https://dist.plone.org/release/${{ matrix.plone }}/requirements.txt "pip<23"
-      if: ${{ matrix.plone == '5.2-latest' }}
-
     - name: "Set up packages"
       run: |
-        pip install plone.restapi -c https://dist.plone.org/release/${{ matrix.plone }}/requirements.txt
+        pip install "pip<23" plone.restapi -c https://dist.plone.org/release/${{ matrix.plone }}/constraints.txt
       if: ${{ matrix.plone == '5.2-latest' }}
 
     - name: Setup Plone ${{ matrix.plone }} with Python ${{ matrix.python }}
