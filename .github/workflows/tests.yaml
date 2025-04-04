@@ -32,7 +32,7 @@ jobs:
     - name: Upgrade setuptools
       run: |
         pip uninstall plone.restapi -y
-        pip install -IU setuptools<50
+        pip install -IU "setuptools<50"
         pip uninstall wheel -y
         pip install --upgrade plone.restapi -c https://dist.plone.org/release/${{ matrix.plone }}/constraints.txt
       if: "${{ matrix.python == '3.8' }}"
