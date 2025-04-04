@@ -14,7 +14,7 @@ jobs:
             os: "ubuntu-22.04"
           - plone: "5.2-latest"
             python: "3.8"
-            os: "ubuntu-latest"
+            os: "ubuntu-22.04"
           - plone: "6.0-latest"
             python: "3.9"
             os: "ubuntu-latest"
