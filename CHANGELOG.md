@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.2 (unreleased)
+
+
+- Nothing changed yet.
+
+
 ## 1.4.1 (2025-04-04)
 
 
