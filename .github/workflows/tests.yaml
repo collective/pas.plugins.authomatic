@@ -28,6 +28,7 @@ jobs:
     # Install pas.plugins.authomatic with test extras
     - name: Install pas.plugins.authomatic
       run: |
+        pip install git+https://github.com/plone/plone.autoinclude.git@python3.8#egg=plone.autoinclude
         pip install ".[test]"
 
     # test
