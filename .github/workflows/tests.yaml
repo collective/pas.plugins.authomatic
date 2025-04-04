@@ -32,7 +32,8 @@ jobs:
     - name: Upgrade setuptools
       run: |
         pip uninstall plone.restapi -y
-        pip install --upgrade setuptools==65.7.0 plone.restapi -c https://dist.plone.org/release/${{ matrix.plone }}/constraints.txt
+        pip install --upgrade setuptools -c https://dist.plone.org/release/${{ matrix.plone }}/constraints.txt
+        pip install --upgrade plone.restapi -c https://dist.plone.org/release/${{ matrix.plone }}/constraints.txt
       if: "${{ matrix.python == '3.8' }}"
 
     # test
