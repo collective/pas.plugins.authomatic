@@ -23,7 +23,7 @@ jobs:
       with:
         python-version: ${{ matrix.python }}
         plone-version: ${{ matrix.plone }}
-        setuptools-version: "75.3.2"
+        setuptools-version: "<49"
 
     # Install pas.plugins.authomatic with test extras
     - name: Install pas.plugins.authomatic
