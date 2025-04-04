@@ -19,7 +19,8 @@ jobs:
 
     - name: "Set up packages"
       run: |
-        pip install -IU "pip<23" -r requirements.txt -c https://dist.plone.org/release/${{ matrix.plone }}/constraints.txt
+        pip install -IU "pip<23" -r requirements.txt
+        pip install Products.CMFPlone -c https://dist.plone.org/release/${{ matrix.plone }}/constraints.txt
         pip install plone.restapi -c https://dist.plone.org/release/${{ matrix.plone }}/constraints.txt
       if: ${{ matrix.plone == '5.2-latest' }}
 
