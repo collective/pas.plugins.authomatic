@@ -1,3 +1,6 @@
+[build-system]
+requires = ["setuptools>=68.2,<=75.8.0"]
+
 [tool.black]
 line-length = 88
 target-version = ['py38']
