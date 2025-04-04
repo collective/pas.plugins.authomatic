@@ -17,21 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Python ${{ matrix.python }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python }}
-        cache: "pip"
-      if: ${{ matrix.plone == '5.2-latest' }}
-
-    - name: "Set up packages"
-      run: |
-        pip install -IU "pip<23" -r https://dist.plone.org/release/${{ matrix.plone }}/requirements.txt
-        pip --version
-        pip install Products.CMFPlone -c https://dist.plone.org/release/${{ matrix.plone }}/constraints.txt
-        pip install plone.restapi -c https://dist.plone.org/release/${{ matrix.plone }}/constraints.txt
-      if: ${{ matrix.plone == '5.2-latest' }}
-
     - name: Setup Plone ${{ matrix.plone }} with Python ${{ matrix.python }}
       id: setup
       uses: plone/setup-plone@v2.0.0
@@ -43,6 +28,11 @@ jobs:
     - name: Install pas.plugins.authomatic
       run: |
         pip install ".[test]"
+
+    - name: Upgrade setuptools
+      run: |
+        pip install --upgrade setuptools==75.3.2
+      if: "${{ matrix.python == '3.8' }}"
 
     # test
     - name: Test Codebase
