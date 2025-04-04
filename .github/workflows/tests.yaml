@@ -17,13 +17,16 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: "Set up build tools"
+      run: |
+        pip install -IUr https://dist.plone.org/release/${{ matrix.plone }}/requirements.txt
+
     - name: Setup Plone ${{ matrix.plone }} with Python ${{ matrix.python }}
       id: setup
       uses: plone/setup-plone@v2.0.0
       with:
         python-version: ${{ matrix.python }}
         plone-version: ${{ matrix.plone }}
-        setuptools-version: "42.0.2"
 
     # Install pas.plugins.authomatic with test extras
     - name: Install pas.plugins.authomatic
