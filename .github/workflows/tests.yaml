@@ -19,7 +19,7 @@ jobs:
 
     - name: "Set up build tools"
       run: |
-        pip install -IUr https://dist.plone.org/release/${{ matrix.plone }}/requirements.txt "pip=<23"
+        pip install -IUr https://dist.plone.org/release/${{ matrix.plone }}/requirements.txt "pip<23"
 
     - name: Setup Plone ${{ matrix.plone }} with Python ${{ matrix.python }}
       id: setup
