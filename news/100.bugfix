@@ -1,0 +1,1 @@
+Fix walrus operator usage to correctly assign authomatic_cfg() result
