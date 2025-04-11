@@ -99,7 +99,7 @@ class AuthomaticView(BrowserView):
 
     def __call__(self):
         provider = getattr(self, "provider", "")
-        if cfg := authomatic_cfg() is None:
+        if (cfg := authomatic_cfg()) is None:
             return _("Authomatic is not configured")
         if not is_root(self.context):
             # callback url is expected on either navigationroot or site root
