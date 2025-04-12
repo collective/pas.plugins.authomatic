@@ -8,6 +8,13 @@
 
 <!-- towncrier release notes start -->
 
+## 2.0.0rc3 (2025-04-11)
+
+
+### Bug fixes:
+
+- Fix walrus operator usage to correctly assign authomatic_cfg() result [#100](https://github.com/collective/pas.plugins.authomatic/issues/100)
+
 ## 2.0.0rc2 (2025-04-03)
 
 
