@@ -8,6 +8,18 @@
 
 <!-- towncrier release notes start -->
 
+## 2.0.0 (2025-05-15)
+
+
+### Internal:
+
+- GHA: Use plone/meta shared workflows. @ericof [#102](https://github.com/collective/pas.plugins.authomatic/issues/102)
+
+
+### Documentation:
+
+- Update README file with release instructions. @ericof 
+
 ## 2.0.0rc3 (2025-04-11)
 
 
