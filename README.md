@@ -1,6 +1,9 @@
-<div align="center"><img alt="logo" src="https://raw.githubusercontent.com/collective/pas.plugins.authomatic/main/docs/authomatic.svg" width="70" /></div>
+<div align="center">
 
+<img alt="logo" src="https://raw.githubusercontent.com/collective/pas.plugins.authomatic/main/docs/authomatic.svg" width="70" />
 <h1 align="center">OAuth2 / OpenId Authentication in Plone</h1>
+
+</div>
 
 <div align="center">
 
@@ -13,8 +16,7 @@
 
 [![PyPI - Plone Versions](https://img.shields.io/pypi/frameworkversions/plone/pas.plugins.authomatic)](https://pypi.org/project/pas.plugins.authomatic/)
 
-[![Code analysis checks](https://github.com/collective/pas.plugins.authomatic/actions/workflows/code-analysis.yml/badge.svg)](https://github.com/collective/pas.plugins.authomatic/actions/workflows/code-analysis.yml)
-[![Tests](https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yaml/badge.svg)](https://github.com/collective/pas.plugins.authomatic/actions/workflows/tests.yaml)
+[![CI](https://github.com/collective/pas.plugins.authomatic/actions/workflows/main.yml/badge.svg)](https://github.com/collective/pas.plugins.authomatic/actions/workflows/main.yml)
 ![Code Style](https://img.shields.io/badge/Code%20Style-Black-000000)
 
 [![GitHub contributors](https://img.shields.io/github/contributors/collective/pas.plugins.authomatic)](https://github.com/collective/pas.plugins.authomatic)
@@ -269,35 +271,10 @@ Towncrier will automatically add a reference to the issue when rendering the CHA
 
 Releasing `pas.plugins.authomatic` is done using a combination of [zest.releaser](https://zestreleaser.readthedocs.io/) and [hatch](https://hatch.pypa.io/latest/).
 
-The release process consists of three steps: **Pre-release**, **Release**, and **Post-release**.
-
-#### Pre-release
-Run the following command to populate the `CHANGES.md` file with the entries available in the `news/` directory:
+To release the package run:
 
 ```bash
-.venv/bin/prerelease
-```
-
-#### Release
-
-1. Create a new Git tag:
-   ```bash
-   git tag -a {VERSION} -m "Release {VERSION}"
-   ```
-2. Build the project:
-   ```bash
-   hatch build
-   ```
-3. Publish the package to PyPI:
-   ```bash
-   hatch publish
-   ```
-
-#### Post-release
-Run the following command to bump the package version, create a new commit, and push all changes to GitHub:
-
-```bash
-.venv/bin/postrelease
+make release
 ```
 
 ## License
