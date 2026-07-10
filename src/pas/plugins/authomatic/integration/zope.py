@@ -1,10 +1,7 @@
 from authomatic.adapters import BaseAdapter
+from pas.plugins.authomatic import logger
 
 import http
-import logging
-
-
-logger = logging.getLogger(__file__)
 
 
 class ZopeRequestAdapter(BaseAdapter):
@@ -53,7 +50,7 @@ class ZopeRequestAdapter(BaseAdapter):
         self.view.request.response.setHeader(key, value)
 
     def set_status(self, status):
-        code, message = status.split(" ")
+        code, _ = status.split(" ")
         code = int(code)
         logger.debug(f"set_status {code}")
         self.view.request.response.setStatus(code)
