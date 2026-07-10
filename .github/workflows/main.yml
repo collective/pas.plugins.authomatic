@@ -24,8 +24,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.14", "3.13", "3.12", "3.11"]
-        plone-version: ["6.2-latest", "6.1-latest"]
+        include:
+          - python-version: "3.14"
+            plone-version: "6.2-latest"
+          - python-version: "3.13"
+            plone-version: "6.2-latest"
+          - python-version: "3.12"
+            plone-version: "6.2-latest"
+          - python-version: "3.11"
+            plone-version: "6.2-latest"
+          - python-version: "3.13"
+            plone-version: "6.1-latest"
+          - python-version: "3.12"
+            plone-version: "6.1-latest"
+          - python-version: "3.11"
+            plone-version: "6.1-latest"
     with:
       python-version: ${{ matrix.python-version }}
       plone-version: ${{ matrix.plone-version }}
