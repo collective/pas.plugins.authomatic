@@ -4,7 +4,7 @@ dynamic = ["version"]
 description = "Provides OAuth2/OpenID login for Plone using Authomatic."
 readme = "README.md"
 license = {text = "GNU General Public License v2 (GPLv2)"}
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 authors = [
     { name = "Jens Klein", email = "dev@bluedynamics.com" },
     { name = "Érico Andrei", email = "ericof@plone.org" },
@@ -21,23 +21,22 @@ classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Web Environment",
     "Framework :: Plone",
-    "Framework :: Plone :: 6.0",
     "Framework :: Plone :: 6.1",
+    "Framework :: Plone :: 6.2",
     "Framework :: Plone :: Addon",
     "Framework :: Zope",
     "Framework :: Zope :: 5",
-    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
-    "Products.CMFPlone>=6.0",
+    "Products.CMFPlone>=6.1",
     "authomatic>=1.3.0",
-    "plone.restapi>=9.10.0",
+    "plone.restapi",
     "plone.api",
 ]
 
@@ -49,9 +48,9 @@ test = [
     "plone.restapi[test]",
     "zest.releaser[recommended]",
     "pytest-cov",
-    "pytest-plone>=1.0.0a1",
-    "zest-releaser[recommended]>=9.5.0",
-    "zestreleaser-towncrier>=1.3.0",
+    "pytest-plone>=1.0.0",
+    "zest-releaser[recommended]",
+    "zestreleaser-towncrier",
 ]
 
 [project.urls]
@@ -140,7 +139,7 @@ enable-unstable-feature = [
 ]
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py311"
 line-length = 88
 fix = true
 lint.select = [

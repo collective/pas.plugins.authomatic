@@ -1,13 +1,17 @@
 from pas.plugins.authomatic.patches import apply_patches
 
+import logging
 
-__version__ = "2.0.1.dev0"
+
+__version__ = "3.0.0.dev0"
 
 
 PACKAGE_NAME = "pas.plugins.authomatic"
 
 
-apply_patches()
+logger = logging.getLogger(PACKAGE_NAME)
+
+apply_patches(logger)
 
 
 def initialize(context):

@@ -6,11 +6,11 @@ on:
       python-version:
         required: false
         type: string
-        default: "3.12"
+        default: "3.14"
       plone-version:
         required: false
         type: string
-        default: "6.1.1"
+        default: "6.2.1"
     outputs:
       backend:
         description: "Flag reporting if we should run the backend jobs"

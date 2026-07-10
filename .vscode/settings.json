@@ -1,6 +1,8 @@
 {
-  "flake8.args": ["--config=pyproject.toml"],
   "ruff.organizeImports": true,
+  "python-envs.workspaceSearchPaths": [
+    ".venv"
+  ],
   "python.terminal.activateEnvironment": true,
   "python.testing.pytestArgs": [
     "tests"

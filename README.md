@@ -205,7 +205,7 @@ There are some differences in configuration:
 
 ## Integration with Entra ID
 
-Enumeration PAS plugin: if you're using **pas.plugins.authomatic** with *Microsoft Entra ID*, we recommend pairing it with [pas.plugins.eea](https://github.com/eea/pas.plugins.eea) for proper user enumeration and metadata synchronization. This complementary plugin enables listing all the Entra ID users and groups and is compatible with both Plone 5 and Plone 6.
+Enumeration PAS plugin: if you're using **pas.plugins.authomatic** with *Microsoft Entra ID*, we recommend pairing it with [pas.plugins.eea](https://github.com/eea/pas.plugins.eea) for proper user enumeration and metadata synchronization. This complementary plugin enables listing all the Entra ID users and groups and is compatible with Plone 6.1 and 6.2.
 
 ## Source Code and Contributions
 
@@ -222,7 +222,7 @@ We appreciate any contribution and if a release is needed to be done on PyPI, pl
 
 ### Development
 
-You need a working `python` environment (system, virtualenv, pyenv, etc) version 3.7 or superior.
+You need a working `python` environment (system, virtualenv, pyenv, etc) version 3.11 or superior.
 
 Then install the dependencies and a development instance using:
 
@@ -246,9 +246,9 @@ By default we use the latest Plone version in the 6.x series.
 
 ### Changelog entries
 
-The `CHANGES.md` file is managed using [towncrier](https://towncrier.readthedocs.io/). All non trivial changes must be accompanied by an entry in the `news` directory. Using such a tool instead of editing the file directly, has the following benefits:
+The `CHANGELOG.md` file is managed using [towncrier](https://towncrier.readthedocs.io/). All non trivial changes must be accompanied by an entry in the `news` directory. Using such a tool instead of editing the file directly, has the following benefits:
 
-* It avoids merge conflicts in CHANGES.md.
+* It avoids merge conflicts in CHANGELOG.md.
 * It avoids news entries ending up under the wrong version header.
 
 The best way of adding news entries is this:
@@ -260,12 +260,14 @@ The best way of adding news entries is this:
   * For bug fixes: 42.bugfix.
   * For new features: 42.feature.
   * For internal changes: 42.internal.
-  * For breaking changs: 42.breaking.
+  * For breaking changes: 42.breaking.
+  * For documentation changes: 42.documentation.
+  * For test changes: 42.tests.
   * Any other extensions are ignored.
 
-* The contents of this file should be markdown formatted text that will be used as the content of the CHANGES.md entry.
+* The contents of this file should be markdown formatted text that will be used as the content of the CHANGELOG.md entry.
 
-Towncrier will automatically add a reference to the issue when rendering the CHANGES.md file.
+Towncrier will automatically add a reference to the issue when rendering the CHANGELOG.md file.
 
 ### Releasing `pas.plugins.authomatic`
 

@@ -1,14 +1,14 @@
 from authomatic.exceptions import FetchError
 from authomatic.providers import BaseProvider
 from http import client as http_client
-from pas.plugins.authomatic.log import logger
+from logging import Logger
 from urllib import parse
 
 import authomatic.core
 import ssl
 
 
-def patch_base_provider_fetch():
+def patch_base_provider_fetch(logger: Logger):
     def _fetch(
         self,
         url,

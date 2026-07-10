@@ -2,6 +2,7 @@ from AccessControl import ClassSecurityInfo
 from AccessControl.class_init import InitializeClass
 from BTrees.OOBTree import OOBTree
 from operator import itemgetter
+from pas.plugins.authomatic import logger
 from pas.plugins.authomatic.interfaces import IAuthomaticPlugin
 from pas.plugins.authomatic.useridentities import UserIdentities
 from pas.plugins.authomatic.useridfactories import new_userid
@@ -18,13 +19,10 @@ from Products.PluggableAuthService.utils import createViewName
 from zope.event import notify
 from zope.interface import implementer
 
-import logging
 
-
-logger = logging.getLogger(__name__)
 tpl_dir = Path(__file__).parent.resolve() / "browser"
 
-_marker = {}
+_marker: dict[str, str] = {}
 
 
 def manage_addAuthomaticPlugin(

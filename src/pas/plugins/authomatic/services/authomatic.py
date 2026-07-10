@@ -1,4 +1,5 @@
 from authomatic import Authomatic
+from pas.plugins.authomatic import logger
 from pas.plugins.authomatic.integration import RestAPIAdapter
 from pas.plugins.authomatic.utils import authomatic_cfg
 from pas.plugins.authomatic.utils import authomatic_settings
@@ -13,11 +14,7 @@ from zope.interface import alsoProvides
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 
-import logging
 import transaction
-
-
-logger = logging.getLogger("pas.plugins.authomatic")
 
 
 @implementer(IPublishTraverse)

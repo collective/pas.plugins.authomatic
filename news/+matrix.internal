@@ -1,0 +1,1 @@
+Excluded the unsupported Python 3.14 / Plone 6.1 combination from the CI test matrix. @ericof

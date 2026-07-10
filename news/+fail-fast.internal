@@ -1,0 +1,1 @@
+Disabled `fail-fast` in the CI test matrix so a single failing job no longer cancels the others. @ericof

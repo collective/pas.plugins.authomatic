@@ -3,8 +3,8 @@ import pytest
 
 class TestServiceLogin:
     @pytest.fixture(autouse=True)
-    def _setup(self, api_anon_request):
-        self.api_session = api_anon_request
+    def _setup(self, anon_request):
+        self.api_session = anon_request
 
     def test_get_login_endpoint(self):
         response = self.api_session.get("/@login")

@@ -22,9 +22,23 @@ jobs:
     needs:
       - config
     strategy:
+      fail-fast: false
       matrix:
-        python-version: ["3.13", "3.12", "3.11", "3.10"]
-        plone-version: ["6.1-latest", "6.0-latest"]
+        include:
+          - python-version: "3.14"
+            plone-version: "6.2-latest"
+          - python-version: "3.13"
+            plone-version: "6.2-latest"
+          - python-version: "3.12"
+            plone-version: "6.2-latest"
+          - python-version: "3.11"
+            plone-version: "6.2-latest"
+          - python-version: "3.13"
+            plone-version: "6.1-latest"
+          - python-version: "3.12"
+            plone-version: "6.1-latest"
+          - python-version: "3.11"
+            plone-version: "6.1-latest"
     with:
       python-version: ${{ matrix.python-version }}
       plone-version: ${{ matrix.plone-version }}
@@ -34,7 +48,6 @@ jobs:
     uses: plone/meta/.github/workflows/backend-pytest-coverage.yml@2.x
     needs:
       - config
-      - test
     with:
       python-version: ${{ needs.config.outputs.python-version }}
       plone-version:  ${{ needs.config.outputs.plone-version }}

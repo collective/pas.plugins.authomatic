@@ -1,9 +1,5 @@
 from authomatic.adapters import BaseAdapter
-
-import logging
-
-
-logger = logging.getLogger(__file__)
+from pas.plugins.authomatic import logger
 
 
 Headers = dict | None
@@ -12,6 +8,7 @@ Headers = dict | None
 class RestAPIAdapter(BaseAdapter):
     """Adapter for plone.restapi usage."""
 
+    headers: dict[str, str]
     frontend_route: str = "login-authomatic"
 
     def __init__(

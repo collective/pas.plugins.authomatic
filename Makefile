@@ -28,7 +28,15 @@ BACKEND_FOLDER=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 ifdef PLONE_VERSION
 PLONE_VERSION := $(PLONE_VERSION)
 else
-PLONE_VERSION := 6.1.1
+PLONE_VERSION := 6.2.1
+endif
+
+export PYTHON_VERSION := 3.14
+
+ifdef CI
+UV_VENV_ARGS :=
+else
+UV_VENV_ARGS := --python=$(PYTHON_VERSION)
 endif
 
 VENV_FOLDER=$(BACKEND_FOLDER)/.venv
@@ -47,27 +55,14 @@ all: build
 help: ## This help message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-############################################
-# Config
-############################################
-instance/etc/zope.ini instance/etc/zope.conf: ## Create instance configuration
-	@echo "$(GREEN)==> Create instance configuration$(RESET)"
-	@uvx cookiecutter -f --no-input -c 2.1.1 --config-file instance.yaml gh:plone/cookiecutter-zope-instance
-
-.PHONY: config
-config: instance/etc/zope.ini
-
-############################################
-# Installation
-############################################
-requirements-mxdev.txt: ## Generate constraints file
+requirements-mxdev.txt: pyproject.toml mx.ini ## Generate constraints file
 	@echo "$(GREEN)==> Generate constraints file$(RESET)"
 	@echo '-c https://dist.plone.org/release/$(PLONE_VERSION)/constraints.txt' > requirements.txt
-	@uvx mxdev -c mx.ini
+	@uvx 'mxdev[uv]' -c mx.ini
 
 $(VENV_FOLDER): requirements-mxdev.txt ## Install dependencies
 	@echo "$(GREEN)==> Install environment$(RESET)"
-	@uv venv $(VENV_FOLDER)
+	@if [[ -d "$(VENV_FOLDER)" ]]; then echo "$(YELLOW)==> Environment already exists at $(VENV_FOLDER)$(RESET)"; else uv venv $(UV_VENV_ARGS) $(VENV_FOLDER); fi
 	@uv pip install -r requirements-mxdev.txt
 
 .PHONY: sync
@@ -75,14 +70,20 @@ sync: $(VENV_FOLDER) ## Sync project dependencies
 	@echo "$(GREEN)==> Sync project dependencies$(RESET)"
 	@uv pip install -r requirements-mxdev.txt
 
+instance/etc/zope.ini instance/etc/zope.conf: instance.yaml ## Create instance configuration
+	@echo "$(GREEN)==> Create instance configuration$(RESET)"
+	@uvx cookiecutter -f --no-input -c 2.4.1 --config-file instance.yaml gh:plone/cookiecutter-zope-instance
+
+.PHONY: config
+config: instance/etc/zope.ini
+
 .PHONY: install
 install: $(VENV_FOLDER) config ## Install Plone and dependencies
 
 .PHONY: clean
 clean: ## Clean installation and instance
 	@echo "$(RED)==> Cleaning environment and build$(RESET)"
-	@rm -rf $(VENV_FOLDER) pyvenv.cfg .installed.cfg instance .venv .pytest_cache .ruff_cache constraints* requirements*
-	$(MAKE) -C "./docs" clean
+	@rm -rf $(VENV_FOLDER) pyvenv.cfg .installed.cfg instance/etc .venv .pytest_cache .ruff_cache constraints* requirements*
 
 ############################################
 # Instance

@@ -1,10 +1,11 @@
 from authomatic import Authomatic
+from pas.plugins.authomatic import logger
 from pas.plugins.authomatic.integration import ZopeRequestAdapter
 from pas.plugins.authomatic.interfaces import _
 from pas.plugins.authomatic.utils import authomatic_cfg
 from pas.plugins.authomatic.utils import authomatic_settings
 from plone import api
-from plone.app.layout.navigation.interfaces import INavigationRoot
+from plone.base.interfaces.siteroot import INavigationRoot
 from plone.protect.interfaces import IDisableCSRFProtection
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.Five.browser import BrowserView
@@ -12,11 +13,6 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.interface import alsoProvides
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
-
-import logging
-
-
-logger = logging.getLogger(__file__)
 
 
 def is_root(obj):
