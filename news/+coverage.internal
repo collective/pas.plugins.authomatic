@@ -1,0 +1,1 @@
+Ran the CI coverage job in parallel with the test matrix instead of waiting for it to finish. @ericof

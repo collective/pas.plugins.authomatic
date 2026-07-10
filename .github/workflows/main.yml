@@ -48,7 +48,6 @@ jobs:
     uses: plone/meta/.github/workflows/backend-pytest-coverage.yml@2.x
     needs:
       - config
-      - test
     with:
       python-version: ${{ needs.config.outputs.python-version }}
       plone-version:  ${{ needs.config.outputs.plone-version }}
