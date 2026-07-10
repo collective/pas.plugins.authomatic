@@ -5,8 +5,8 @@ import pytest
 
 class TestServiceAuthomaticGet:
     @pytest.fixture(autouse=True)
-    def _setup(self, api_anon_request):
-        self.api_session = api_anon_request
+    def _setup(self, anon_request):
+        self.api_session = anon_request
 
     @pytest.mark.parametrize(
         "url,error_type,error_message",
