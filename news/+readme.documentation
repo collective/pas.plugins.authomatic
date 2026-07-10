@@ -1,0 +1,1 @@
+Updated the README: bumped the minimum Python to 3.11, corrected the changelog filename to `CHANGELOG.md`, and documented the `documentation` and `tests` news fragment types. @ericof
