@@ -1,0 +1,1 @@
+Expanded test coverage across the add-on: the `utils` subpackages, the user-id factories and their dispatcher, the `vocabularies`, the REST and Zope request adapters, and the `config` validator. @ericof

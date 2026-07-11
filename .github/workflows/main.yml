@@ -8,6 +8,7 @@ jobs:
   config:
     name: "Compute configuration values"
     uses: ./.github/workflows/config.yml
+
   lint:
     name: "Lint codebase"
     uses: plone/meta/.github/workflows/backend-lint.yml@2.x
@@ -16,6 +17,8 @@ jobs:
     with:
       python-version: ${{ needs.config.outputs.python-version }}
       plone-version:  ${{ needs.config.outputs.plone-version }}
+      check-typing: true
+
   test:
     name: "Test codebase"
     uses: plone/meta/.github/workflows/backend-pytest.yml@2.x

@@ -13,7 +13,7 @@ def plugin():
 
 class TestUserIDFactories:
     def test_normalizer(self, plugin, mock_result):
-        from pas.plugins.authomatic.useridfactories import BaseUserIDFactory
+        from pas.plugins.authomatic.useridfactories.base import BaseUserIDFactory
 
         bf = BaseUserIDFactory()
 

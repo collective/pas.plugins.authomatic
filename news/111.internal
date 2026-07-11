@@ -1,0 +1,1 @@
+Added a `make typecheck` target (mypy) and wired it into `make check`; modernized `setuphandlers` to use `plone.api` and the `plone.base` `INonInstallable` import. @ericof

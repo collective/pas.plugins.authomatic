@@ -138,8 +138,13 @@ format: ## Check and fix code base according to Plone standards
 	@uvx ruff@latest format --config $(BACKEND_FOLDER)/pyproject.toml
 	@uvx zpretty@latest -i src
 
+.PHONY: typecheck
+typecheck: ## Run static type checking
+	@echo "$(GREEN)==> Type check codebase$(RESET)"
+	@uvx mypy@latest --config-file $(BACKEND_FOLDER)/pyproject.toml src
+
 .PHONY: check
-check: format lint ## Check and fix code base according to Plone standards
+check: format lint typecheck ## Check and fix code base according to Plone standards
 
 ############################################
 # i18n

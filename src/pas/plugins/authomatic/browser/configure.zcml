@@ -16,7 +16,7 @@
   <!-- Control panel -->
   <browser:page
       name="authomatic-controlpanel"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      for="plone.base.interfaces.IPloneSiteRoot"
       class=".controlpanel.AuthomaticSettingsEditFormSettingsControlPanel"
       permission="cmf.ManagePortal"
       layer="pas.plugins.authomatic.interfaces.IPasPluginsAuthomaticLayer"
