@@ -1,1 +1,1 @@
-Converted the package to a PEP 420 native namespace, dropping the legacy `pkg_resources` namespace declarations. @ericof
+Converted the package to a PEP 420 native namespace, dropping the legacy `pkg_resources` namespace declarations. @ericof, , @djay
