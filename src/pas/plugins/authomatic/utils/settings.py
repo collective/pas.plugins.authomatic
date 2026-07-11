@@ -52,7 +52,7 @@ def list_providers(base_url: str) -> list[t.LoginProvider]:
     :returns: List of login options.
     """
     providers = authomatic_cfg()
-    plugins = []
+    plugins: list[t.LoginProvider] = []
     for provider_id, provider in providers.items():
         entry = provider.get("display", {})
         title = entry.get("title", provider_id)

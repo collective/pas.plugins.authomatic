@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pas.plugins.authomatic.config import DEFAULT_ID
 from plone import api
 from typing import TYPE_CHECKING

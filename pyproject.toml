@@ -43,6 +43,7 @@ dependencies = [
 [project.optional-dependencies]
 test = [
     "collective.MockMailHost",
+    "mypy",
     "plone.app.robotframework[debug]",
     "plone.app.testing",
     "plone.restapi[test]",
@@ -193,6 +194,12 @@ preview = true
 [tool.mypy]
 python_version = "3.11"
 ignore_missing_imports = true
+# The package uses a PEP 420 native namespace (no __init__.py under src/pas),
+# so tell mypy the source root explicitly to avoid "found twice under different
+# module names" clashes with the installed ``authomatic`` distribution.
+explicit_package_bases = true
+namespace_packages = true
+mypy_path = "src"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pas.plugins.authomatic._types import AuthResult
 from pas.plugins.authomatic.interfaces import IUserIDFactory
 from typing import TYPE_CHECKING

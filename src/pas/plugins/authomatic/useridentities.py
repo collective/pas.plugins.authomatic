@@ -1,5 +1,6 @@
 from authomatic.core import Credentials
 from pas.plugins.authomatic._types import AuthResult
+from pas.plugins.authomatic._types import ProviderConfig
 from pas.plugins.authomatic.utils import authomatic_cfg
 from persistent import Persistent
 from persistent.mapping import PersistentMapping
@@ -90,7 +91,7 @@ class UserIdentities(Persistent):
         identity.update(result.user.to_dict())
 
     def _properties_from_identity(
-        self, identity: UserIdentity, cfg: dict[str, Any]
+        self, identity: UserIdentity, cfg: ProviderConfig
     ) -> dict[str, Any]:
         """return the property for a given identity"""
         pdata = {}

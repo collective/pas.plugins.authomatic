@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from .userid import ProviderIDUserIDFactory
 from .username import ProviderIDUserNameFactory
 from .username_userid import ProviderIDUserNameIdFactory

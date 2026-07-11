@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from .base import BaseUserIDFactory
 from pas.plugins.authomatic import _
 from pas.plugins.authomatic import _types as t
