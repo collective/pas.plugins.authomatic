@@ -203,6 +203,59 @@ There are some differences in configuration:
 - Each provider can get an optional entry `propertymap`.
   It is a mapping from authomatic/provider user properties to plone user properties, like `"fullname": "name",`. Look at each providers documentation which properties are available.
 
+## Migrating user identities
+
+When migrating a site — for example moving to a new instance — you can export the complete set of user identities stored in the Authomatic plugin to a JSON file and import them again later.
+
+Two helper functions are available in `pas.plugins.authomatic.utils.exportimport`:
+
+- `export_plugin_data(path)`: writes all stored identities to the JSON file at `path` and returns the path.
+- `import_plugin_data(path)`: reads the JSON file at `path` and restores the identities into the plugin, returning `True` on success (or `False` when no Authomatic plugin is installed).
+
+Both accept an optional `delimiter` argument used to serialize the provider identity keys (defaults to `|`).
+Using the console, to export the identities:
+
+```python
+from pas.plugins.authomatic.utils import exportimport
+from pathlib import Path
+from plone import api
+from zope.component.hooks import setSite
+
+
+path = Path("export_authomatic.json")
+
+app = globals()["app"]
+site = app.Plone
+setSite(site)
+
+with api.env.adopt_roles(["Manager"]):
+    exportimport.export_plugin_data(path)
+
+```
+
+To import them again:
+
+```python
+from pas.plugins.authomatic.utils import exportimport
+from pathlib import Path
+from plone import api
+from zope.component.hooks import setSite
+
+import transaction
+
+
+path = Path("export_authomatic.json")
+
+app = globals()["app"]
+site = app.Plone
+setSite(site)
+
+with api.env.adopt_roles(["Manager"]):
+    exportimport.import_plugin_data(path)
+
+transaction.commit()
+```
+
 ## Integration with Entra ID
 
 Enumeration PAS plugin: if you're using **pas.plugins.authomatic** with *Microsoft Entra ID*, we recommend pairing it with [pas.plugins.eea](https://github.com/eea/pas.plugins.eea) for proper user enumeration and metadata synchronization. This complementary plugin enables listing all the Entra ID users and groups and is compatible with Plone 6.1 and 6.2.

@@ -1,0 +1,1 @@
+Added `export_plugin_data` and `import_plugin_data` helpers (in `pas.plugins.authomatic.utils.exportimport`) to export the plugin's user identities to a JSON file and import them back, for use during site migrations. @ericof

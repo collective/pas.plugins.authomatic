@@ -26,6 +26,21 @@ class UserIdentity(PersistentMapping):
     def credentials(self, credentials: Credentials) -> None:
         self.data["credentials"] = credentials.serialize()
 
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> "UserIdentity":
+        """Reconstruct a :class:`UserIdentity` from its serialized mapping.
+
+        Bypasses ``__init__`` (which expects an Authomatic result) so an
+        identity can be rebuilt from exported data.
+
+        :param data: Mapping previously produced by ``dict(identity)``.
+        :returns: The reconstructed identity.
+        """
+        identity = cls.__new__(cls)
+        PersistentMapping.__init__(identity)
+        identity.update(data)
+        return identity
+
 
 class UserIdentities(Persistent):
     userid: str
@@ -38,6 +53,20 @@ class UserIdentities(Persistent):
         self._identities = PersistentMapping()
         self._sheet = None
         self._secret = str(uuid.uuid4())
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> "UserIdentities":
+        """Reconstruct a :class:`UserIdentities` from its serialized form.
+
+        :param data: Mapping with ``userid``, ``secret`` and ``identities``
+            keys, as produced during export.
+        :returns: The reconstructed user identities.
+        """
+        instance = cls(data["userid"])
+        instance._secret = data["secret"]
+        for provider, identity_data in data["identities"].items():
+            instance._identities[provider] = UserIdentity.from_dict(identity_data)
+        return instance
 
     @property
     def secret(self) -> str:
@@ -61,7 +90,7 @@ class UserIdentities(Persistent):
         identity.update(result.user.to_dict())
 
     def _properties_from_identity(
-        self, identity, cfg: dict[str, Any]
+        self, identity: UserIdentity, cfg: dict[str, Any]
     ) -> dict[str, Any]:
         """return the property for a given identity"""
         pdata = {}

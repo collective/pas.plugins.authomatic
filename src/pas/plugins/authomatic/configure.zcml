@@ -5,17 +5,15 @@
     i18n_domain="pas.plugins.authomatic"
     >
 
-  <include
-      package="Products.CMFPlone"
-      file="configure.zcml"
-      />
-
   <five:registerPackage
       package="."
       initialize=".initialize"
       />
 
   <i18n:registerTranslations directory="locales" />
+
+
+  <include file="dependencies.zcml" />
 
   <include package=".browser" />
   <include package=".services" />

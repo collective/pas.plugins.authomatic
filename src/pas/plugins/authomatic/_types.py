@@ -133,3 +133,14 @@ class PasPluginsAuthomaticSettings(Protocol):
     secret: str
     userid_factory_name: str
     json_config: str
+
+
+class SerializedPluginData(TypedDict):
+    """Serialized representation of the PAS plugin state.
+
+    This is used to export and import the plugin configuration and user
+    identities.
+    """
+
+    userid_by_identityinfo: dict[str, str]
+    useridentities_by_userid: dict[str, dict[str, Any]]
