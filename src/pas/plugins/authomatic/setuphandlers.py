@@ -1,4 +1,4 @@
-from pas.plugins.authomatic.interfaces import DEFAULT_ID
+from pas.plugins.authomatic.config import DEFAULT_ID
 from pas.plugins.authomatic.plugin import AuthomaticPlugin
 from plone import api
 from plone.base.interfaces import INonInstallable

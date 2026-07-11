@@ -125,3 +125,11 @@ class ProviderButton(TypedDict):
     iconclasses: str
     buttonclasses: str
     as_form: bool
+
+
+class PasPluginsAuthomaticSettings(Protocol):
+    """Protocol implementation for the IPasPluginsAuthomaticSettings interface."""
+
+    secret: str
+    userid_factory_name: str
+    json_config: str

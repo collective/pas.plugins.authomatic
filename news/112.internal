@@ -1,0 +1,1 @@
+Reorganized the package following cookieplone conventions: promoted `utils` to a package (`content`/`plugin`/`request`/`settings`), split `useridfactories` into a package, added `vocabularies` and a `config` module, and slimmed `interfaces` down to interface definitions. Also modernized the `IPloneSiteRoot` and request imports. @ericof

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from authomatic.adapters import BaseAdapter
 from pas.plugins.authomatic import logger
+from pas.plugins.authomatic import utils
 from typing import TYPE_CHECKING
 
 
@@ -57,12 +58,7 @@ class RestAPIAdapter(BaseAdapter):
 
         :returns: Dictionary with HTTP parameters.
         """
-        params = self._params
-        if not params:
-            params = dict(self.view.request.form)
-            to_remove = ["provider", "publicUrl"]
-            params = {k: v for k, v in params.items() if k not in to_remove}
-        return params
+        return self._params or utils.extract_adapter_params(self.view.request)
 
     @property
     def cookies(self) -> dict:

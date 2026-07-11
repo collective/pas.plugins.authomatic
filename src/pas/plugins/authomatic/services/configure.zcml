@@ -14,7 +14,7 @@
   <plone:service
       method="GET"
       factory=".authomatic.Get"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      for="plone.base.interfaces.IPloneSiteRoot"
       permission="zope.Public"
       name="@login-authomatic"
       />
@@ -22,7 +22,7 @@
   <plone:service
       method="POST"
       factory=".authomatic.Post"
-      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      for="plone.base.interfaces.IPloneSiteRoot"
       permission="zope.Public"
       name="@login-authomatic"
       />

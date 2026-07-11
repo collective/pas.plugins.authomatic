@@ -1,6 +1,5 @@
-from pas.plugins.authomatic.interfaces import _
-from pas.plugins.authomatic.interfaces import IPasPluginsAuthomaticLayer
-from pas.plugins.authomatic.interfaces import IPasPluginsAuthomaticSettings
+from pas.plugins.authomatic import _
+from pas.plugins.authomatic import interfaces as ifaces
 from plone.app.registry.browser import controlpanel
 from plone.restapi.controlpanels import RegistryConfigletPanel
 from zope.component import adapter
@@ -8,9 +7,12 @@ from zope.interface import Interface
 
 
 class AuthomaticSettingsEditForm(controlpanel.RegistryEditForm):
-    schema = IPasPluginsAuthomaticSettings
     label = _("PAS Authomatic Plugin Settings")
     description = ""
+
+    @property
+    def schema(self):
+        return ifaces.IPasPluginsAuthomaticSettings
 
     def updateFields(self) -> None:
         super().updateFields()
@@ -26,11 +28,11 @@ class AuthomaticSettingsEditFormSettingsControlPanel(
     form = AuthomaticSettingsEditForm
 
 
-@adapter(Interface, IPasPluginsAuthomaticLayer)
+@adapter(Interface, ifaces.IPasPluginsAuthomaticLayer)
 class AuthomaticSettingsConfigletPanel(RegistryConfigletPanel):
     """Control Panel endpoint"""
 
-    schema = IPasPluginsAuthomaticSettings
+    schema = ifaces.IPasPluginsAuthomaticSettings
     configlet_id = "authomatic"
     configlet_category_id = "plone-users"
     title = _("Authomatic settings")

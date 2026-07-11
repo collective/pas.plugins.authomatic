@@ -1,15 +1,17 @@
 from authomatic.core import Credentials
-from pas.plugins.authomatic import logger
 from pas.plugins.authomatic._types import AuthResult
 from pas.plugins.authomatic.utils import authomatic_cfg
 from persistent import Persistent
 from persistent.mapping import PersistentMapping
 from Products.PluggableAuthService.UserPropertySheet import UserPropertySheet
+from typing import Any
 
 import uuid
 
 
 class UserIdentity(PersistentMapping):
+    data: dict
+
     def __init__(self, result: AuthResult) -> None:
         super().__init__()
         self["provider_name"] = result.provider.name
@@ -26,10 +28,15 @@ class UserIdentity(PersistentMapping):
 
 
 class UserIdentities(Persistent):
+    userid: str
+    _identities: PersistentMapping
+    _sheet: UserPropertySheet | None
+    _secret: str
+
     def __init__(self, userid: str) -> None:
         self.userid = userid
-        self._identities: PersistentMapping = PersistentMapping()
-        self._sheet: UserPropertySheet | None = None
+        self._identities = PersistentMapping()
+        self._sheet = None
         self._secret = str(uuid.uuid4())
 
     @property
@@ -53,28 +60,40 @@ class UserIdentities(Persistent):
         identity = self._identities[result.provider.name]
         identity.update(result.user.to_dict())
 
-    @property
-    def propertysheet(self) -> UserPropertySheet:
-        if self._sheet is not None:
-            return self._sheet
-        # build sheet from identities
+    def _properties_from_identity(
+        self, identity, cfg: dict[str, Any]
+    ) -> dict[str, Any]:
+        """return the property for a given identity"""
+        pdata = {}
+        for akey, pkey in cfg.get("propertymap", {}).items():
+            # Always search first on the user attributes, then on the raw
+            # data this guaratees we do not break existing configurations
+            ainfo = identity.get(akey, None) or identity["data"].get(akey, None)
+            if ainfo is None:
+                continue
+            if isinstance(pkey, dict):
+                for k, v in pkey.items():
+                    pdata[k] = ainfo.get(v)
+            else:
+                pdata[pkey] = ainfo
+        return pdata
+
+    def _prepare_property_sheet(self) -> dict[str, Any]:
+        """build a property sheet from the identities"""
         pdata = {"id": self.userid}
         if cfgs_providers := authomatic_cfg():
             for provider_name, cfg in cfgs_providers.items():
                 identity = self.identity(provider_name)
                 if identity is None:
                     continue
-                logger.debug(identity)
-                for akey, pkey in cfg.get("propertymap", {}).items():
-                    # Always search first on the user attributes, then on the raw
-                    # data this guaratees we do not break existing configurations
-                    ainfo = identity.get(akey, None) or identity["data"].get(akey, None)
-                    if ainfo is None:
-                        continue
-                    if isinstance(pkey, dict):
-                        for k, v in pkey.items():
-                            pdata[k] = ainfo.get(v)
-                    else:
-                        pdata[pkey] = ainfo
+                pdata.update(self._properties_from_identity(identity, cfg))
+        return pdata
+
+    @property
+    def propertysheet(self) -> UserPropertySheet:
+        if self._sheet is not None:
+            return self._sheet
+        # build sheet from identities
+        pdata = self._prepare_property_sheet()
         self._sheet = UserPropertySheet(**pdata)
         return self._sheet

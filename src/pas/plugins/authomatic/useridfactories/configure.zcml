@@ -1,0 +1,18 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+  <utility
+      factory=".uuid_.UUID4UserIDFactory"
+      name="uuid"
+      />
+  <utility
+      factory=".userid.ProviderIDUserIDFactory"
+      name="userid"
+      />
+  <utility
+      factory=".username.ProviderIDUserNameFactory"
+      name="username"
+      />
+  <utility
+      factory=".username_userid.ProviderIDUserNameIdFactory"
+      name="username_userid"
+      />
+</configure>

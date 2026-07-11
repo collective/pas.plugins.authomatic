@@ -198,7 +198,7 @@ ignore_missing_imports = true
 testpaths = ["tests"]
 
 [tool.coverage.run]
-source_pkgs = ["pas.plugins.authomatic", "tests"]
+source_pkgs = ["pas.plugins.authomatic"]
 branch = true
 parallel = true
 omit = [

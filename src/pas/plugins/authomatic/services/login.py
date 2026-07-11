@@ -1,5 +1,5 @@
-from pas.plugins.authomatic._types import LoginProvider
-from pas.plugins.authomatic.utils import authomatic_cfg
+from pas.plugins.authomatic import _types as t
+from pas.plugins.authomatic.utils.settings import list_providers
 from plone.base.interfaces import IPloneSiteRoot
 from plone.dexterity.content import DexterityContent
 from plone.restapi.interfaces import ILoginProviders
@@ -15,25 +15,9 @@ class AuthomaticLoginProviders:
     def __init__(self, context: DexterityContent) -> None:
         self.context = context
 
-    def get_providers(self) -> list[LoginProvider]:
+    def get_providers(self) -> list[t.LoginProvider]:
         """List all configured Authomatic plugins.
 
         :returns: List of login options.
         """
-        try:
-            providers = authomatic_cfg()
-        except KeyError:
-            # Authomatic is not configured
-            providers = {}
-        plugins = []
-        for provider_id, provider in providers.items():
-            entry = provider.get("display", {})
-            title = entry.get("title", provider_id)
-
-            plugins.append({
-                "id": provider_id,
-                "plugin": "authomatic",
-                "title": title,
-                "url": f"{self.context.absolute_url()}/@login-oidc/{provider_id}",
-            })
-        return plugins
+        return list_providers(self.context.absolute_url())

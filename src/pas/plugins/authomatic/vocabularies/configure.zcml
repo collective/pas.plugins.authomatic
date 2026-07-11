@@ -1,0 +1,11 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="pas.plugins.authomatic"
+    >
+
+  <utility
+      name="pas.plugins.authomatic.userid_vocabulary"
+      component=".userid.userid_factory_vocabulary"
+      />
+
+</configure>

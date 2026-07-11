@@ -1,24 +1,17 @@
 from __future__ import annotations
 
 from authomatic.core import Authomatic
+from pas.plugins.authomatic import _types as t
 from pas.plugins.authomatic import logger
-from pas.plugins.authomatic._types import AuthomaticConfig
-from pas.plugins.authomatic._types import AuthResult
-from pas.plugins.authomatic._types import ErrorReply
-from pas.plugins.authomatic._types import NextURLReply
-from pas.plugins.authomatic._types import TokenReply
+from pas.plugins.authomatic import utils
 from pas.plugins.authomatic.integration import RestAPIAdapter
-from pas.plugins.authomatic.utils import authomatic_cfg
-from pas.plugins.authomatic.utils import authomatic_settings
 from plone import api
-from plone.protect.interfaces import IDisableCSRFProtection
 from plone.restapi.deserializer import json_body
 from plone.restapi.services import Service
 from Products.PluggableAuthService.interfaces.plugins import IAuthenticationPlugin
 from transaction.interfaces import NoTransaction
 from typing import cast
 from urllib.parse import parse_qsl
-from zope.interface import alsoProvides
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 from ZPublisher.HTTPRequest import WSGIRequest
@@ -33,7 +26,7 @@ class LoginAuthomatic(Service):
     request: WSGIRequest
     AUTHOMATIC_COOKIE = "authomatic"
     provider_id: str = ""
-    _providers: AuthomaticConfig | None = None
+    _providers: t.AuthomaticConfig | None = None
     _data: dict | None = None
 
     def publishTraverse(self, request: WSGIRequest, name: str) -> LoginAuthomatic:
@@ -43,12 +36,12 @@ class LoginAuthomatic(Service):
         return self
 
     @property
-    def providers(self) -> AuthomaticConfig:
+    def providers(self) -> t.AuthomaticConfig:
         """Return Authomatic providers."""
         providers = self._providers
         if not providers:
             try:
-                providers = authomatic_cfg()
+                providers = utils.authomatic_cfg()
             except KeyError:
                 # Authomatic is not configured
                 providers = {}
@@ -78,10 +71,10 @@ class LoginAuthomatic(Service):
 
     def get_auth(self) -> Authomatic:
         providers = self.providers
-        secret = authomatic_settings().secret
+        secret = utils.authomatic_settings().secret
         return Authomatic(providers, secret=secret)
 
-    def _provider_not_found(self, provider: str) -> ErrorReply:
+    def _provider_not_found(self, provider: str) -> t.ErrorReply:
         """Return 404 status code for a provider not found."""
         self.request.response.setStatus(404)
         if not provider:
@@ -113,7 +106,7 @@ class Get(LoginAuthomatic):
                 value = cookie.replace(cookie_prefix, "")
         return value
 
-    def reply(self) -> NextURLReply | ErrorReply:
+    def reply(self) -> t.NextURLReply | t.ErrorReply:
         """Generate URL and session information to be used by the frontend.
 
         :returns: URL and session information.
@@ -124,7 +117,7 @@ class Get(LoginAuthomatic):
 
         auth = self.get_auth()
         adapter = RestAPIAdapter(self, provider)
-        result = cast("AuthResult | None", auth.login(adapter, provider))
+        result = cast("t.AuthResult | None", auth.login(adapter, provider))
         if result and result.error:
             self.request.response.setStatus(500)
             return {
@@ -172,7 +165,7 @@ class Post(LoginAuthomatic):
                 break
         return plugin
 
-    def _add_identity(self, result: AuthResult, userid: str | None = None) -> None:
+    def _add_identity(self, result: t.AuthResult, userid: str | None = None) -> None:
         """Add an identity to an existing user.
 
         :param result: Authomatic login result.
@@ -180,7 +173,7 @@ class Post(LoginAuthomatic):
         aclu = self._get_acl_users()
         aclu.authomatic.remember_identity(result, userid)
 
-    def _remember_identity(self, result: AuthResult) -> None:
+    def _remember_identity(self, result: t.AuthResult) -> None:
         """Store identity information.
 
         :param result: Authomatic login result.
@@ -218,7 +211,7 @@ class Post(LoginAuthomatic):
             msg = f"(Added new identity to user {user_info})"
         tx.note(msg)
 
-    def reply(self) -> TokenReply | ErrorReply | None:
+    def reply(self) -> t.TokenReply | t.ErrorReply | None:
         """Process OAuth callback, authenticate the user and return a JWT Token.
 
         :returns: Token information.
@@ -235,7 +228,7 @@ class Post(LoginAuthomatic):
         cookies = {self.AUTHOMATIC_COOKIE: data.get("session", "")}
         adapter = RestAPIAdapter(self, provider, qs, cookies)
         auth = self.get_auth()
-        result = cast("AuthResult | None", auth.login(adapter, provider))
+        result = cast("t.AuthResult | None", auth.login(adapter, provider))
         if result and result.error:
             self.request.response.setStatus(401)
             return {
@@ -245,7 +238,7 @@ class Post(LoginAuthomatic):
                 }
             }
         elif result:
-            alsoProvides(self.request, IDisableCSRFProtection)
+            utils.disable_csrf_protection(self.request)
             action = ""
             if api.user.is_anonymous():
                 self._remember_identity(result)
