@@ -144,6 +144,32 @@ class TestUserIdentities:
         sheet = user.propertysheet
         assert sheet.getProperty("email") == "jdoe@foobar.com"
 
+    def test_properties_from_identity_flat_mapping(self, one_user):
+        user = one_user(self.plugin, self.provider_name, data={})
+        identity = user.identity(self.provider_name)
+        cfg = {"propertymap": {"email": "email"}}
+        props = user._properties_from_identity(identity, cfg)
+        assert props == {"email": "andrewpipkin@foobar.com"}
+
+    def test_properties_from_identity_nested_mapping(self, one_user):
+        # A dict-valued propertymap entry maps sub-keys of the raw provider
+        # data to distinct Plone properties.
+        user = one_user(
+            self.plugin,
+            self.provider_name,
+            data={"image": {"url": "https://example.org/a.jpg", "isDefault": False}},
+        )
+        identity = user.identity(self.provider_name)
+        cfg = {"propertymap": {"image": {"avatar": "url"}}}
+        props = user._properties_from_identity(identity, cfg)
+        assert props == {"avatar": "https://example.org/a.jpg"}
+
+    def test_properties_from_identity_skips_missing_attribute(self, one_user):
+        user = one_user(self.plugin, self.provider_name, data={})
+        identity = user.identity(self.provider_name)
+        cfg = {"propertymap": {"nonexistent": "whatever"}}
+        assert user._properties_from_identity(identity, cfg) == {}
+
 
 class TestUserIdentitiesCustomProps:
     provider_name: str = "mockhub"
