@@ -1,8 +1,14 @@
+from __future__ import annotations
+
 from AccessControl import ClassSecurityInfo
 from AccessControl.class_init import InitializeClass
 from BTrees.OOBTree import OOBTree
+from collections.abc import Sequence
 from operator import itemgetter
 from pas.plugins.authomatic import logger
+from pas.plugins.authomatic._types import AuthResult
+from pas.plugins.authomatic._types import LoginCredentials
+from pas.plugins.authomatic._types import UserInfo
 from pas.plugins.authomatic.interfaces import IAuthomaticPlugin
 from pas.plugins.authomatic.useridentities import UserIdentities
 from pas.plugins.authomatic.useridfactories import new_userid
@@ -15,9 +21,12 @@ from Products.PluggableAuthService.events import PrincipalCreated
 from Products.PluggableAuthService.interfaces import plugins as pas_interfaces
 from Products.PluggableAuthService.interfaces.authservice import _noroles
 from Products.PluggableAuthService.plugins.BasePlugin import BasePlugin
+from Products.PluggableAuthService.UserPropertySheet import UserPropertySheet
 from Products.PluggableAuthService.utils import createViewName
 from zope.event import notify
 from zope.interface import implementer
+from ZPublisher.HTTPRequest import WSGIRequest
+from ZPublisher.HTTPResponse import HTTPResponse
 
 
 tpl_dir = Path(__file__).parent.resolve() / "browser"
@@ -27,11 +36,11 @@ _marker: dict[str, str] = {}
 
 def manage_addAuthomaticPlugin(
     context,
-    id,  # noQA: A002
-    title="",
-    RESPONSE=None,
+    id: str,  # noQA: A002
+    title: str = "",
+    RESPONSE: HTTPResponse | None = None,
     **kw,
-):
+) -> None:
     """Create an instance of a Authomatic Plugin."""
     plugin = AuthomaticPlugin(id, title, **kw)
     context._setObject(plugin.getId(), plugin)
@@ -60,24 +69,25 @@ class AuthomaticPlugin(BasePlugin):
     security = ClassSecurityInfo()
     meta_type = "Authomatic Plugin"
     manage_options = BasePlugin.manage_options
+    REQUEST: WSGIRequest
 
     # Tell PAS not to swallow our exceptions
     _dont_swallow_my_exceptions = True
 
-    def __init__(self, id, title=None, **kw):  # noQA: A002
+    def __init__(self, id: str, title: str | None = None, **kw) -> None:  # noQA: A002
         self._setId(id)
         self.title = title
         self.plugin_caching = True
         self._init_trees()
 
-    def _init_trees(self):
+    def _init_trees(self) -> None:
         # (provider_name, provider_userid) -> userid
         self._userid_by_identityinfo = OOBTree()
 
         # userid -> userdata
         self._useridentities_by_userid = OOBTree()
 
-    def _provider_id(self, result):
+    def _provider_id(self, result: AuthResult) -> tuple[str, str]:
         """helper to get the provider identifier"""
         if not result.user.id:
             raise ValueError("Invalid: Empty user.id")
@@ -86,7 +96,7 @@ class AuthomaticPlugin(BasePlugin):
         return (result.provider.name, result.user.id)
 
     @security.private
-    def lookup_identities(self, result):
+    def lookup_identities(self, result: AuthResult) -> UserIdentities | None:
         """looks up the UserIdentities by using the provider name and the
         userid at this provider
         """
@@ -94,7 +104,9 @@ class AuthomaticPlugin(BasePlugin):
         return self._useridentities_by_userid.get(userid, None)
 
     @security.private
-    def remember_identity(self, result, userid=None):
+    def remember_identity(
+        self, result: AuthResult, userid: str | None = None
+    ) -> UserIdentities:
         """stores authomatic result data"""
         if userid is None:
             # create a new userid
@@ -114,11 +126,12 @@ class AuthomaticPlugin(BasePlugin):
         return useridentities
 
     @security.private
-    def remember(self, result):
+    def remember(self, result: AuthResult) -> None:
         """remember user as valid
 
         result is authomatic result data.
         """
+        request = self.REQUEST
         # first fetch provider specific user-data
         result.user.update()
 
@@ -140,7 +153,7 @@ class AuthomaticPlugin(BasePlugin):
         aclu = api.portal.get_tool("acl_users")
         user = aclu._findUser(aclu.plugins, useridentities.userid)
         accessed, container, name, value = aclu._getObjectContext(
-            self.REQUEST["PUBLISHED"], self.REQUEST
+            request["PUBLISHED"], request
         )
         # Add the user to the SM stack
         aclu._authorizeUser(user, accessed, container, name, value, _noroles)
@@ -149,16 +162,18 @@ class AuthomaticPlugin(BasePlugin):
             notify(PrincipalCreated(user))
 
         # do login post-processing
-        self.REQUEST["__ac_password"] = useridentities.secret
+        request["__ac_password"] = useridentities.secret
         mt = api.portal.get_tool("portal_membership")
         logger.info(f"Login Postprocessing: {useridentities.userid}")
-        mt.loginUser(self.REQUEST)
+        mt.loginUser(request)
 
     # ##
     # pas_interfaces.IAuthenticationPlugin
 
     @security.public
-    def authenticateCredentials(self, credentials):
+    def authenticateCredentials(
+        self, credentials: LoginCredentials
+    ) -> tuple[str, str] | None:
         """credentials -> (userid, login)
 
         - 'credentials' will be a mapping, as returned by IExtractionPlugin.
@@ -173,12 +188,15 @@ class AuthomaticPlugin(BasePlugin):
         identities = self._useridentities_by_userid[login]
         if identities.check_password(password):
             return login, login
+        return None
 
     # ##
     # pas_interfaces.plugins.IPropertiesPlugin
 
     @security.private
-    def getPropertiesForUser(self, user, request=None):
+    def getPropertiesForUser(
+        self, user, request: WSGIRequest | None = None
+    ) -> UserPropertySheet | None:
         identity = self._useridentities_by_userid.get(user.getId(), _marker)
         if identity is _marker:
             return None
@@ -190,13 +208,13 @@ class AuthomaticPlugin(BasePlugin):
     @security.private
     def enumerateUsers(
         self,
-        id=None,  # noQA: A002
-        login=None,
-        exact_match=False,
-        sort_by=None,
-        max_results=None,
+        id: str | None = None,  # noQA: A002
+        login: str | None = None,
+        exact_match: bool = False,
+        sort_by: str | None = None,
+        max_results: int | None = None,
         **kw,
-    ):
+    ) -> Sequence[UserInfo]:
         """-> ( user_info_1, ... user_info_N )
 
         o Return mappings for users matching the given criteria.
@@ -244,7 +262,7 @@ class AuthomaticPlugin(BasePlugin):
             return ()
 
         pluginid = self.getId()
-        ret = []
+        ret: list[UserInfo] = []
         # shortcut for exact match of login/id
         identity = None
         if exact_match and search_id and search_id in self._useridentities_by_userid:
@@ -292,29 +310,29 @@ class AuthomaticPlugin(BasePlugin):
         )
 
     @security.public
-    def allowDeletePrincipal(self, principal_id):
+    def allowDeletePrincipal(self, principal_id: str) -> bool:
         """True if this plugin can delete a certain user/group.
         This is true if this plugin manages the user.
         """
         return principal_id in self._useridentities_by_userid
 
     @security.private
-    def doDeleteUser(self, userid):
+    def doDeleteUser(self, userid: str) -> None:
         """Given a user id, delete that user"""
         return self.removeUser(userid)
 
     @security.private
-    def doChangeUser(self, userid, password=None, **kw):
+    def doChangeUser(self, userid: str, password: str | None = None, **kw) -> bool:
         """do nothing"""
         return False
 
     @security.private
-    def doAddUser(self, login, password):
+    def doAddUser(self, login: str, password: str) -> bool:
         """do nothing"""
         return False
 
     @security.private
-    def getPluginIdByUserId(self, user_id):
+    def getPluginIdByUserId(self, user_id: str) -> tuple[str, str] | str:
         """
         return the right key for given user_id
         """
@@ -324,7 +342,7 @@ class AuthomaticPlugin(BasePlugin):
         return ""
 
     @security.private
-    def removeUser(self, user_id):
+    def removeUser(self, user_id: str) -> None:
         """ """
         # Remove the user from all persistent dicts
         if user_id not in self._useridentities_by_userid:

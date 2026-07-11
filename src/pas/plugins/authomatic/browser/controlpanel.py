@@ -12,11 +12,11 @@ class AuthomaticSettingsEditForm(controlpanel.RegistryEditForm):
     label = _("PAS Authomatic Plugin Settings")
     description = ""
 
-    def updateFields(self):
+    def updateFields(self) -> None:
         super().updateFields()
         # self.fields['json_config'].widgetFactory = TextLinesFieldWidget
 
-    def updateWidgets(self):
+    def updateWidgets(self) -> None:
         super().updateWidgets()
 
 

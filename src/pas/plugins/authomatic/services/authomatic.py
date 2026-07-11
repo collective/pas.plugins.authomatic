@@ -1,5 +1,12 @@
-from authomatic import Authomatic
+from __future__ import annotations
+
+from authomatic.core import Authomatic
 from pas.plugins.authomatic import logger
+from pas.plugins.authomatic._types import AuthomaticConfig
+from pas.plugins.authomatic._types import AuthResult
+from pas.plugins.authomatic._types import ErrorReply
+from pas.plugins.authomatic._types import NextURLReply
+from pas.plugins.authomatic._types import TokenReply
 from pas.plugins.authomatic.integration import RestAPIAdapter
 from pas.plugins.authomatic.utils import authomatic_cfg
 from pas.plugins.authomatic.utils import authomatic_settings
@@ -9,10 +16,12 @@ from plone.restapi.deserializer import json_body
 from plone.restapi.services import Service
 from Products.PluggableAuthService.interfaces.plugins import IAuthenticationPlugin
 from transaction.interfaces import NoTransaction
+from typing import cast
 from urllib.parse import parse_qsl
 from zope.interface import alsoProvides
 from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
+from ZPublisher.HTTPRequest import WSGIRequest
 
 import transaction
 
@@ -21,19 +30,20 @@ import transaction
 class LoginAuthomatic(Service):
     """Base class for Authomatic login."""
 
+    request: WSGIRequest
     AUTHOMATIC_COOKIE = "authomatic"
     provider_id: str = ""
-    _providers = None
-    _data = None
+    _providers: AuthomaticConfig | None = None
+    _data: dict | None = None
 
-    def publishTraverse(self, request, name):
+    def publishTraverse(self, request: WSGIRequest, name: str) -> LoginAuthomatic:
         # Store the first path segment as the provider
         request["TraversalRequestNameStack"] = []
         self.provider_id = name
         return self
 
     @property
-    def providers(self) -> dict:
+    def providers(self) -> AuthomaticConfig:
         """Return Authomatic providers."""
         providers = self._providers
         if not providers:
@@ -48,7 +58,7 @@ class LoginAuthomatic(Service):
         return providers
 
     @property
-    def json_body(self):
+    def json_body(self) -> dict:
         if not self._data:
             self._data = json_body(self.request)
         return self._data
@@ -71,7 +81,7 @@ class LoginAuthomatic(Service):
         secret = authomatic_settings().secret
         return Authomatic(providers, secret=secret)
 
-    def _provider_not_found(self, provider: str) -> dict:
+    def _provider_not_found(self, provider: str) -> ErrorReply:
         """Return 404 status code for a provider not found."""
         self.request.response.setStatus(404)
         if not provider:
@@ -89,7 +99,7 @@ class LoginAuthomatic(Service):
 class Get(LoginAuthomatic):
     """Provide information to start the OAuth process."""
 
-    def extract_cookie_identifier(self, headers: dict) -> str:
+    def extract_cookie_identifier(self, headers: dict[str, str]) -> str:
         """Get value of Authomatic cookie.
 
         :param headers: Dictionary with headers set by Authomatic.
@@ -103,7 +113,7 @@ class Get(LoginAuthomatic):
                 value = cookie.replace(cookie_prefix, "")
         return value
 
-    def reply(self) -> dict:
+    def reply(self) -> NextURLReply | ErrorReply:
         """Generate URL and session information to be used by the frontend.
 
         :returns: URL and session information.
@@ -114,7 +124,7 @@ class Get(LoginAuthomatic):
 
         auth = self.get_auth()
         adapter = RestAPIAdapter(self, provider)
-        result = auth.login(adapter, provider)
+        result = cast("AuthResult | None", auth.login(adapter, provider))
         if result and result.error:
             self.request.response.setStatus(500)
             return {
@@ -162,7 +172,7 @@ class Post(LoginAuthomatic):
                 break
         return plugin
 
-    def _add_identity(self, result, userid=None):
+    def _add_identity(self, result: AuthResult, userid: str | None = None) -> None:
         """Add an identity to an existing user.
 
         :param result: Authomatic login result.
@@ -170,7 +180,7 @@ class Post(LoginAuthomatic):
         aclu = self._get_acl_users()
         aclu.authomatic.remember_identity(result, userid)
 
-    def _remember_identity(self, result):
+    def _remember_identity(self, result: AuthResult) -> None:
         """Store identity information.
 
         :param result: Authomatic login result.
@@ -191,7 +201,7 @@ class Post(LoginAuthomatic):
             token = plugin.create_token(user.getId(), data=payload)
         return token
 
-    def _annotate_transaction(self, action, user):
+    def _annotate_transaction(self, action: str, user) -> None:
         """Add a note to the current transaction."""
         try:
             # Get the current transaction
@@ -208,7 +218,7 @@ class Post(LoginAuthomatic):
             msg = f"(Added new identity to user {user_info})"
         tx.note(msg)
 
-    def reply(self) -> dict:
+    def reply(self) -> TokenReply | ErrorReply | None:
         """Process OAuth callback, authenticate the user and return a JWT Token.
 
         :returns: Token information.
@@ -225,7 +235,7 @@ class Post(LoginAuthomatic):
         cookies = {self.AUTHOMATIC_COOKIE: data.get("session", "")}
         adapter = RestAPIAdapter(self, provider, qs, cookies)
         auth = self.get_auth()
-        result = auth.login(adapter, provider)
+        result = cast("AuthResult | None", auth.login(adapter, provider))
         if result and result.error:
             self.request.response.setStatus(401)
             return {
@@ -256,3 +266,5 @@ class Post(LoginAuthomatic):
             if action:
                 self._annotate_transaction(action, user=user)
             return {"token": self.get_token(user)}
+        # ``auth.login`` returned no result: nothing to authenticate.
+        return None

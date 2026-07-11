@@ -1,5 +1,12 @@
+from __future__ import annotations
+
 from authomatic.adapters import BaseAdapter
 from pas.plugins.authomatic import logger
+from typing import TYPE_CHECKING
+
+
+if TYPE_CHECKING:
+    from pas.plugins.authomatic.services.authomatic import LoginAuthomatic
 
 
 Headers = dict | None
@@ -12,8 +19,12 @@ class RestAPIAdapter(BaseAdapter):
     frontend_route: str = "login-authomatic"
 
     def __init__(
-        self, view, provider: str, params: Headers = None, cookies: Headers = None
-    ):
+        self,
+        view: LoginAuthomatic,
+        provider: str,
+        params: Headers = None,
+        cookies: Headers = None,
+    ) -> None:
         """Initialize the adapter.
 
         :param view: Service
@@ -41,7 +52,7 @@ class RestAPIAdapter(BaseAdapter):
         return f"{self.public_url}/{self.frontend_route}/{self.provider}"
 
     @property
-    def params(self):
+    def params(self) -> dict:
         """HTTP parameters (GET/POST).
 
         :returns: Dictionary with HTTP parameters.
@@ -65,11 +76,11 @@ class RestAPIAdapter(BaseAdapter):
     # Response
     # =========================================================================
 
-    def write(self, value: str):
+    def write(self, value: str) -> None:
         """Log Authomatic attempts to write to response."""
         logger.debug(f"Authomatic wrote {value} to response.")
 
-    def set_header(self, key: str, value: str):
+    def set_header(self, key: str, value: str) -> None:
         """Store Authomatic header values.
 
         :params key: Header key.
@@ -78,7 +89,7 @@ class RestAPIAdapter(BaseAdapter):
         self.headers[key] = value
         logger.debug(f"Authomatic set header {key} with {value}to response.")
 
-    def set_status(self, status: int):
+    def set_status(self, status: int) -> None:
         """Log Authomatic attempts to set status code to response.
 
         :param status: Status code.
