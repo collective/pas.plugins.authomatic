@@ -1,0 +1,1 @@
+Changed the default `userid_factory_name` from `uuid` to `username_userid`, so new installations get deterministic, human-meaningful user ids that are easier to target with permissions and group assignments. Existing sites keep their configured value. @ericof

@@ -24,7 +24,7 @@ class IPasPluginsAuthomaticSettings(Interface):
             "rare cases in URLs. It is the identifier used for "
             "the user inside Plone.",
         ),
-        default="uuid",
+        default="username_userid",
     )
     json_config = schema.SourceText(
         title=_("JSON configuration"),

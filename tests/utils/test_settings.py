@@ -22,6 +22,10 @@ class TestSettings:
         settings = utils.authomatic_settings()
         assert settings.json_config
 
+    def test_default_userid_factory_name(self):
+        settings = utils.authomatic_settings()
+        assert settings.userid_factory_name == "username_userid"
+
     def test_authomatic_cfg_returns_default_provider(self):
         cfg = utils.authomatic_cfg()
         assert "github" in cfg
