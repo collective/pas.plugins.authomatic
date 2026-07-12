@@ -1,8 +1,7 @@
 !src/pas
 .coverage*
 .pydevproject
-.pytest_cache
-.ruff_cache
+.*_cache
 .python-version
 .venv
 *.egg-info
@@ -16,3 +15,4 @@ instance
 requirements-mxdev.txt
 requirements.lock
 requirements.txt
+sources/
