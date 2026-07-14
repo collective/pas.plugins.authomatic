@@ -1,3 +1,4 @@
+from plone.app.vocabularies import SimpleTerm
 from plone.app.vocabularies import SimpleVocabulary
 
 import pytest
@@ -26,5 +27,6 @@ class TestUserIDVocabulary:
     )
     def test_vocab_terms(self, token: str, title: str):
         term = self.vocab.getTermByToken(token)
+        assert isinstance(term, SimpleTerm)
         assert term.title == title
         assert term.token == token

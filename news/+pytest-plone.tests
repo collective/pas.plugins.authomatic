@@ -1,1 +1,1 @@
-Reused the built-in `anon_request` and `functional_portal` fixtures from pytest-plone 1.0.0 instead of the local re-implementations. @ericof
+Upgrade pytest-plone to `1.1.0` and reused the built-in `anon_request` and `functional_portal` fixtures from pytest-plone instead of the local re-implementations. @ericof
