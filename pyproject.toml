@@ -90,6 +90,16 @@ exclude = [
 [tool.hatch.build.targets.wheel]
 packages = ["src/pas",]
 
+[tool.check-manifest]
+ignore = [
+    ".editorconfig",
+    ".flake8",
+    ".vscode/*",
+    "Makefile",
+    "mx.ini",
+    "news/*",
+]
+
 [tool.uv]
 managed = false
 
@@ -187,6 +197,7 @@ order-by-type = false
 
 [tool.ruff.format]
 preview = true
+exclude = ["README.md"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["E501", "RUF001", "S101"]
