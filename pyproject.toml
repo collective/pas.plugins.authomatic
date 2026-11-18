@@ -90,6 +90,16 @@ exclude = [
 [tool.hatch.build.targets.wheel]
 packages = ["src/pas",]
 
+[tool.check-manifest]
+ignore = [
+    ".editorconfig",
+    ".flake8",
+    ".vscode/*",
+    "Makefile",
+    "mx.ini",
+    "news/*",
+]
+
 [tool.uv]
 managed = false
 
