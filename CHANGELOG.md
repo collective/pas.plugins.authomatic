@@ -8,6 +8,47 @@
 
 <!-- towncrier release notes start -->
 
+## 3.0.0 (2026-11-18)
+
+
+### Breaking changes:
+
+- Dropped support for Plone 6.0. @ericof [#107](https://github.com/collective/pas.plugins.authomatic/issues/107)
+- Dropped support for Python 3.10. @ericof [#109](https://github.com/collective/pas.plugins.authomatic/issues/109)
+
+
+### New features:
+
+- Added support for Plone 6.2. @ericof, @djay [#106](https://github.com/collective/pas.plugins.authomatic/issues/106)
+- Added support for Python 3.14. @ericof [#108](https://github.com/collective/pas.plugins.authomatic/issues/108)
+- Added type annotations across the package and shipped a `py.typed` marker so downstream code can type-check against it (PEP 561). @ericof [#111](https://github.com/collective/pas.plugins.authomatic/issues/111)
+- Added `export_plugin_data` and `import_plugin_data` helpers (in `pas.plugins.authomatic.utils.exportimport`) to export the plugin's user identities to a JSON file and import them back, for use during site migrations. @ericof [#113](https://github.com/collective/pas.plugins.authomatic/issues/113)
+- Changed the default `userid_factory_name` from `uuid` to `username_userid`, so new installations get deterministic, human-meaningful user ids that are easier to target with permissions and group assignments. Existing sites keep their configured value. @ericof [#114](https://github.com/collective/pas.plugins.authomatic/issues/114)
+
+
+### Internal:
+
+- Converted the package to a PEP 420 native namespace, dropping the legacy `pkg_resources` namespace declarations. @ericof, , @djay [#105](https://github.com/collective/pas.plugins.authomatic/issues/105)
+- Added a `make typecheck` target (mypy) and wired it into `make check`; modernized `setuphandlers` to use `plone.api` and the `plone.base` `INonInstallable` import. @ericof [#111](https://github.com/collective/pas.plugins.authomatic/issues/111)
+- Reorganized the package following cookieplone conventions: promoted `utils` to a package (`content`/`plugin`/`request`/`settings`), split `useridfactories` into a package, added `vocabularies` and a `config` module, and slimmed `interfaces` down to interface definitions. Also modernized the `IPloneSiteRoot` and request imports. @ericof [#112](https://github.com/collective/pas.plugins.authomatic/issues/112)
+- Prepare the release.
+  @ale-rt [#117](https://github.com/collective/pas.plugins.authomatic/issues/117)
+- Consolidated the package logger into a single `pas.plugins.authomatic.logger` and removed the redundant `log.py` module. @ericof 
+- Disabled `fail-fast` in the CI test matrix so a single failing job no longer cancels the others. @ericof 
+- Excluded the unsupported Python 3.14 / Plone 6.1 combination from the CI test matrix. @ericof 
+- Ran the CI coverage job in parallel with the test matrix instead of waiting for it to finish. @ericof 
+
+
+### Documentation:
+
+- Updated the README: bumped the minimum Python to 3.11, corrected the changelog filename to `CHANGELOG.md`, and documented the `documentation` and `tests` news fragment types. @ericof 
+
+
+### Tests
+
+- Expanded test coverage across the add-on: the `utils` subpackages, the user-id factories and their dispatcher, the `vocabularies`, the REST and Zope request adapters, and the `config` validator. @ericof [#112](https://github.com/collective/pas.plugins.authomatic/issues/112)
+- Upgrade pytest-plone to `1.1.0` and reused the built-in `anon_request` and `functional_portal` fixtures from pytest-plone instead of the local re-implementations. @ericof 
+
 ## 2.0.0 (2025-05-15)
 
 
