@@ -4,7 +4,7 @@ from zope.i18nmessageid import MessageFactory
 import logging
 
 
-__version__ = "3.1.0"
+__version__ = "3.1.1.dev0"
 
 
 PACKAGE_NAME = "pas.plugins.authomatic"
