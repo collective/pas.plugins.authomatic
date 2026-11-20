@@ -1,0 +1,1 @@
+`@login` no longer answers with an error on sites where the add-on is not installed. Such sites now list no Authomatic providers, and the providers of other login plugins are still shown. @ericof

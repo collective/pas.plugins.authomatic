@@ -5,6 +5,7 @@ from pas.plugins.authomatic.interfaces import IPasPluginsAuthomaticSettings
 from plone.registry.interfaces import IRegistry
 from zope.component import queryUtility
 from zope.dottedname.resolve import resolve
+from zope.schema import getFieldNames
 
 import json
 
@@ -13,6 +14,25 @@ def authomatic_settings() -> t.PasPluginsAuthomaticSettings:
     """fetches the authomatic settings from registry"""
     registry = queryUtility(IRegistry)
     return registry.forInterface(IPasPluginsAuthomaticSettings)
+
+
+def authomatic_installed() -> bool:
+    """Tell whether the add-on's settings exist on the current site.
+
+    The add-on profile creates one registry record per settings field, and
+    its uninstall profile removes them. Without them,
+    :func:`authomatic_settings` raises ``KeyError``.
+
+    :returns: True when every settings field has a registry record.
+    """
+    registry = queryUtility(IRegistry)
+    if registry is None:
+        return False
+    prefix = f"{IPasPluginsAuthomaticSettings.__identifier__}."
+    return all(
+        f"{prefix}{name}" in registry
+        for name in getFieldNames(IPasPluginsAuthomaticSettings)
+    )
 
 
 def authomatic_cfg() -> t.AuthomaticConfig:
