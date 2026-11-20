@@ -8,6 +8,13 @@
 
 <!-- towncrier release notes start -->
 
+## 3.1.0 (2026-11-20)
+
+
+### Bug fixes:
+
+- `@login` no longer answers with an error on sites where the add-on is not installed. Such sites now list no Authomatic providers, and the providers of other login plugins are still shown. @ericof [#118](https://github.com/collective/pas.plugins.authomatic/issues/118)
+
 ## 3.0.0 (2026-11-18)
 
 
